@@ -13,6 +13,8 @@ public class smallCut : MonoBehaviour
 
     public GameObject cutTexturePrefab;
 
+public EventManager eventManager; // Assign in inspector
+
     void Start()
     {
 
@@ -37,6 +39,7 @@ public class smallCut : MonoBehaviour
         {
 
             child.gameObject.SetActive(true);
+            eventManager.OnEventProximalCut_1();
         }
     }
     private void OnTriggerExit(Collider other)

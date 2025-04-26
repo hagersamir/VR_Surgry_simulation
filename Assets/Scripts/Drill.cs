@@ -3,6 +3,7 @@ using DecalSystem;
 
 public class Drill : MonoBehaviour
 {
+public EventManager eventManager; // Assign in inspector
 
     private void Start()
     {
@@ -55,6 +56,8 @@ public class Drill : MonoBehaviour
         }
         Debug.Log("Duplicate created at: " + newHole.transform.position);
 
+
+eventManager.OnEventProximalDrill_1();
 
     }
 

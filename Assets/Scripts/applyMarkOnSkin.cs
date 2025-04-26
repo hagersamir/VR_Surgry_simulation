@@ -2,6 +2,7 @@ using UnityEngine;
 using DecalSystem;
 public class SkinCollisionDecal : MonoBehaviour
 {
+    public EventManager eventManager; // Assign in inspector
 
     private void OnTriggerEnter(Collider other)
     {
@@ -41,6 +42,9 @@ public class SkinCollisionDecal : MonoBehaviour
             {
                 Debug.LogError("No Decal component found on the decalPrefab!");
             }
+
+
+            eventManager.OnEventProximalTrochar_1();
             // Remove the decal after a delay
             // Destroy(decalInstance, decalLifetime);
         }

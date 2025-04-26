@@ -4,6 +4,8 @@ public class ScrewAttachment : MonoBehaviour
 {
 
     private bool isInHole = false;
+    public EventManager eventManager; // Assign in inspector
+
 
     private void Start()
     {
@@ -34,6 +36,7 @@ public class ScrewAttachment : MonoBehaviour
             isInHole = true;
             Debug.Log("brush");
             transform.SetParent(null);
+            eventManager.OnEventProximalScrew_1();
         }
     }
 
