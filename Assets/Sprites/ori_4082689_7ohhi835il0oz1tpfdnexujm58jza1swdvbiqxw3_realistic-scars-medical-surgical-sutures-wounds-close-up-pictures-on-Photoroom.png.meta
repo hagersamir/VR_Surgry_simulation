@@ -1,0 +1,314 @@
+fileFormatVersion: 2
+guid: 0875a619509739c4ea7e397bffc30cb1
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_0
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 563
+        width: 65
+        height: 408
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd878b51ed0e1a14ea63a43b396f8224
+      internalID: 222948372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_1
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 533
+        width: 104
+        height: 465
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab8e15ffc8eabf343ba54f5e71e5bf3a
+      internalID: -781405498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_3
+      rect:
+        serializedVersion: 2
+        x: 621
+        y: 532
+        width: 96
+        height: 463
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 457920c450dba5c4b93fddf1e774db24
+      internalID: 1827825440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_5
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 614
+        width: 105
+        height: 305
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29f80ead60a7eed49ae99318733db12d
+      internalID: -2055074458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_8
+      rect:
+        serializedVersion: 2
+        x: 370
+        y: 47
+        width: 22
+        height: 391
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af14382f67bb51c4489ee5405ec91b12
+      internalID: 482976853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_10
+      rect:
+        serializedVersion: 2
+        x: 485
+        y: 42
+        width: 69
+        height: 446
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb1b29aad5271d24c811ffcfcc203694
+      internalID: -511291119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_12
+      rect:
+        serializedVersion: 2
+        x: 653
+        y: 62
+        width: 33
+        height: 371
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad089ab624fa10b4fa2989e9956bbc8e
+      internalID: 16217450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 42f085b5a6cca0b49a8791426edb2229
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_0: 222948372
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_1: -781405498
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_10: -511291119
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_11: -2020303648
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_12: 16217450
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_13: -554745258
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_14: 436925456
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_15: 157736768
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_16: 483885633
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_17: 68995264
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_18: -723723764
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_19: 1717743281
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_2: 815463921
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_20: 247541841
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_21: 1948347908
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_22: -1672040720
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_23: 616673451
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_24: -1694766741
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_25: -1440445469
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_26: -625766403
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_3: 1827825440
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_4: 821071984
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_5: -2055074458
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_6: 719420565
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_7: -868295624
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_8: 482976853
+      ori_4082689_7ohhi835il0oz1tpfdnexujm58jza1swdvbiqxw3_realistic-scars-medical-surgical-sutures-wounds-close-up-pictures-on-Photoroom_9: -1515020872
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
