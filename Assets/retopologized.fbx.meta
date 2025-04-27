@@ -1,0 +1,685 @@
+fileFormatVersion: 2
+guid: 19a28b365fc351a42b180832cea73bf4
+ModelImporter:
+  serializedVersion: 22200
+  internalIDToNameTable: []
+  externalObjects: {}
+  materials:
+    materialImportMode: 2
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    removeConstantScaleCurves: 0
+    motionNodeName: 
+    rigImportErrors: "Invalid Avatar Rig Configuration. Missing or invalid transform:\n\tRequired
+      human bone 'Head' not found\n"
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 3
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 0
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    sortHierarchyByName: 1
+    importPhysicalCameras: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    nodeNameCollisionStrategy: 1
+    fileIdsGeneration: 2
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    keepQuads: 0
+    weldVertices: 1
+    bakeAxisConversion: 0
+    preserveHierarchy: 0
+    skinWeightsMode: 0
+    maxBonesPerVertex: 4
+    minBoneWeight: 0.001
+    optimizeBones: 1
+    meshOptimizationFlags: -1
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVMarginMethod: 1
+    secondaryUVMinLightmapResolution: 40
+    secondaryUVMinObjectScale: 1
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    strictVertexDataChecks: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  referencedClips: []
+  importAnimation: 1
+  humanDescription:
+    serializedVersion: 3
+    human: []
+    skeleton:
+    - name: retopologized(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Cube.001
+      parentName: retopologized(Clone)
+      position: {x: 2.1271112, y: -0.000000092978986, z: 0.000000092978986}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 0.48552692, y: 1, z: 0.4098531}
+    - name: GEO-body_male_realistic
+      parentName: retopologized(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: rig
+      parentName: retopologized(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0.7071068, y: -0.00000009415696, z: 0.7071067, w: 0.00000009415697}
+      scale: {x: 1, y: 1, z: 1}
+    - name: MCH-torso.parent
+      parentName: rig
+      position: {x: 1.419145e-23, y: 0.06701714, z: 2.0060709}
+      rotation: {x: 0, y: 2.3140616e-30, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: torso
+      parentName: MCH-torso.parent
+      position: {x: 3.6397518e-31, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: MCH-spine.001
+      parentName: torso
+      position: {x: -1.4034618e-23, y: -0.06627661, z: 0.3874774}
+      rotation: {x: 0.000000021855694, y: -0.000000021855694, z: -5.331826e-16, w: 1}
+      scale: {x: 1, y: 0.9999999, z: 0.9999999}
+    - name: spine_fk.001
+      parentName: MCH-spine.001
+      position: {x: 7.103848e-15, y: 8.437695e-11, z: -3.2369663e-11}
+      rotation: {x: 0.74931765, y: 8.748874e-17, z: -1.2199805e-15, w: 0.66221076}
+      scale: {x: 1, y: 1, z: 1}
+    - name: MCH-spine
+      parentName: spine_fk.001
+      position: {x: -1.4281558e-14, y: -0.25295573, z: 0.0000000037252903}
+      rotation: {x: -0.7493175, y: -1.207301e-17, z: -6.3263837e-16, w: 0.6622109}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: spine_fk
+      parentName: MCH-spine
+      position: {x: 4.8121864e-15, y: 0.000000015349087, z: -0.0000000099326805}
+      rotation: {x: 0.7904554, y: 1.5800235e-16, z: -1.2085774e-15, w: 0.61251956}
+      scale: {x: 1, y: 1, z: 1.0000001}
+    - name: tweak_spine
+      parentName: spine_fk
+      position: {x: -5.186477e-15, y: -0.2818042, z: 2.220446e-16}
+      rotation: {x: -0.000000022351742, y: -1.4500177e-16, z: 8.978426e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ORG-spine
+      parentName: tweak_spine
+      position: {x: 1.4259334e-16, y: -8.881784e-16, z: 0.000000007450581}
+      rotation: {x: 0.000000022351742, y: -1.4500135e-16, z: -8.785145e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-thigh.L
+      parentName: ORG-spine
+      position: {x: -0.2207225, y: 0.08714669, z: 0.05978119}
+      rotation: {x: 0.9346751, y: -0.048970167, z: -0.32524538, w: 0.13490708}
+      scale: {x: 1.0000001, y: 1, z: 1.0000001}
+    - name: DEF-thigh.L.001
+      parentName: DEF-thigh.L
+      position: {x: 0.0000000034924597, y: 0.4907924, z: -0.000000014901161}
+      rotation: {x: -1.1642014e-10, y: 0.009130493, z: -0.000000007567313, w: 0.99995834}
+      scale: {x: 0.9999997, y: 0.99999994, z: 0.99999976}
+    - name: DEF-shin.L
+      parentName: DEF-thigh.L.001
+      position: {x: -0.0000000037252903, y: 0.4907925, z: 0.000000006519258}
+      rotation: {x: 0.081786744, y: 0.009130465, z: -0.0007492849, w: 0.9966078}
+      scale: {x: 1, y: 1.0000002, z: 1.0000001}
+    - name: DEF-shin.L.001
+      parentName: DEF-shin.L
+      position: {x: -0, y: 0.4175801, z: 0.000000018626451}
+      rotation: {x: 0.000000039117175, y: -0.009073733, z: 0.00000002980357, w: 0.9999589}
+      scale: {x: 0.9999995, y: 0.9999996, z: 0.99999964}
+    - name: DEF-foot.L
+      parentName: DEF-shin.L.001
+      position: {x: 0.000000024214387, y: 0.41758013, z: 0.000000020489097}
+      rotation: {x: -0.3035051, y: 0.53926045, z: 0.124101356, w: 0.77568144}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1.0000002}
+    - name: DEF-toe.L
+      parentName: DEF-foot.L
+      position: {x: 0.0000000012875887, y: 0.21713042, z: -0.000000013038516}
+      rotation: {x: 0.046598453, y: 0.967218, z: -0.24934608, w: 0.012019218}
+      scale: {x: 0.9999998, y: 0.99999994, z: 0.9999998}
+    - name: DEF-thigh.R
+      parentName: ORG-spine
+      position: {x: 0.22072248, y: 0.08714691, z: 0.059781123}
+      rotation: {x: 0.82293904, y: 0.19694832, z: 0.3150094, w: 0.42982775}
+      scale: {x: 1.016814, y: 0.96720195, z: 1.0168139}
+    - name: DEF-thigh.R.001
+      parentName: DEF-thigh.R
+      position: {x: 0.000000014901161, y: 0.49333003, z: 0.000000029802322}
+      rotation: {x: 0.00000011179384, y: -0.13120504, z: 0.00000006012441, w: 0.99135524}
+      scale: {x: 1, y: 1, z: 0.9999997}
+    - name: DEF-shin.R
+      parentName: DEF-thigh.R.001
+      position: {x: 0.000000059604645, y: 0.49333018, z: -0.000000014901161}
+      rotation: {x: 0.71162736, y: -0.13118353, z: 0.13770469, w: 0.67632455}
+      scale: {x: 1.0038139, y: 0.9441221, z: 1.0551746}
+    - name: DEF-shin.R.001
+      parentName: DEF-shin.R
+      position: {x: -0.000000048428774, y: 0.4120437, z: 0.0000000037252903}
+      rotation: {x: 0.000000021089145, y: 0.18580131, z: -0.000000009478265, w: 0.98258734}
+      scale: {x: 1, y: 1.0000002, z: 1}
+    - name: DEF-foot.R
+      parentName: DEF-shin.R.001
+      position: {x: -0.000000007563358, y: 0.41204357, z: -0.000000020118023}
+      rotation: {x: -0.34843874, y: -0.45609665, z: -0.066112824, w: 0.81620795}
+      scale: {x: 0.9823852, y: 1.0147458, z: 1.0051332}
+    - name: DEF-toe.R
+      parentName: DEF-foot.R
+      position: {x: 0.000000055879354, y: 0.22675161, z: 0.000000022351742}
+      rotation: {x: -0.12688029, y: 0.9608714, z: -0.24410963, w: -0.032219063}
+      scale: {x: 0.9998942, y: 1.0001456, z: 0.9999602}
+    - name: ORG-pelvis.L
+      parentName: ORG-spine
+      position: {x: -6.9628336e-15, y: -0.00000012293458, z: -0.000000052154064}
+      rotation: {x: -0.32074344, y: 0.7299089, z: 0.3035644, w: 0.521733}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1}
+    - name: DEF-pelvis.L
+      parentName: ORG-pelvis.L
+      position: {x: -0.000000016361849, y: 0.00000010742252, z: 0.000000078932715}
+      rotation: {x: -0.000000008381903, y: -0.000000040978197, z: 0.0000000409782, w: 1}
+      scale: {x: 0.99999994, y: 0.9999999, z: 1}
+    - name: ORG-pelvis.R
+      parentName: ORG-spine
+      position: {x: -6.9628336e-15, y: -0.00000012293458, z: -0.000000052154064}
+      rotation: {x: -0.32279295, y: -0.7278691, z: -0.31736952, w: 0.515061}
+      scale: {x: 1, y: 1.0000001, z: 0.99999994}
+    - name: DEF-pelvis.R
+      parentName: ORG-pelvis.R
+      position: {x: -0.000000024108164, y: 0.0000000057535594, z: 0.000000028743598}
+      rotation: {x: -0.000000053085383, y: 0.000000059604645, z: -0.000000018626451, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: MCH-spine.002
+      parentName: torso
+      position: {x: -1.4034618e-23, y: -0.06627661, z: 0.3874774}
+      rotation: {x: -0.017028337, y: 0.0000000027532114, z: -0.000000024977904, w: 0.99985504}
+      scale: {x: 1, y: 0.9999999, z: 0.99999994}
+    - name: spine_fk.002
+      parentName: MCH-spine.002
+      position: {x: 2.4667768e-15, y: -0.000000004773028, z: -0.00000005611946}
+      rotation: {x: 0.69576854, y: -2.5890456e-15, z: 1.5457016e-16, w: 0.71826607}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: MCH-spine.003
+      parentName: spine_fk.002
+      position: {x: -1.8873791e-15, y: 0.32006738, z: 0.0000000018626451}
+      rotation: {x: -0.70789844, y: 5.3136995e-10, z: -0.000000026797567, w: 0.70631427}
+      scale: {x: 0.99999976, y: 0.99999976, z: 0.9999999}
+    - name: spine_fk.003
+      parentName: MCH-spine.003
+      position: {x: -1.5543122e-15, y: 0.0000000018626449, z: 0.000000087195076}
+      rotation: {x: 0.69693637, y: -4.4122014e-15, z: -1.857769e-15, w: 0.717133}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: tweak_spine.003
+      parentName: spine_fk.003
+      position: {x: -7.993606e-15, y: 0.00000032456592, z: -0.000000016763806}
+      rotation: {x: -0.000000020489088, y: -2.553513e-15, z: -2.4424909e-15, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ORG-spine.003
+      parentName: tweak_spine.003
+      position: {x: -7.993606e-15, y: 0.00000032549724, z: -0.000000031664968}
+      rotation: {x: 0.000000009313234, y: -2.3869795e-15, z: 3.330669e-16, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: ORG-shoulder.L
+      parentName: ORG-spine.003
+      position: {x: -0.033878826, y: 0.25403813, z: 0.1448661}
+      rotation: {x: -0.63219786, y: 0.31689507, z: 0.34534627, w: 0.61695987}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+    - name: DEF-shoulder.L
+      parentName: ORG-shoulder.L
+      position: {x: 0.000000011175871, y: -0.0000000055879354, z: -0.00000010931399}
+      rotation: {x: -0.0000000018626451, y: -0.00000004004687, z: 0.00000003806781, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-upper_arm.L
+      parentName: ORG-shoulder.L
+      position: {x: -0.025134161, y: 0.4007969, z: -0.04232862}
+      rotation: {x: 0.37012053, y: 0.74512964, z: -0.41918498, w: -0.36342344}
+      scale: {x: 1.0012035, y: 0.9975978, z: 1.0012034}
+    - name: DEF-upper_arm.L.001
+      parentName: DEF-upper_arm.L
+      position: {x: 0.000000011175871, y: 0.26294515, z: -0.000000007450581}
+      rotation: {x: -0.000000058210453, y: -0.009719651, z: -0.000000054950664, w: 0.9999528}
+      scale: {x: 1.0000005, y: 0.9999985, z: 1.0000005}
+    - name: DEF-forearm.L
+      parentName: DEF-upper_arm.L.001
+      position: {x: 0.00000008009374, y: 0.2629451, z: -0.000000059604645}
+      rotation: {x: 0.16900222, y: -0.009710752, z: 0.0016600034, w: 0.98556644}
+      scale: {x: 0.9999006, y: 0.9997995, z: 1.0003024}
+    - name: DEF-forearm.L.001
+      parentName: DEF-forearm.L
+      position: {x: -0.000000039115548, y: 0.2898989, z: 0.000000029802322}
+      rotation: {x: 0.000000057615114, y: -0.25151736, z: 0.00000003438562, w: 0.96785283}
+      scale: {x: 0.9999994, y: 1.0000008, z: 0.9999992}
+    - name: DEF-hand.L
+      parentName: DEF-forearm.L.001
+      position: {x: -0.000000014901161, y: 0.28989893, z: 0.000000037252903}
+      rotation: {x: 0.07540598, y: -0.25318253, z: 0.0096121, w: 0.9644274}
+      scale: {x: 0.9988984, y: 1.0021333, z: 0.9989723}
+    - name: ORG-shoulder.R
+      parentName: ORG-spine.003
+      position: {x: 0.033878833, y: 0.2540381, z: 0.1448661}
+      rotation: {x: -0.63219786, y: -0.31689507, z: -0.34534627, w: 0.61695987}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1.0000001}
+    - name: DEF-shoulder.R
+      parentName: ORG-shoulder.R
+      position: {x: -0.000000022351742, y: -0.000000014901161, z: -0.00000012118835}
+      rotation: {x: -0.000000002793968, y: 0.000000042375177, z: -0.000000042375177, w: 1}
+      scale: {x: 1, y: 0.99999994, z: 1}
+    - name: DEF-upper_arm.R
+      parentName: ORG-shoulder.R
+      position: {x: 0.025134005, y: 0.40079674, z: -0.04232878}
+      rotation: {x: -0.3438039, y: 0.7137685, z: -0.47826052, w: 0.37894636}
+      scale: {x: 1.0022314, y: 0.99555236, z: 1.0022315}
+    - name: DEF-upper_arm.R.001
+      parentName: DEF-upper_arm.R
+      position: {x: -0.00000004004687, y: 0.26294535, z: 0.000000007450581}
+      rotation: {x: 0.000000038419547, y: 0.01135397, z: -0.000000008848136, w: 0.99993557}
+      scale: {x: 1.0000005, y: 0.99999964, z: 0.9999999}
+    - name: DEF-forearm.R
+      parentName: DEF-upper_arm.R.001
+      position: {x: 0.000000040978193, y: 0.2629448, z: 0.000000018626451}
+      rotation: {x: 0.20266555, y: 0.011341431, z: -0.0023353223, w: 0.97917956}
+      scale: {x: 0.9998203, y: 0.9993111, z: 1.0008806}
+    - name: DEF-forearm.R.001
+      parentName: DEF-forearm.R
+      position: {x: 0.000000023283064, y: 0.28989866, z: 0.000000052154064}
+      rotation: {x: 0.00000004968949, y: 0.24333546, z: 0.000000056650837, w: 0.9699422}
+      scale: {x: 0.9999999, y: 1.0000004, z: 0.9999998}
+    - name: DEF-hand.R
+      parentName: DEF-forearm.R.001
+      position: {x: 0.000000018626451, y: 0.28989872, z: 0.000000055879354}
+      rotation: {x: -0.00813132, y: 0.24499626, z: -0.07644231, w: 0.9664716}
+      scale: {x: 0.9980946, y: 1.0039634, z: 0.9979555}
+    - name: root
+      parentName: rig
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: DEF-spine
+      parentName: root
+      position: {x: 0.000000022901197, y: 0.10219188, z: 1.8696299}
+      rotation: {x: 0.7904554, y: -0.000000013387047, z: 0.00000001727595, w: 0.6125196}
+      scale: {x: 0.99999994, y: 1, z: 0.9999999}
+    - name: DEF-spine.001
+      parentName: DEF-spine
+      position: {x: -1.0335598e-14, y: 0.28180408, z: -0.000000040978193}
+      rotation: {x: -0.06447634, y: 9.733814e-16, z: -2.0992843e-15, w: 0.99791926}
+      scale: {x: 1, y: 0.99999994, z: 0.99999994}
+    - name: DEF-spine.002
+      parentName: DEF-spine.001
+      position: {x: -8.892966e-15, y: 0.2529557, z: 8.731149e-10}
+      rotation: {x: -0.0944301, y: -0.000000025424624, z: -0.00000001229722, w: 0.9955315}
+      scale: {x: 1.0000002, y: 1.0000002, z: 0.9999998}
+    - name: DEF-spine.003
+      parentName: DEF-spine.002
+      position: {x: 4.9960036e-16, y: 0.32006714, z: 0.000000011175871}
+      rotation: {x: -0.015401326, y: 0.000000046922214, z: -0.000000011419954, w: 0.9998814}
+      scale: {x: 0.9999995, y: 0.99999964, z: 0.9999999}
+    - name: DEF-spine.004
+      parentName: DEF-spine.003
+      position: {x: -6.661338e-15, y: 0.3565209, z: -0.000000007450581}
+      rotation: {x: 0.13236251, y: -0.00000005382667, z: 0.000000066364684, w: 0.9912014}
+      scale: {x: 1.0000001, y: 1.0000006, z: 1.0000001}
+    - name: DEF-spine.005
+      parentName: DEF-spine.004
+      position: {x: -1.7985613e-14, y: 0.122488804, z: -0.00000001117587}
+      rotation: {x: -0.09485747, y: 8.0914014e-10, z: 4.6340135e-10, w: 0.9954909}
+      scale: {x: 1.0000004, y: 0.9999992, z: 1.0000002}
+    - name: DEF-spine.006
+      parentName: DEF-spine.005
+      position: {x: -6.8833828e-15, y: 0.11607861, z: 1.762479e-15}
+      rotation: {x: 0.010588036, y: 0.00000003630454, z: -0.000000048470476, w: 0.999944}
+      scale: {x: 0.99999994, y: 1.0000002, z: 0.99999994}
+    - name: VHM_Both_All
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Both_Inner
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Left_Bone_Coccyx
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Left_Bone_Pelvis
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Left_Bone_Sacrum
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Bone_Calcaneus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Bone_Femur
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Bone_Fibula
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Bone_Patella
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Bone_Pelvis
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Bone_Talus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Bone_Tibia
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
+    - name: VHM_Right_Cartilage_FemurDistal
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Cartilage_FemurHead
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Cartilage_Patella
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Cartilage_PelvisAcetabulum
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Cartilage_Talus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Cartilage_TibiaLateral
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Cartilage_TibialDistal
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Cartilage_TibiaMedial
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Ligament_ACL
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Ligament_LCL
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Ligament_MCL
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Ligament_PCL
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_AdductorBrevis
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_AdductorLongus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_AdductorMagnus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_BicepsFemorisLong
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_BicepsFemorisShort
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_ExtensorDigitorumLongus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_FlexorDigitorumLongus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_FlexorHallucisLongus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_GastrocnemiusLateral
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_GastrocnemiusMedial
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_GluteusMaximus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_GluteusMedius
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_GluteusMinimus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_Gracilis
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_Illiacus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_InferiorGemellus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_ObturatorExternus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_ObturatorInternus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_Pectineus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_PeroneusLongus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_Piriformis
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_Plantaris
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_Popliteus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_QuadratusFemoris
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_RectusFemoris
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_Semimembranosus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_Semitendinosus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_Soleus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_SuperiorGemellus
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_TensorFasciaeLatae
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_TibialisAnterior
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_TibialisPosterior
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_VastusIntermedius
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_VastusLateralis
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    - name: VHM_Right_Muscle_VastusMedialis
+      parentName: retopologized(Clone)
+      position: {x: 2.657049, y: -0.33024663, z: 0.68490314}
+      rotation: {x: 0.5, y: 0.49999997, z: 0.5, w: -0.5}
+      scale: {x: 1, y: 1, z: 1}
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    globalScale: 1
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 1
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  autoGenerateAvatarMappingIfUnspecified: 1
+  animationType: 2
+  humanoidOversampling: 1
+  avatarSetup: 1
+  addHumanoidExtraRootOnlyWhenUsingAvatar: 1
+  importBlendShapeDeformPercent: 1
+  remapMaterialsIfMaterialImportModeIsNone: 0
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
