@@ -78,8 +78,11 @@ public class ReductionScript : MonoBehaviour
 
     private IEnumerator SlideHand(HandData handData, float direction)
     {
+        
+        Transform slidingReference = handData.root.parent; // The skin/parent object that defines the direction
+        Vector3 slideDirection = slidingReference.up; 
         Vector3 startPos = handData.root.position;
-        Vector3 targetPos = startPos + transform.up * direction;
+        Vector3 targetPos = startPos + slideDirection * direction;
 
         float timer = 0;
         while (timer < slideDuration)
