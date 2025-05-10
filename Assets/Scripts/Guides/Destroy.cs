@@ -6,7 +6,7 @@ public class DestroyIfSameTag : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
-        if (gameObject.tag == other.tag)
+        if (gameObject.tag == other.tag & other.gameObject != null)
         {
             Destroy(gameObject);
         }
