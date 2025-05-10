@@ -16,6 +16,10 @@ TagManager:
   - drill
   - ProximalLock1
   - ProximalLock2
+  - Awl
+  - nail
+  - wire
+  - THandle
   layers:
   - Default
   - TransparentFX
