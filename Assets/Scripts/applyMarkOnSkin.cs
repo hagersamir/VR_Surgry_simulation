@@ -7,14 +7,14 @@ public class SkinCollisionDecal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // remove the box collider of the skin and add the mesh to make the mark on thre right place
-        BoxCollider boxCollider = other.GetComponent<BoxCollider>();
-        if (boxCollider != null)
-        {
-            Destroy(boxCollider);
-            MeshCollider meshCollider = other.gameObject.AddComponent<MeshCollider>();
+        // BoxCollider boxCollider = other.GetComponent<BoxCollider>();
+        // if (boxCollider != null)
+        // {
+        //     Destroy(boxCollider);
+        //     MeshCollider meshCollider = other.gameObject.AddComponent<MeshCollider>();
 
-            Debug.Log("BoxCollider removed and MeshCollider added to: " + other.gameObject.name);
-        }
+        //     Debug.Log("BoxCollider removed and MeshCollider added to: " + other.gameObject.name);
+        // }
         // Check if the collided object is tagged as "Skin"
         if (other.CompareTag("Skin"))
         {
@@ -44,9 +44,18 @@ public class SkinCollisionDecal : MonoBehaviour
             }
 
 
-            eventManager.OnEventProximalTrochar_1();
             // Remove the decal after a delay
             // Destroy(decalInstance, decalLifetime);
+        }
+        if (other.CompareTag("ProximalLock1"))
+        {
+            eventManager.OnEventProximalTrochar_1();
+
+        }
+        else if (other.CompareTag("ProximalLock2"))
+        {
+            eventManager.OnEventProximalTrochar_2();
+            
         }
     }
 }

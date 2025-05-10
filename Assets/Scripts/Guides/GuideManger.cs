@@ -5,7 +5,7 @@ using UnityEngine.Rendering;
 
 public class EventManager : MonoBehaviour
 {
-    public GameObject trochar_1, bladeProximal_1, drill_1, ScrewdriverProximal_1, trochar_2, bladeProximal_2, drill_2, ScrewdriverProximal_2;
+    public GameObject trochar_1, bladeProximal_1, drill_1, ScrewdriverProximal_1, trochar_2, bladeProximal_2, drill_2, ScrewdriverProximal_2 ,pladeDistal, DrillDistal, ScrewdriverDistal ;
     public StepManager textDisplay; // Drag ObjectA (with ScriptA) here in the inspector
 
     private void Update()
@@ -78,7 +78,7 @@ public class EventManager : MonoBehaviour
 
     public void OnEventProximalScrew_1()
     {
-        // called when the screw is attached to the bone
+        // called when the first proximal screw is attached to the bone
         // display the message "Repeat process for another screw"
         textDisplay.ShowTask("Repeat process for another screw");
 
@@ -100,10 +100,10 @@ public class EventManager : MonoBehaviour
         // animate the skin cutting
         textDisplay.ShowTask("now drill to the bone");
 
-        if (drill_1.gameObject != null)
+        if (bladeProximal_2.gameObject != null)
         {
 
-            StartCoroutine(ActivateWithDelay(drill_1, 2f)); // 2 seconds delay
+            StartCoroutine(ActivateWithDelay(bladeProximal_2, 2f)); // 2 seconds delay
             // drill_1.SetActive(true);
 
         }
@@ -115,10 +115,10 @@ public class EventManager : MonoBehaviour
         // animiate the bone drilling
         textDisplay.ShowTask("now drill to the bone");
 
-        if (drill_1.gameObject != null)
+        if (drill_2.gameObject != null)
         {
 
-            StartCoroutine(ActivateWithDelay(drill_1, 2f)); // 2 seconds delay
+            StartCoroutine(ActivateWithDelay(drill_2, 2f)); // 2 seconds delay
             // drill_1.SetActive(true);
 
         }
@@ -130,32 +130,57 @@ public class EventManager : MonoBehaviour
         // animete the screw locking
         textDisplay.ShowTask("now drill to the bone");
 
-        if (drill_1.gameObject != null)
+        if (ScrewdriverProximal_2.gameObject != null)
         {
 
-            StartCoroutine(ActivateWithDelay(drill_1, 2f)); // 2 seconds delay
+            StartCoroutine(ActivateWithDelay(ScrewdriverProximal_2, 2f)); // 2 seconds delay
             // drill_1.SetActive(true);
 
         }
     }
 
-    public void OnEventProximalScrew_2()
-    {
-        // called when the screw is attached to the bone
-        //animate tthe tcher inside second hole
-    }
+    // public void OnEventProximalScrew_2()
+    // {
+    //     // called when the first proximal screw is attached to the bone
+    //     // display the message "Repeat process for another screw"
+    //     textDisplay.ShowTask("Repeat process for another screw");
 
+    //     //animate tthe tcher inside second hole
+    //     if (trochar_2.gameObject != null)
+    //     {
 
+    //         StartCoroutine(ActivateWithDelay(trochar_2, 2f)); // 2 seconds delay
+    //         // trochar_2.SetActive(true);
+
+    //     }
+    //     // called when the screw is attached to the bone
+    //     //animate tthe tcher inside second hole
+    // }
+
+//==============================================================================================================================================================================================================
     public void OnEventProximalLockingDone()
     {
+
+
         //this is called when thte proximal locking is done AKA after the second screw is palced
         // message ==> "Remove targeting guide and jig from nail and bring the knee into full extension"
-        // animeate spreading the leg 
+        textDisplay.ShowTask("bring the knee into full extension");
+
+        if (trochar_2.gameObject != null)//instead of tochar 2 put the patient animated
+        {
+
+            // animeate spreading the leg  and hide the aiming guide or just animate the real one and remove all tringle shit 
+        // and replace the sheet and attach bones and screws and all that shit to the rig then unattach it after the animation
+
+        }
     }
 
     public void OnEventKneeExtnsion()
     {
         // called when the knee is in full extension now 
+        textDisplay.ShowTask("now move to distal tibia and get perfect circles of interlock screws  "); // add delay here
+        textDisplay.ShowTask("Move C-arm to get perfect distal tibia screw circles without rotating the leg. ");
+
         // messege ==> get the Use C-arm to get perfect distal circles—don’t rotate leg
         // no animation here
     }
@@ -163,21 +188,44 @@ public class EventManager : MonoBehaviour
     public void onEventXrayShot()
     {
         // called when the xray shot is taken
+        textDisplay.ShowTask("use scalpel to locate the nailhole on medial distal tibia, and incise through skin");
+
         //message ==>Use a blade to locate nail hole, make incision, and spread to bone.
+        if (pladeDistal.gameObject != null)
+        {
+
         // animate the distal skin cut
+            StartCoroutine(ActivateWithDelay(pladeDistal, 2f)); // 2 seconds delay
+
+        }
     }
 
     public void OnEventDistalCut()
     {
         // called wqhrn the distal cut is done
+        textDisplay.ShowTask("drill toward center of C-arm beam");
         // message ==>Drill toward C-arm center
+         if (DrillDistal.gameObject != null)
+        {
+
         // animate the distal drilling 
+            StartCoroutine(ActivateWithDelay(DrillDistal, 2f)); // 2 seconds delay
+
+        }
     }
 
     public void OnEventDistalDrilling()
     {
         // called whren distal drilling is done
+        textDisplay.ShowTask("remove drill quickly and insert screw");
         //message==> insert screw
+         if (ScrewdriverDistal.gameObject != null)
+        {
+
+        // animate the distal screww
+            StartCoroutine(ActivateWithDelay(ScrewdriverDistal, 2f)); // 2 seconds delay
+
+        }
     }
     private IEnumerator ActivateWithDelay(GameObject obj, float delay)
     {

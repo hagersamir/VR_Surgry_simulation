@@ -78,6 +78,9 @@ public class Drill : MonoBehaviour
     private bool hasDuplicated = false;
     private AudioSource audioSource;
 
+    private bool proximal_1;// this is only to know which proximal locking  i am at
+    private bool proximal_2;
+
     private void Start()
     {
         // Add or get AudioSource
@@ -126,6 +129,14 @@ public class Drill : MonoBehaviour
         {
             isCollidingWithBone = true;
         }
+        if (other.CompareTag("ProximalLock1"))
+        {
+            proximal_1 = true;
+        }
+        if (other.CompareTag("ProximalLock2"))
+        {
+            proximal_2 = true;
+        }
     }
 
     private void OnTriggerExit(Collider other)
@@ -133,6 +144,14 @@ public class Drill : MonoBehaviour
         if (other.CompareTag("Bone"))
         {
             isCollidingWithBone = false;
+        }
+        if (other.CompareTag("ProximalLock1"))
+        {
+            proximal_1 = false;
+        }
+        if (other.CompareTag("ProximalLock2"))
+        {
+            proximal_2 = false;
         }
     }
 
@@ -168,6 +187,13 @@ public class Drill : MonoBehaviour
 
         Debug.Log("Duplicate created at: " + newHole.transform.position);
 
-        eventManager?.OnEventProximalDrill_1();
+        if (proximal_1)
+        {
+            eventManager?.OnEventProximalDrill_1();
+        }
+        if (proximal_2)
+        {
+            eventManager?.OnEventProximalDrill_2();
+        }
     }
 }

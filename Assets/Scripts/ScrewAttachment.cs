@@ -17,7 +17,8 @@ public class ScrewAttachment : MonoBehaviour
     {
         Debug.Log("saf");
 
-        if (other.CompareTag("ScrewDriver") && !isInHole)
+        if (other.CompareTag("ScrewDriver") && !isInHole && !other.name.Contains("guide"))
+
         {
             Transform screw = transform;
             Transform screwdriver = other.transform;
@@ -36,7 +37,17 @@ public class ScrewAttachment : MonoBehaviour
             isInHole = true;
             Debug.Log("brush");
             transform.SetParent(null);
+            // eventManager.OnEventProximalScrew_1();
+        }
+        if (other.CompareTag("ProximalLock1"))
+        {
             eventManager.OnEventProximalScrew_1();
+
+        }
+        else if (other.CompareTag("ProximalLock2"))
+        {
+            eventManager.OnEventProximalLockingDone();
+
         }
     }
 

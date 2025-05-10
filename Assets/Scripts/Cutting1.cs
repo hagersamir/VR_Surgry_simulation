@@ -39,7 +39,17 @@ public EventManager eventManager; // Assign in inspector
         {
 
             child.gameObject.SetActive(true);
+            // eventManager.OnEventProximalCut_1();
+        }
+         if (other.CompareTag("ProximalLock1"))
+        {
             eventManager.OnEventProximalCut_1();
+
+        }
+        else if (other.CompareTag("ProximalLock2"))
+        {
+            eventManager.OnEventProximalCut_2();
+            
         }
     }
     private void OnTriggerExit(Collider other)

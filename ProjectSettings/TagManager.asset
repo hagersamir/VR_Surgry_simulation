@@ -14,6 +14,8 @@ TagManager:
   - Sleeve
   - small cut
   - drill
+  - ProximalLock1
+  - ProximalLock2
   layers:
   - Default
   - TransparentFX
