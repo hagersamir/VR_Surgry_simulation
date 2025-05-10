@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -17,7 +18,13 @@ public class EventManager : MonoBehaviour
 
             textDisplay.ShowTask("Place trochar on bone and  mark skin");
             // animate the trocher shit
-            trochar_1.SetActive(true);
+            if (trochar_1.gameObject != null)
+            {
+
+                StartCoroutine(ActivateWithDelay(trochar_1, 2f)); // 2 seconds delay
+                // trochar_1.SetActive(true);
+
+            }
         }
     }
     public void OnEventProximalTrochar_1()
@@ -27,7 +34,13 @@ public class EventManager : MonoBehaviour
         textDisplay.ShowTask("use a blade through skin, spread down to bone then place trochar of sleeve on bone");
 
         // animate the skin cutting
-        bladeProximal_1.SetActive(true);
+        if (bladeProximal_1.gameObject != null)
+        {
+
+            StartCoroutine(ActivateWithDelay(bladeProximal_1, 2f)); // 2 seconds delay
+            // bladeProximal_1.SetActive(true);
+
+        }
     }
 
     public void OnEventProximalCut_1()
@@ -37,7 +50,13 @@ public class EventManager : MonoBehaviour
         textDisplay.ShowTask("now drill to the bone");
 
         // animiate the bone drilling
-        drill_1.SetActive(true);
+        if (drill_1.gameObject != null)
+        {
+
+            StartCoroutine(ActivateWithDelay(drill_1, 2f)); // 2 seconds delay
+            // drill_1.SetActive(true);
+
+        }
 
     }
 
@@ -48,7 +67,13 @@ public class EventManager : MonoBehaviour
         textDisplay.ShowTask("insert screw be careful not to over tighten screws as they can sink into bone easily in metaphyseal bone");
 
         // animete the screw locking
-        ScrewdriverProximal_1.SetActive(true);
+        if (ScrewdriverProximal_1.gameObject != null)
+        {
+
+            StartCoroutine(ActivateWithDelay(ScrewdriverProximal_1, 2f)); // 2 seconds delay
+            // ScrewdriverProximal_1.SetActive(true);
+
+        }
     }
 
     public void OnEventProximalScrew_1()
@@ -58,10 +83,16 @@ public class EventManager : MonoBehaviour
         textDisplay.ShowTask("Repeat process for another screw");
 
         //animate tthe tcher inside second hole
-        trochar_2.SetActive(true);
+        if (trochar_2.gameObject != null)
+        {
+
+            StartCoroutine(ActivateWithDelay(trochar_2, 2f)); // 2 seconds delay
+            // trochar_2.SetActive(true);
+
+        }
     }
 
-//============================================================================================================================================================================================================================================================================================================
+    //============================================================================================================================================================================================================================================================================================================
 
     public void OnEventProximalTrochar_2()
     {
@@ -69,7 +100,13 @@ public class EventManager : MonoBehaviour
         // animate the skin cutting
         textDisplay.ShowTask("now drill to the bone");
 
-        drill_1.SetActive(true);
+        if (drill_1.gameObject != null)
+        {
+
+            StartCoroutine(ActivateWithDelay(drill_1, 2f)); // 2 seconds delay
+            // drill_1.SetActive(true);
+
+        }
     }
 
     public void OnEventProximalCut_2()
@@ -78,7 +115,13 @@ public class EventManager : MonoBehaviour
         // animiate the bone drilling
         textDisplay.ShowTask("now drill to the bone");
 
-        drill_1.SetActive(true);
+        if (drill_1.gameObject != null)
+        {
+
+            StartCoroutine(ActivateWithDelay(drill_1, 2f)); // 2 seconds delay
+            // drill_1.SetActive(true);
+
+        }
     }
 
     public void OnEventProximalDrill_2()
@@ -87,7 +130,13 @@ public class EventManager : MonoBehaviour
         // animete the screw locking
         textDisplay.ShowTask("now drill to the bone");
 
-        drill_1.SetActive(true);
+        if (drill_1.gameObject != null)
+        {
+
+            StartCoroutine(ActivateWithDelay(drill_1, 2f)); // 2 seconds delay
+            // drill_1.SetActive(true);
+
+        }
     }
 
     public void OnEventProximalScrew_2()
@@ -129,5 +178,10 @@ public class EventManager : MonoBehaviour
     {
         // called whren distal drilling is done
         //message==> insert screw
+    }
+    private IEnumerator ActivateWithDelay(GameObject obj, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        obj.SetActive(true);
     }
 }
