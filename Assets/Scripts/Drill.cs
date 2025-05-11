@@ -81,6 +81,8 @@ public class Drill : MonoBehaviour
     private bool proximal_1;// this is only to know which proximal locking  i am at
     private bool proximal_2;
 
+    private GameObject boneParentOfScrew;
+
     private void Start()
     {
         // Add or get AudioSource
@@ -128,6 +130,7 @@ public class Drill : MonoBehaviour
         if (other.CompareTag("Bone"))
         {
             isCollidingWithBone = true;
+            boneParentOfScrew = other.gameObject;
         }
         if (other.CompareTag("ProximalLock1"))
         {
@@ -183,6 +186,7 @@ public class Drill : MonoBehaviour
         if (decalComponent != null)
         {
             decalComponent.BuildAndSetDirty();
+            newHole.transform.SetParent(boneParentOfScrew.transform);
         }
         else
         {

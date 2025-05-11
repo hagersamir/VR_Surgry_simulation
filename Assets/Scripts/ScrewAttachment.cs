@@ -17,7 +17,7 @@ public class ScrewAttachment : MonoBehaviour
     {
         Debug.Log("saf");
 
-        if (other.CompareTag("ScrewDriver") && !isInHole && !other.name.Contains("guide"))
+        if (other.CompareTag("ScrewDriver") && !isInHole)
 
         {
             Transform screw = transform;
@@ -48,6 +48,10 @@ public class ScrewAttachment : MonoBehaviour
         {
             eventManager.OnEventProximalLockingDone();
 
+        }
+        if (other.CompareTag("Bone"))
+        {
+            transform.SetParent(other.transform);
         }
     }
 
