@@ -13,7 +13,7 @@ public class smallCut : MonoBehaviour
 
     public GameObject cutTexturePrefab;
 
-public EventManager eventManager; // Assign in inspector
+    public EventManager eventManager; // Assign in inspector
 
     void Start()
     {
@@ -41,7 +41,7 @@ public EventManager eventManager; // Assign in inspector
             child.gameObject.SetActive(true);
             // eventManager.OnEventProximalCut_1();
         }
-         if (other.CompareTag("ProximalLock1"))
+        if (other.CompareTag("ProximalLock1"))
         {
             eventManager.OnEventProximalCut_1();
 
@@ -49,7 +49,11 @@ public EventManager eventManager; // Assign in inspector
         else if (other.CompareTag("ProximalLock2"))
         {
             eventManager.OnEventProximalCut_2();
-            
+
+        }
+        if (eventManager.isDistalLocking)
+        {
+            eventManager.OnEventDistalCut();
         }
     }
     private void OnTriggerExit(Collider other)

@@ -153,6 +153,10 @@ public class Drill : MonoBehaviour
         {
             proximal_2 = false;
         }
+        if (eventManager.isDistalLocking)
+        {
+            eventManager.OnEventDistalDrilling();
+        }
     }
 
     void DuplicateObject()

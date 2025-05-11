@@ -5,6 +5,8 @@ using System.Collections;
 public class XRayEffect : MonoBehaviour
 {
     public Shader xrayShader;
+    public EventManager eventManager; // Assign in inspector
+
     [Range(0f, 1f)] public float transparency = 0.5f; // Transparency slider
     public RenderTexture FakeForOnAndOff; // Assign in Inspector
     public RenderTexture CamScreen; // Assign in Inspector
@@ -33,6 +35,7 @@ public class XRayEffect : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             StartCoroutine(SwitchRenderTexture());
+            eventManager.onEventXrayShot();
         }
     }
 

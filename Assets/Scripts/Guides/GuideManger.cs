@@ -5,8 +5,12 @@ using UnityEngine.Rendering;
 
 public class EventManager : MonoBehaviour
 {
-    public GameObject trochar_1, bladeProximal_1, awlGuide, THandleGuide, guideWireGuide, nailGuide, drill_1, ScrewdriverProximal_1, trochar_2, bladeProximal_2, drill_2, ScrewdriverProximal_2 ,pladeDistal, DrillDistal, ScrewdriverDistal ;
+    public GameObject trochar_1, bladeProximal_1, awlGuide, THandleGuide, guideWireGuide, nailGuide, drill_1, ScrewdriverProximal_1, trochar_2, bladeProximal_2, drill_2, ScrewdriverProximal_2, pladeDistal, DrillDistal, ScrewdriverDistal;
+
     public StepManager textDisplay; // Drag ObjectA (with ScriptA) here in the inspector
+    public naimte animateScript; // Assign in inspector
+    public bool isDistalLocking = false;
+
 
     private void Update()
     {
@@ -27,6 +31,87 @@ public class EventManager : MonoBehaviour
             }
         }
     }
+
+    // -----------------------------Added part salma ----------------------------------
+    // this is called when the player is done using the skin is cut
+    public void OnEventSkinCut()
+    {
+        // Display the task to the user
+        textDisplay.ShowTask("Use The T-Handle Guide Wire");
+
+        if (THandleGuide.gameObject != null)
+        {
+            StartCoroutine(ActivateWithDelay(THandleGuide, 2f)); // 2 seconds delay
+        }
+    }
+
+    // this is called when the player is done using the T-Handle
+    public void OnEventTHandleUsed()
+    {
+        // Display the task to the user
+        textDisplay.ShowTask("Use The awl");
+
+        if (awlGuide.gameObject != null)
+        {
+            StartCoroutine(ActivateWithDelay(awlGuide, 2f)); // 2 seconds delay
+        }
+    }
+    // this is called when the player is done using the Awl
+    public void OnEventAwlUsed()
+    {
+        // Display the task to the user
+        textDisplay.ShowTask("Insert The Guide Wire");
+
+        if (guideWireGuide.gameObject != null)
+        {
+            StartCoroutine(ActivateWithDelay(guideWireGuide, 2f)); // 2 seconds delay
+        }
+    }
+    // this is called when the player is done inserting the guide wire to the distal end of the bone
+    public void OnEventGuideWireUsed()
+    {
+        // Display the task to the user
+        textDisplay.ShowTask("Insert The Nail");
+
+        if (nailGuide.gameObject != null)
+        {
+            StartCoroutine(ActivateWithDelay(nailGuide, 2f)); // 2 seconds delay
+        }
+    }
+    // this is called when the player is done inserting the Nail to the distal end of the bone
+    public void OnEventNailUsed()
+    {
+        // Display the task to the user
+        textDisplay.ShowTask("Remove The Guide Wire");
+
+        if (guideWireGuide.gameObject != null)
+        {
+            // StartCoroutine(ActivateWithDelay(nailGuide, 2f)); // 2 seconds delay
+            // Activate the Awl Guide
+            guideWireGuide.SetActive(true);
+
+            // Get the Animator component
+            Animator animator = guideWireGuide.GetComponent<Animator>();
+
+            if (animator != null)
+            {
+                // Play the animation in reverse
+                animator.Play("GuideWireGuide", 0, 1f); // Start at the end (normalizedTime = 1f)
+                animator.speed = -1; // Play backward
+
+                // Start coroutine to deactivate after 2 seconds
+                StartCoroutine(DeactivateAfterSeconds(guideWireGuide, 2f));
+            }
+        }
+    }
+
+    private IEnumerator DeactivateAfterSeconds(GameObject obj, float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        obj.SetActive(false);
+    }
+
+    // -----------------------------Added part salma ----------------------------------
     public void OnEventProximalTrochar_1()
     {
         //this functuion is called when the actual trochar  is placed and made a mark on the skin   
@@ -59,86 +144,7 @@ public class EventManager : MonoBehaviour
         }
 
     }
-// -----------------------------Added part----------------------------------
-    // this is called when the player is done using the skin is cut
-    public void OnEventSkinCut()
-    {
-        // Display the task to the user
-        textDisplay.ShowTask("Use The T-Handle Guide Wire");
-        
-        if (THandleGuide.gameObject != null)
-        {
-            StartCoroutine(ActivateWithDelay(THandleGuide, 2f)); // 2 seconds delay
-        }
-    }
 
-    // this is called when the player is done using the T-Handle
-    public void OnEventTHandleUsed()
-    {
-        // Display the task to the user
-        textDisplay.ShowTask("Use The awl");
-        
-        if (awlGuide.gameObject != null)
-        {
-            StartCoroutine(ActivateWithDelay(awlGuide, 2f)); // 2 seconds delay
-        }
-    }
-    // this is called when the player is done using the Awl
-    public void OnEventAwlUsed()
-    {
-        // Display the task to the user
-        textDisplay.ShowTask("Insert The Guide Wire");
-        
-        if (guideWireGuide.gameObject != null)
-        {
-            StartCoroutine(ActivateWithDelay(guideWireGuide, 2f)); // 2 seconds delay
-        }
-    }
-    // this is called when the player is done inserting the guide wire to the distal end of the bone
-    public void OnEventGuideWireUsed()
-    {
-        // Display the task to the user
-        textDisplay.ShowTask("Insert The Nail");
-        
-        if (nailGuide.gameObject != null)
-        {
-            StartCoroutine(ActivateWithDelay(nailGuide, 2f)); // 2 seconds delay
-        }
-    }
-    // this is called when the player is done inserting the Nail to the distal end of the bone
-    public void OnEventNailUsed()
-    {
-        // Display the task to the user
-        textDisplay.ShowTask("Remove The Guide Wire");
-        
-        if (guideWireGuide.gameObject != null)
-        {
-            // StartCoroutine(ActivateWithDelay(nailGuide, 2f)); // 2 seconds delay
-            // Activate the Awl Guide
-            guideWireGuide.SetActive(true);
-
-            // Get the Animator component
-            Animator animator = guideWireGuide.GetComponent<Animator>();
-
-            if (animator != null)
-            {
-                // Play the animation in reverse
-                animator.Play("GuideWireGuide", 0, 1f); // Start at the end (normalizedTime = 1f)
-                animator.speed = -1; // Play backward
-
-                // Start coroutine to deactivate after 2 seconds
-                StartCoroutine(DeactivateAfterSeconds(guideWireGuide, 2f));
-            }
-        }
-    }
-
-    private IEnumerator DeactivateAfterSeconds(GameObject obj, float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        obj.SetActive(false);
-    }
-
-// -----------------------------Added part----------------------------------
     public void OnEventProximalDrill_1()
     {
         // called whent the bone is drilled
@@ -236,7 +242,7 @@ public class EventManager : MonoBehaviour
     //     //animate tthe tcher inside second hole
     // }
 
-//==============================================================================================================================================================================================================
+    //==============================================================================================================================================================================================================
     public void OnEventProximalLockingDone()
     {
 
@@ -245,20 +251,28 @@ public class EventManager : MonoBehaviour
         // message ==> "Remove targeting guide and jig from nail and bring the knee into full extension"
         textDisplay.ShowTask("bring the knee into full extension");
 
-        if (trochar_2.gameObject != null)//instead of tochar 2 put the patient animated
-        {
 
-            // animeate spreading the leg  and hide the aiming guide or just animate the real one and remove all tringle shit 
+        // animeate spreading the leg  and hide the aiming guide or just animate the real one and remove all tringle shit 
+        StartCoroutine(justWait(6f)); // 2 seconds delay
+        animateScript.showHideAnimate(); // this must be in the scrfew attachmint script in the assesment mode not here
+        StartCoroutine(justWait(3f)); // 2 seconds delay;
+        isDistalLocking = true;
+        OnEventKneeExtnsion();
+
         // and replace the sheet and attach bones and screws and all that shit to the rig then unattach it after the animation
 
-        }
+
     }
 
     public void OnEventKneeExtnsion()
     {
         // called when the knee is in full extension now 
         textDisplay.ShowTask("now move to distal tibia and get perfect circles of interlock screws  "); // add delay here
+        StartCoroutine(justWait(3f)); // 2 seconds delay;
+
         textDisplay.ShowTask("Move C-arm to get perfect distal tibia screw circles without rotating the leg. ");
+        StartCoroutine(justWait(3f)); // 2 seconds delay;
+
 
         // messege ==> get the Use C-arm to get perfect distal circles—don’t rotate leg
         // no animation here
@@ -273,7 +287,7 @@ public class EventManager : MonoBehaviour
         if (pladeDistal.gameObject != null)
         {
 
-        // animate the distal skin cut
+            // animate the distal skin cut
             StartCoroutine(ActivateWithDelay(pladeDistal, 2f)); // 2 seconds delay
 
         }
@@ -284,10 +298,10 @@ public class EventManager : MonoBehaviour
         // called wqhrn the distal cut is done
         textDisplay.ShowTask("drill toward center of C-arm beam");
         // message ==>Drill toward C-arm center
-         if (DrillDistal.gameObject != null)
+        if (DrillDistal.gameObject != null)
         {
 
-        // animate the distal drilling 
+            // animate the distal drilling 
             StartCoroutine(ActivateWithDelay(DrillDistal, 2f)); // 2 seconds delay
 
         }
@@ -298,17 +312,41 @@ public class EventManager : MonoBehaviour
         // called whren distal drilling is done
         textDisplay.ShowTask("remove drill quickly and insert screw");
         //message==> insert screw
-         if (ScrewdriverDistal.gameObject != null)
+        if (ScrewdriverDistal.gameObject != null)
         {
 
-        // animate the distal screww
+            // animate the distal screww
             StartCoroutine(ActivateWithDelay(ScrewdriverDistal, 2f)); // 2 seconds delay
 
         }
     }
+
+
+    public void OnEventDistalDistalLockin()
+    {
+        // called whren distal lock is done
+        textDisplay.ShowTask("good boy");
+        //message==> insert screw
+        //  if (ScrewdriverDistal.gameObject != null)
+        // {
+
+        // // animate the distal screww
+        //     StartCoroutine(ActivateWithDelay(ScrewdriverDistal, 2f)); // 2 seconds delay
+
+        // }
+    }
+
+
     private IEnumerator ActivateWithDelay(GameObject obj, float delay)
     {
         yield return new WaitForSeconds(delay);
         obj.SetActive(true);
+    }
+
+
+    private IEnumerator justWait(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        // obj.SetActive(true);
     }
 }
