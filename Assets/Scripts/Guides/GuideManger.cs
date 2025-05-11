@@ -253,9 +253,8 @@ public class EventManager : MonoBehaviour
 
 
         // animeate spreading the leg  and hide the aiming guide or just animate the real one and remove all tringle shit 
-        StartCoroutine(justWait(6f)); // 2 seconds delay
-        animateScript.showHideAnimate(); // this must be in the scrfew attachmint script in the assesment mode not here
-        StartCoroutine(justWait(3f)); // 2 seconds delay;
+        StartCoroutine(waitThenAnimate());
+
         isDistalLocking = true;
         OnEventKneeExtnsion();
 
@@ -266,12 +265,14 @@ public class EventManager : MonoBehaviour
 
     public void OnEventKneeExtnsion()
     {
-        // called when the knee is in full extension now 
-        textDisplay.ShowTask("now move to distal tibia and get perfect circles of interlock screws  "); // add delay here
-        StartCoroutine(justWait(3f)); // 2 seconds delay;
+        StartCoroutine(KneeExtensionSequence());
 
-        textDisplay.ShowTask("Move C-arm to get perfect distal tibia screw circles without rotating the leg. ");
-        StartCoroutine(justWait(3f)); // 2 seconds delay;
+        // called when the knee is in full extension now 
+        // textDisplay.ShowTask("now move to distal tibia and get perfect circles of interlock screws  "); // add delay here
+        // StartCoroutine(justWait(3f)); // 2 seconds delay;
+
+        // textDisplay.ShowTask("Move C-arm to get perfect distal tibia screw circles without rotating the leg. ");
+        // StartCoroutine(justWait(3f)); // 2 seconds delay;
 
 
         // messege ==> get the Use C-arm to get perfect distal circles—don’t rotate leg
@@ -344,9 +345,26 @@ public class EventManager : MonoBehaviour
     }
 
 
+
+
+    private IEnumerator waitThenAnimate()
+    {
+        yield return new WaitForSeconds(6f);
+        animateScript.showHideAnimate();
+        yield return new WaitForSeconds(3f); // if needed after the animation
+    }
     private IEnumerator justWait(float delay)
     {
         yield return new WaitForSeconds(delay);
         // obj.SetActive(true);
+    }
+
+    private IEnumerator KneeExtensionSequence()
+    {
+        textDisplay.ShowTask("Now move to distal tibia and get perfect circles of interlock screws.");
+        yield return new WaitForSeconds(3f);
+
+        textDisplay.ShowTask("Move C-arm to get perfect distal tibia screw circles without rotating the leg.");
+        yield return new WaitForSeconds(3f);
     }
 }
