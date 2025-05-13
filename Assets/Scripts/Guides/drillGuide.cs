@@ -7,7 +7,9 @@ public class drill : MonoBehaviour
     public float speed = 0.01f; // Speed of movement
 
     private Vector3 startPosition;
-    
+    private bool isMoving = true;  // Flag to control movement
+
+
 
     void Start()
     {
@@ -17,6 +19,8 @@ public class drill : MonoBehaviour
 
     void Update()
     {
+        if (!isMoving) return; // Skip movement if flagged
+
         // Move the object in its local left direction
         transform.position += transform.up * speed * Time.deltaTime;
 
@@ -27,6 +31,58 @@ public class drill : MonoBehaviour
             transform.position = startPosition;
         }
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        if (gameObject.tag == other.tag && other.gameObject != null)
+        {
+            Debug.Log($"{gameObject.name}collided with {other.name}");
+            GetComponent<MeshCollider>().enabled = false;
 
-   
+            StartCoroutine(ApplyAndFreeze(other.transform));
+            isMoving = false; // Stop movement
+        }
+    }
+
+    IEnumerator ApplyAndFreeze(Transform target)
+    {
+        // Cache the parent (in case it's parented and affected by it)
+        Transform originalParent = target.parent;
+
+        // Match world transform
+        target.position = transform.position;
+        // target.position = transform.position;
+        target.rotation = transform.rotation;
+
+        Rigidbody rb = target.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+        }
+
+        Vector3 frozenPos = target.position;
+        Quaternion frozenRot = target.rotation;
+
+        float timer = 2f;
+        float moveSpeed = 0.025f; // units per second on the x-axis
+        float elapsed = 0f;
+
+        while (timer > 0f)
+        {
+            float xOffset = elapsed * moveSpeed;
+            target.position = new Vector3(frozenPos.x - xOffset, frozenPos.y, frozenPos.z);
+            target.rotation = frozenRot;
+
+            elapsed += Time.deltaTime;
+            timer -= Time.deltaTime;
+            yield return null;
+        }
+
+        if (rb != null)
+        {
+            // rb.isKinematic = false;
+        }
+        gameObject.SetActive(false);
+
+    }
+
 }

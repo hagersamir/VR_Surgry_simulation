@@ -14,6 +14,7 @@ public class smallCut : MonoBehaviour
     public GameObject cutTexturePrefab;
 
     public EventManager eventManager; // Assign in inspector
+    private bool proxmial_1 = false;
 
     void Start()
     {
@@ -43,10 +44,11 @@ public class smallCut : MonoBehaviour
         }
         if (other.CompareTag("ProximalLock1"))
         {
+            proxmial_1 = true;
             eventManager.OnEventProximalCut_1();
 
         }
-        else if (other.CompareTag("ProximalLock2"))
+        else if (other.CompareTag("ProximalLock2") && proxmial_1)
         {
             eventManager.OnEventProximalCut_2();
 
@@ -60,8 +62,8 @@ public class smallCut : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Skin"))
         {
-            if (transform.childCount == 0)
-            {
+            // if (transform.Find("SkinCutForDrill"))
+            // {
 
 
                 // Instantiate new object with the same relative transform
@@ -71,7 +73,7 @@ public class smallCut : MonoBehaviour
                 instance.transform.localScale = childLocalScale;
                 child = instance.transform;
                 child.gameObject.SetActive(false);
-            }
+            // }
         }
     }
 }

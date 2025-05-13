@@ -170,7 +170,7 @@ public class Drill : MonoBehaviour
             Debug.LogWarning("No 'hole' child found!");
             return;
         }
-
+        Debug.Log("make hole");
         Transform newHole = Instantiate(hole, hole.position, hole.rotation);
 
         newHole.SetParent(transform);

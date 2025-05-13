@@ -16,7 +16,7 @@ public class EventManager : MonoBehaviour
     {
         // this is just temprory till i integrat my part with salma
         // anyway here you dipslay this message "Place trochar on bone and  mark skin"
-        if (Input.GetKey(KeyCode.Q))
+        if (Input.GetKey(KeyCode.O))
         {
 
 
@@ -349,7 +349,7 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator waitThenAnimate()
     {
-        yield return new WaitForSeconds(6f);
+       yield return new WaitForSeconds(6f);
         animateScript.showHideAnimate();
         yield return new WaitForSeconds(3f); // if needed after the animation
     }

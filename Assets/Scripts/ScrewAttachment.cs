@@ -5,6 +5,7 @@ public class ScrewAttachment : MonoBehaviour
 
     private bool isInHole = false;
     public EventManager eventManager; // Assign in inspector
+    private bool hasScrewChild = false;
 
 
     private void Start()
@@ -17,19 +18,30 @@ public class ScrewAttachment : MonoBehaviour
     {
         Debug.Log("saf");
 
-        if (other.CompareTag("ScrewDriver") && !isInHole)
+        if (other.CompareTag("ScrewDriver") && other.name == "Cylinder06 (1)" && !isInHole)
 
         {
             Transform screw = transform;
             Transform screwdriver = other.transform;
+            foreach (Transform child in other.transform)
+            {
+                if (child.CompareTag("Screw"))
+                {
+                    hasScrewChild = true;
+                    break;
+                }
+            }
 
             // Set the screw as a child of the screwdriver
-            screw.SetParent(screwdriver);
+            if (!hasScrewChild)
+            {
+                screw.SetParent(screwdriver);
 
-            // Apply the specified world transformation
-            screw.transform.localPosition = new Vector3(-0.23f, 0.28f, 0.71f);
-            screw.transform.localScale = new Vector3(1.17f, 1.17f, 1.17f);
-            screw.transform.localRotation = new Quaternion(-0.01696f, 0.70742f, 0.01890f, -0.70634f);
+                // Apply the specified world transformation
+                screw.transform.localPosition = new Vector3(-0.23f, 0.28f, 0.71f);
+                screw.transform.localScale = new Vector3(1.17f, 1.17f, 1.17f);
+                screw.transform.localRotation = new Quaternion(-0.01696f, 0.70742f, 0.01890f, -0.70634f);
+            }
 
         }
         if (other.CompareTag("hole"))
@@ -39,17 +51,17 @@ public class ScrewAttachment : MonoBehaviour
             transform.SetParent(null);
             // eventManager.OnEventProximalScrew_1();
         }
-        if (other.CompareTag("ProximalLock1"))
+        if (other.CompareTag("ProximalLock1") && isInHole)
         {
             eventManager.OnEventProximalScrew_1();
 
         }
-        else if (other.CompareTag("ProximalLock2"))
+        else if (other.CompareTag("ProximalLock2") && isInHole)
         {
             eventManager.OnEventProximalLockingDone();
 
         }
-        if (other.CompareTag("Bone"))
+        if (other.CompareTag("Bone") && isInHole)
         {
             transform.SetParent(other.transform);
         }
