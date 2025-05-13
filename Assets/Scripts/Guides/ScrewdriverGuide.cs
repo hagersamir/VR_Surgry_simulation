@@ -45,6 +45,7 @@ public class screw : MonoBehaviour
 
             Debug.Log($"{gameObject.name}collided with {other.name}");
             GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<MeshCollider>().enabled = false;
 
             StartCoroutine(ApplyAndFreeze(other.transform));
             // Destroy(gameObject);
@@ -91,8 +92,28 @@ public class screw : MonoBehaviour
         float moveSpeed = 0.04f; // units per second on the x-axis
         float elapsed = 0f;
 
-        while (timer > 0f)
+
+
+        Transform screwChild = null;
+        foreach (Transform child in target.GetComponentsInChildren<Transform>())
         {
+            if (child.CompareTag("Screw"))
+            {
+                screwChild = child;
+                break;
+            }
+        }
+        ScrewAttachment detector = screwChild?.GetComponent<ScrewAttachment>();
+
+        // ScrewAttachment detector = target.GetComponent<ScrewAttachment>();
+
+        while (true)
+        {
+            if (detector != null && detector.ScrewPlaced)
+            {
+                Debug.Log("yes screw");
+                break; // Stop moving if collision with "bone" occurred
+            }
             float xOffset = elapsed * moveSpeed;
             target.position = new Vector3(frozenPos.x - xOffset, frozenPos.y, frozenPos.z);
             target.rotation = frozenRot;

@@ -6,6 +6,7 @@ public class ScrewAttachment : MonoBehaviour
     public bool isInHole = false;
     public EventManager eventManager; // Assign in inspector
     private bool hasScrewChild = false;
+    public bool ScrewPlaced= false;
 
 
     private void Start()
@@ -49,6 +50,7 @@ public class ScrewAttachment : MonoBehaviour
             isInHole = true;
             Debug.Log("brush");
             transform.SetParent(other.transform);
+            ScrewPlaced = true;
             // eventManager.OnEventProximalScrew_1();
         }
         if (other.CompareTag("ProximalLock1"))
