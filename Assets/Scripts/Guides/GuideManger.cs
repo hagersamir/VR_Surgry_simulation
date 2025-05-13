@@ -213,7 +213,7 @@ public class EventManager : MonoBehaviour
     {
         // called whent the bone is drilled
         // animete the screw locking
-        textDisplay.ShowTask("now drill to the bone");
+        textDisplay.ShowTask("apply second screw proximal lock");
 
         if (ScrewdriverProximal_2.gameObject != null)
         {

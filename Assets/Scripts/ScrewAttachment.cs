@@ -57,11 +57,14 @@ public class ScrewAttachment : MonoBehaviour
         {
             Debug.Log("proximal1");
             eventManager.OnEventProximalScrew_1();
+            other.GetComponent<BoxCollider>().enabled = false;
+
 
         }
         else if (other.CompareTag("ProximalLock2"))
         {
             eventManager.OnEventProximalLockingDone();
+            other.GetComponent<BoxCollider>().enabled = false;
             Debug.Log("proximal2");
 
         }
