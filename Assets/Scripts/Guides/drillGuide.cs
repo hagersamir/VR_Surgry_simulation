@@ -36,6 +36,7 @@ public class drill : MonoBehaviour
         if (gameObject.tag == other.tag && other.gameObject != null)
         {
             Debug.Log($"{gameObject.name}collided with {other.name}");
+            GetComponent<MeshRenderer>().enabled = false;
             GetComponent<MeshCollider>().enabled = false;
 
             StartCoroutine(ApplyAndFreeze(other.transform));
@@ -45,12 +46,9 @@ public class drill : MonoBehaviour
 
     IEnumerator ApplyAndFreeze(Transform target)
     {
-        // Cache the parent (in case it's parented and affected by it)
         Transform originalParent = target.parent;
 
-        // Match world transform
         target.position = transform.position;
-        // target.position = transform.position;
         target.rotation = transform.rotation;
 
         Rigidbody rb = target.GetComponent<Rigidbody>();
@@ -62,12 +60,30 @@ public class drill : MonoBehaviour
         Vector3 frozenPos = target.position;
         Quaternion frozenRot = target.rotation;
 
-        float timer = 2f;
-        float moveSpeed = 0.025f; // units per second on the x-axis
+        float timer = 5f;
+        float moveSpeed = 0.025f;
         float elapsed = 0f;
 
-        while (timer > 0f)
+        // Get the child with tag "bit" and its collision detector
+        Transform bitChild = null;
+        foreach (Transform child in target.GetComponentsInChildren<Transform>())
         {
+            if (child.CompareTag("bit"))
+            {
+                bitChild = child;
+                break;
+            }
+        }
+        Drill detector = bitChild?.GetComponent<Drill>();
+
+        while (true)
+        {
+            if (detector != null && detector.isCollidingWithBone)
+            {
+                Debug.Log("yes");
+                break; // Stop moving if collision with "bone" occurred
+            }
+
             float xOffset = elapsed * moveSpeed;
             target.position = new Vector3(frozenPos.x - xOffset, frozenPos.y, frozenPos.z);
             target.rotation = frozenRot;
@@ -77,12 +93,7 @@ public class drill : MonoBehaviour
             yield return null;
         }
 
-        if (rb != null)
-        {
-            // rb.isKinematic = false;
-        }
         gameObject.SetActive(false);
-
     }
 
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 public class ScrewAttachment : MonoBehaviour
 {
 
-    private bool isInHole = false;
+    public bool isInHole = false;
     public EventManager eventManager; // Assign in inspector
     private bool hasScrewChild = false;
 
@@ -48,23 +48,26 @@ public class ScrewAttachment : MonoBehaviour
         {
             isInHole = true;
             Debug.Log("brush");
-            transform.SetParent(null);
+            transform.SetParent(other.transform);
             // eventManager.OnEventProximalScrew_1();
         }
-        if (other.CompareTag("ProximalLock1") && isInHole)
+        if (other.CompareTag("ProximalLock1"))
         {
+            Debug.Log("proximal1");
             eventManager.OnEventProximalScrew_1();
 
         }
-        else if (other.CompareTag("ProximalLock2") && isInHole)
+        else if (other.CompareTag("ProximalLock2"))
         {
             eventManager.OnEventProximalLockingDone();
+            Debug.Log("proximal2");
 
         }
-        if (other.CompareTag("Bone") && isInHole)
-        {
-            transform.SetParent(other.transform);
-        }
+        // if (other.CompareTag("Bone") )// in here 
+        // {
+        //     Debug.Log("hole and bone");
+        //     transform.SetParent(other.transform);
+        // }
     }
 
 

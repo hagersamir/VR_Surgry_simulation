@@ -1,8 +1,10 @@
 using UnityEngine;
 using DecalSystem;
+using JetBrains.Annotations;
 public class SkinCollisionDecal : MonoBehaviour
 {
     public EventManager eventManager; // Assign in inspector
+    public bool isCollidingWithSkin = false;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -21,6 +23,9 @@ public class SkinCollisionDecal : MonoBehaviour
             // Get the collision point in world space
 
             Transform hole = transform.Find("mark");
+            isCollidingWithSkin = true;
+            Debug.Log("sleeve marking skin");
+
             // Duplicate the hole (Instantiate creates a copy)
             Transform decalInstance = Instantiate(hole, hole.position, hole.rotation);
             // Optionally, set the duplicated object as a child of the same parent
@@ -55,7 +60,13 @@ public class SkinCollisionDecal : MonoBehaviour
         else if (other.CompareTag("ProximalLock2"))
         {
             eventManager.OnEventProximalTrochar_2();
-            
+
         }
     }
+
+    // private void OnTriggerExit(Collider other)
+    // {
+    //     isCollidingWithSkin = false;
+    //     Debug.Log("sleeve not touchung skin");
+    // }
 }

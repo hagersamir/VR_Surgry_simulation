@@ -21,6 +21,7 @@ TagManager:
   - wire
   - THandle
   - screwdriver
+  - bit
   layers:
   - Default
   - TransparentFX

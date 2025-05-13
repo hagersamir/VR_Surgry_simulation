@@ -74,7 +74,7 @@ public class Drill : MonoBehaviour
     public GameObject drillAssemply;   // The part that rotates
     public AudioClip rotationSound;    // Assign in Inspector
 
-    private bool isCollidingWithBone = false;
+    public bool isCollidingWithBone = false;
     private bool hasDuplicated = false;
     private AudioSource audioSource;
 

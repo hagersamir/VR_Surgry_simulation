@@ -34,6 +34,7 @@ public class MoveForwardAndReset : MonoBehaviour
         {
             isMoving = false; // Stop movement
             Debug.Log($"{gameObject.name}collided with {other.name}");
+            GetComponent<MeshRenderer>().enabled = false;
             GetComponent<MeshCollider>().enabled = false;
 
             StartCoroutine(ApplyAndFreeze(other.transform));
@@ -62,9 +63,15 @@ public class MoveForwardAndReset : MonoBehaviour
         float timer = 2f;
         float moveSpeed = 0.013f; // units per second on the x-axis
         float elapsed = 0f;
+        SkinCollisionDecal detector = target.GetComponent<SkinCollisionDecal>();
 
-        while (timer > 0f)
+        while (true)
         {
+             if (detector != null && detector.isCollidingWithSkin)
+            {
+                Debug.Log("yes seleve");
+                break; // Stop moving if collision with "bone" occurred
+            }
             float xOffset = elapsed * moveSpeed;
             target.position = new Vector3(frozenPos.x - xOffset, frozenPos.y, frozenPos.z);
             target.rotation = frozenRot;
@@ -73,8 +80,9 @@ public class MoveForwardAndReset : MonoBehaviour
             timer -= Time.deltaTime;
             yield return null;
         }
-        float returnTimer = 2f;
+        float returnTimer = 5f;
         float returnElapsed = 0f;
+
 
         while (returnTimer > 0f)
         {
