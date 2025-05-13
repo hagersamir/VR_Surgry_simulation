@@ -41,7 +41,7 @@ public class naimte : MonoBehaviour
         pateintCover2.SetActive(true);
         pillow.SetActive(true);
         bone1.transform.SetParent(strightLegPatient.transform);
-        bone1.transform.SetParent(strightLegPatient.transform);
+        bone2.transform.SetParent(strightLegPatient.transform);
         feumer.transform.SetParent(strightLegPatient.transform);
         animPatient.SetActive(false);
         strightLegPatient.SetActive(true);

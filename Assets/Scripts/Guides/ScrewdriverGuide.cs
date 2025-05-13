@@ -10,12 +10,17 @@ public class screw : MonoBehaviour
     private Quaternion startRotation;
     private bool isMoving = true;  // Flag to control movement
 
+    private bool isDistal = false;
 
     void Start()
     {
         // Store the initial position and rotation
         startPosition = transform.position;
         startRotation = transform.rotation;
+        if (gameObject.name == "Screwdriver guide (2)")
+        {
+            isDistal = true;
+        }
     }
 
     void Update()
@@ -115,7 +120,16 @@ public class screw : MonoBehaviour
                 break; // Stop moving if collision with "bone" occurred
             }
             float xOffset = elapsed * moveSpeed;
-            target.position = new Vector3(frozenPos.x - xOffset, frozenPos.y, frozenPos.z);
+            if (isDistal)
+            {
+
+                target.position = new Vector3(frozenPos.x, frozenPos.y - xOffset, frozenPos.z);
+            }
+            else
+            {
+
+                target.position = new Vector3(frozenPos.x - xOffset, frozenPos.y, frozenPos.z);
+            }
             target.rotation = frozenRot;
 
             elapsed += Time.deltaTime;

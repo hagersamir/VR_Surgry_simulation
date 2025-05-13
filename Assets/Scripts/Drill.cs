@@ -66,6 +66,7 @@
 
 using UnityEngine;
 using DecalSystem;
+using Unity.VisualScripting;
 
 public class Drill : MonoBehaviour
 {
@@ -123,6 +124,11 @@ public class Drill : MonoBehaviour
 
             hasDuplicated = false;
         }
+
+        if (Input.GetKey(KeyCode.N))
+        {
+            eventManager.OnEventDistalDrilling();
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -156,10 +162,10 @@ public class Drill : MonoBehaviour
         {
             proximal_2 = false;
         }
-        if (eventManager.isDistalLocking)
-        {
-            eventManager.OnEventDistalDrilling();
-        }
+        // if (eventManager.isDistalLocking && other.gameObject.CompareTag("Bone"))
+        // {
+        //     eventManager.OnEventDistalDrilling();
+        // }
     }
 
     void DuplicateObject()
@@ -203,5 +209,9 @@ public class Drill : MonoBehaviour
         {
             eventManager?.OnEventProximalDrill_2();
         }
+        // if (eventManager.isDistalLocking)
+        // {
+        //     eventManager.OnEventDistalDrilling();
+        // }
     }
 }

@@ -8,6 +8,8 @@ public class drill : MonoBehaviour
 
     private Vector3 startPosition;
     private bool isMoving = true;  // Flag to control movement
+    private bool isDistal = false;
+
 
 
 
@@ -15,6 +17,10 @@ public class drill : MonoBehaviour
     {
         // Store the initial position
         startPosition = transform.position;
+        if (gameObject.name == "drill guide (2)")
+        {
+            isDistal = true;
+        }
     }
 
     void Update()
@@ -85,7 +91,16 @@ public class drill : MonoBehaviour
             }
 
             float xOffset = elapsed * moveSpeed;
-            target.position = new Vector3(frozenPos.x - xOffset, frozenPos.y, frozenPos.z);
+            if (isDistal)
+            {
+
+                target.position = new Vector3(frozenPos.x, frozenPos.y - xOffset, frozenPos.z);
+            }
+            else
+            {
+
+                target.position = new Vector3(frozenPos.x - xOffset, frozenPos.y, frozenPos.z);
+            }
             target.rotation = frozenRot;
 
             elapsed += Time.deltaTime;

@@ -86,6 +86,7 @@
 using UnityEngine;
 using DecalSystem;
 using UnityEditor;
+using Unity.VisualScripting;
 
 public class smallCut : MonoBehaviour
 {
@@ -100,6 +101,7 @@ public class smallCut : MonoBehaviour
 
     public EventManager eventManager; // Assign in inspector
     private bool proxmial_1 = false;
+    private bool proxmial_2 = false;
     public bool madeCut = false;
 
 
@@ -137,13 +139,14 @@ public class smallCut : MonoBehaviour
         }
         else if (other.CompareTag("ProximalLock2") && proxmial_1)
         {
+            proxmial_2 = true;
             eventManager.OnEventProximalCut_2();
 
         }
-        if (eventManager.isDistalLocking)
-        {
-            eventManager.OnEventDistalCut();
-        }
+        // if (eventManager.isDistalLocking && proxmial_2)
+        // {
+        //     eventManager.OnEventDistalCut();
+        // }
     }
     private void OnTriggerExit(Collider other)
     {
@@ -162,6 +165,14 @@ public class smallCut : MonoBehaviour
             child.gameObject.SetActive(false);
             madeCut = true;
             // }
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetKey(KeyCode.M))
+        {
+            eventManager.OnEventDistalCut();
         }
     }
 }

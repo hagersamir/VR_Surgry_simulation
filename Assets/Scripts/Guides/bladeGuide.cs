@@ -162,6 +162,7 @@ public class blade : MonoBehaviour
     private Vector3 startPosition;
     private Quaternion startRotation;
     private bool isMoving = true;
+    private bool isDistal = false;
 
     void Start()
     {
@@ -171,6 +172,11 @@ public class blade : MonoBehaviour
 
         // Start the animation coroutine
         StartCoroutine(AnimateBlade());
+
+        if (gameObject.name == "plade guide (2)")
+        {
+            isDistal = true;
+        }
     }
 
     IEnumerator AnimateBlade()
@@ -230,6 +236,7 @@ public class blade : MonoBehaviour
             StartCoroutine(ApplyAndFreeze(other.transform));
             isMoving = false;
 
+
         }
 
     }
@@ -265,7 +272,16 @@ public class blade : MonoBehaviour
                 break; // Stop moving if collision with "bone" occurred
             }
             float xOffset = elapsed * moveSpeed;
-            target.position = new Vector3(frozenPos.x - xOffset, frozenPos.y, frozenPos.z);
+            if (isDistal)
+            {
+
+                target.position = new Vector3(frozenPos.x, frozenPos.y - xOffset, frozenPos.z);
+            }
+            else
+            {
+
+                target.position = new Vector3(frozenPos.x - xOffset, frozenPos.y, frozenPos.z);
+            }
             target.rotation = frozenRot;
 
             elapsed += Time.deltaTime;
