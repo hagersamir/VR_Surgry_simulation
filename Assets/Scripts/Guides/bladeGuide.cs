@@ -291,6 +291,7 @@ public class blade : MonoBehaviour
         //     // rb.isKinematic = false;
         // }
         gameObject.SetActive(false);
+        detector.madeCut = false;
 
     }
 

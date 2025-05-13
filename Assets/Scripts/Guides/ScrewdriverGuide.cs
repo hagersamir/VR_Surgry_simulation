@@ -128,7 +128,7 @@ public class screw : MonoBehaviour
             // rb.isKinematic = false;
         }
         gameObject.SetActive(false);
-
+        detector.ScrewPlaced = false;
     }
 
 

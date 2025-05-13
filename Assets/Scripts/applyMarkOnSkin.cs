@@ -57,7 +57,7 @@ public class SkinCollisionDecal : MonoBehaviour
             eventManager.OnEventProximalTrochar_1();
 
         }
-        else if (other.CompareTag("ProximalLock2"))
+         if (other.CompareTag("ProximalLock2"))
         {
             eventManager.OnEventProximalTrochar_2();
 

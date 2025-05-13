@@ -67,7 +67,7 @@ public class MoveForwardAndReset : MonoBehaviour
 
         while (true)
         {
-             if (detector != null && detector.isCollidingWithSkin)
+            if (detector != null && detector.isCollidingWithSkin)
             {
                 Debug.Log("yes seleve");
                 break; // Stop moving if collision with "bone" occurred
@@ -86,7 +86,7 @@ public class MoveForwardAndReset : MonoBehaviour
 
         while (returnTimer > 0f)
         {
-            float xOffset = (1f - (returnElapsed / 2f)) * (elapsed * (moveSpeed*2)); // Linearly interpolate back
+            float xOffset = (1f - (returnElapsed / 2f)) * (elapsed * (moveSpeed * 2)); // Linearly interpolate back
             target.position = new Vector3(frozenPos.x - xOffset, frozenPos.y, frozenPos.z);
             target.rotation = frozenRot;
 
@@ -100,6 +100,7 @@ public class MoveForwardAndReset : MonoBehaviour
             // rb.isKinematic = false;
         }
         gameObject.SetActive(false);
+        detector.isCollidingWithSkin = false;
 
     }
 }

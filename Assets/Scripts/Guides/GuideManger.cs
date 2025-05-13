@@ -183,7 +183,7 @@ public class EventManager : MonoBehaviour
     {
         //this functuion is called when the actual trochar  is placed and made a mark on the skin
         // animate the skin cutting
-        textDisplay.ShowTask("now drill to the bone");
+        textDisplay.ShowTask("amke a cut");
 
         if (bladeProximal_2.gameObject != null)
         {
