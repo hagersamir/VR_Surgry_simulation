@@ -5,7 +5,12 @@ public class SkinCollisionDecal : MonoBehaviour
 {
     public EventManager eventManager; // Assign in inspector
     public bool isCollidingWithSkin = false;
+    private Vector3 targetPosition = new Vector3(-0.0882999972f, 1.21169996f, -0.290100008f);
+    public float moveSpeed = 2f; // Units per second
 
+    private bool shouldMove = false;
+    private bool move = false;
+    private Vector3 targetPos;
     private void OnTriggerEnter(Collider other)
     {
         // remove the box collider of the skin and add the mesh to make the mark on thre right place
@@ -57,12 +62,33 @@ public class SkinCollisionDecal : MonoBehaviour
             eventManager.OnEventProximalTrochar_1();
 
         }
-         if (other.CompareTag("ProximalLock2"))
+        if (other.CompareTag("ProximalLock2"))
         {
             eventManager.OnEventProximalTrochar_2();
 
         }
     }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            transform.GetComponent<MeshCollider>().enabled = false;
+
+            targetPos = transform.position - new Vector3(0.01f, 0f, 0f);
+            move = true;
+        }
+
+        if (move)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, targetPos, 0.05f * Time.deltaTime);
+            if (Vector3.Distance(transform.position, targetPos) < 0.001f)
+            {
+                move = false;
+            }
+        }
+    }
+
 
     // private void OnTriggerExit(Collider other)
     // {

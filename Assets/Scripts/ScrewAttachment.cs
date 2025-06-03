@@ -6,8 +6,8 @@ public class ScrewAttachment : MonoBehaviour
     public bool isInHole = false;
     public EventManager eventManager; // Assign in inspector
     private bool hasScrewChild = false;
-    public bool ScrewPlaced= false;
-
+    public bool ScrewPlaced = false;
+    private MeshCollider mc;
 
     private void Start()
     {
@@ -19,30 +19,34 @@ public class ScrewAttachment : MonoBehaviour
     {
         Debug.Log("saf");
 
-        if (other.CompareTag("ScrewDriver") && other.name == "Cylinder06 (1)" && !isInHole)
+        if (other.CompareTag("ScrewDriver") && !isInHole)
 
         {
+
             Transform screw = transform;
             Transform screwdriver = other.transform;
-            foreach (Transform child in other.transform)
-            {
-                if (child.CompareTag("Screw"))
-                {
-                    hasScrewChild = true;
-                    break;
-                }
-            }
+            mc = screwdriver.GetComponent<MeshCollider>();
+
+            mc.enabled = false;
+            // foreach (Transform child in other.transform)
+            // {
+            //     if (child.CompareTag("Screw"))
+            //     {
+            //         hasScrewChild = true;
+            //         break;
+            //     }
+            // }
 
             // Set the screw as a child of the screwdriver
-            if (!hasScrewChild)
-            {
-                screw.SetParent(screwdriver);
+            // if (!hasScrewChild)
+            // {
+            screw.SetParent(screwdriver);
 
-                // Apply the specified world transformation
-                screw.transform.localPosition = new Vector3(-0.23f, 0.28f, 0.71f);
-                screw.transform.localScale = new Vector3(1.17f, 1.17f, 1.17f);
-                screw.transform.localRotation = new Quaternion(-0.01696f, 0.70742f, 0.01890f, -0.70634f);
-            }
+            // Apply the specified world transformation
+            screw.transform.localPosition = new Vector3(-0.23f, 0.28f, 0.71f);
+            screw.transform.localScale = new Vector3(1.17f, 1.17f, 1.17f);
+            screw.transform.localRotation = new Quaternion(-0.01696f, 0.70742f, 0.01890f, -0.70634f);
+            // }
 
         }
         if (other.CompareTag("hole"))
@@ -50,6 +54,12 @@ public class ScrewAttachment : MonoBehaviour
             isInHole = true;
             Debug.Log("brush");
             transform.SetParent(other.transform);
+            mc.enabled = true;
+
+            // transform.tag = "Untagged";
+            // hasScrewChild = false;
+
+            transform.GetComponent<MeshCollider>().enabled = false;
             ScrewPlaced = true;
             // eventManager.OnEventProximalScrew_1();
         }

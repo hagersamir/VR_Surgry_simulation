@@ -280,7 +280,9 @@ public class blade : MonoBehaviour
             else
             {
 
-                target.position = new Vector3(frozenPos.x - xOffset, frozenPos.y, frozenPos.z);
+                // target.position = new Vector3(frozenPos.x - xOffset, frozenPos.y, frozenPos.z);
+                target.position = frozenPos + target.right * xOffset;
+
             }
             target.rotation = frozenRot;
 

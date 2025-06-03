@@ -50,7 +50,7 @@ public class MoveForwardAndReset : MonoBehaviour
         target.position = transform.position;
         // target.position = transform.position;
         target.rotation = transform.rotation;
-
+        target.GetComponent<MeshCollider>().enabled = true;
         Rigidbody rb = target.GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -61,7 +61,7 @@ public class MoveForwardAndReset : MonoBehaviour
         Quaternion frozenRot = target.rotation;
 
         float timer = 2f;
-        float moveSpeed = 0.013f; // units per second on the x-axis
+        float moveSpeed = 0.05f; // units per second on the x-axis
         float elapsed = 0f;
         SkinCollisionDecal detector = target.GetComponent<SkinCollisionDecal>();
 
@@ -80,20 +80,41 @@ public class MoveForwardAndReset : MonoBehaviour
             timer -= Time.deltaTime;
             yield return null;
         }
-        float returnTimer = 5f;
-        float returnElapsed = 0f;
 
+        // while (returnTimer > 0f)
+        // {
+        //     float xOffset = (1f - (returnElapsed / 2f)) * (elapsed * (moveSpeed * 2)); // Linearly interpolate back
+        //     target.position = new Vector3(frozenPos.x - xOffset, frozenPos.y, frozenPos.z);
 
-        while (returnTimer > 0f)
+        //     target.rotation = frozenRot;
+
+        //     returnElapsed += Time.deltaTime;
+        //     returnTimer -= Time.deltaTime;
+        //     yield return null;
+
+        //     // float xOffset = elapsed * moveSpeed;
+        //     // target.position = new Vector3(frozenPos.x + xOffset, frozenPos.y, frozenPos.z);
+        //     // target.rotation = frozenRot;
+
+        //     // returnElapsed += Time.deltaTime;
+        //     // returnTimer -= Time.deltaTime;
+        //     // yield return null;
+        // }
+        // After the first loop breaks
+        // Move back slightly in X direction
+        float backElapsed = 0f;
+        float backDistance = 0.07f; // Adjust this value as needed
+        float backDuration = backDistance / moveSpeed;
+
+        Vector3 startPos = target.position;
+        while (backElapsed < backDuration)
         {
-            float xOffset = (1f - (returnElapsed / 2f)) * (elapsed * (moveSpeed * 2)); // Linearly interpolate back
-            target.position = new Vector3(frozenPos.x - xOffset, frozenPos.y, frozenPos.z);
-            target.rotation = frozenRot;
-
-            returnElapsed += Time.deltaTime;
-            returnTimer -= Time.deltaTime;
+            float backOffset = backElapsed * moveSpeed;
+            target.position = new Vector3(startPos.x + backOffset, startPos.y, startPos.z);
+            backElapsed += Time.deltaTime;
             yield return null;
         }
+
 
         if (rb != null)
         {
