@@ -33,7 +33,7 @@ public class EventManager : MonoBehaviour
     }
 
     // -----------------------------Added part salma ----------------------------------
-    // this is called when the player is done using the skin is cut
+    // this is called when the skin is cut
     public void OnEventSkinCut()
     {
         // Display the task to the user
@@ -342,6 +342,8 @@ public class EventManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         obj.SetActive(true);
+        yield return new WaitForSeconds(4);
+        obj.SetActive(false);
     }
 
 
