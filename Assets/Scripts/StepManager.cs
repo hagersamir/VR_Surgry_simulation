@@ -47,6 +47,7 @@ public class StepManager : MonoBehaviour
 
         cornerText.text = "Step 1 is finished well!";
         yield return new WaitForSeconds(2f);
+        cornerText.text = "Task 2: Guide wire & Nail Insertion";
 
         // Move to next step
         currentStep++;
@@ -107,16 +108,16 @@ public class StepManager : MonoBehaviour
             yield return new WaitForSeconds(3f);
             HideTask();
         }
-        else
-        {
-            foreach (string note in stepNotes[currentStep - 1])
-            {
-                yield return new WaitForSeconds(5f);
-                ShowTask(note.Replace("TASK :", "<b><color=#2A7FFF>TASK : </color></b>"));
-                yield return new WaitForSeconds(45f);
-                HideTask();
-            }
-        }
+        // else
+        // {
+        //     foreach (string note in stepNotes[currentStep - 1])
+        //     {
+        //         yield return new WaitForSeconds(5f);
+        //         ShowTask(note.Replace("TASK :", "<b><color=#2A7FFF>TASK : </color></b>"));
+        //         yield return new WaitForSeconds(45f);
+        //         HideTask();
+        //     }
+        // }
     }
 
     public void ShowTask(string message)

@@ -23,6 +23,7 @@ TagManager:
   - screwdriver
   - bit
   - GuideWire
+  - EntrySite
   layers:
   - Default
   - TransparentFX
