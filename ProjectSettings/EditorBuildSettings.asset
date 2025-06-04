@@ -11,6 +11,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TrainingScene.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
+  - enabled: 1
+    path: Assets/Scenes/LoginScene.unity
+    guid: 7c8f2d7e9f0919a4ebf56cda9fa8549c
+  - enabled: 1
+    path: Assets/Scenes/AssessmentScene.unity
+    guid: e31605deb1d390a40b9b2396a705ddd7
   m_configObjects:
     Unity.XR.Oculus.Settings: {fileID: 11400000, guid: 388f6383f1cd9434d8792561e7a5c50a, type: 2}
     com.unity.xr.management.loader_settings: {fileID: 11400000, guid: 703b97aa52838b242b0234298c5b049d, type: 2}
