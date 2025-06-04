@@ -32,6 +32,19 @@ public class EventManager : MonoBehaviour
         }
     }
 
+    public void onEventGuideWire()
+    {
+        textDisplay.ShowTask("Place trochar on bone and  mark skin");
+            // animate the trocher shit
+            if (trochar_1.gameObject != null)
+            {
+
+                StartCoroutine(ActivateWithDelay(trochar_1, 2f)); // 2 seconds delay
+                // trochar_1.SetActive(true);
+
+            }
+    }
+
     // -----------------------------Added part salma ----------------------------------
     // this is called when the skin is cut
     public void OnEventSkinCut()
