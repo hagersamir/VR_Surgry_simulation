@@ -342,8 +342,8 @@ public class EventManager : MonoBehaviour
     {
         yield return new WaitForSeconds(delay);
         obj.SetActive(true);
-        yield return new WaitForSeconds(4);
-        obj.SetActive(false);
+        // yield return new WaitForSeconds(4);
+        // obj.SetActive(false);
     }
 
 

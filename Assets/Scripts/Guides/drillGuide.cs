@@ -43,8 +43,12 @@ public class drill : MonoBehaviour
         {
             Debug.Log($"{gameObject.name}collided with {other.name}");
             GetComponent<MeshRenderer>().enabled = false;
-            GetComponent<MeshCollider>().enabled = false;
+            // GetComponent<MeshCollider>().enabled = false;
 
+            foreach (MeshRenderer renderer in GetComponentsInChildren<MeshRenderer>())
+            {
+                renderer.enabled = false;
+            }
             StartCoroutine(ApplyAndFreeze(other.transform));
             isMoving = false; // Stop movement
         }

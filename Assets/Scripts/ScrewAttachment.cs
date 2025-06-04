@@ -43,7 +43,7 @@ public class ScrewAttachment : MonoBehaviour
             screw.SetParent(screwdriver);
 
             // Apply the specified world transformation
-            screw.transform.localPosition = new Vector3(-0.23f, 0.28f, 0.71f);
+            screw.transform.localPosition = new Vector3(-0.243f, 0.282f, 0.696f);
             screw.transform.localScale = new Vector3(1.17f, 1.17f, 1.17f);
             screw.transform.localRotation = new Quaternion(-0.01696f, 0.70742f, 0.01890f, -0.70634f);
             // }
@@ -105,4 +105,3 @@ public class ScrewAttachment : MonoBehaviour
 // Local Scale: (1.17, 1.17, 1.17)
 // UnityEngine.Debug:Log (object)
 // ScrewAttachment:Start () (at Assets/Scripts/ScrewAttachment.cs:9)
-

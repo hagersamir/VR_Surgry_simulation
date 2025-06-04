@@ -49,7 +49,10 @@ public class screw : MonoBehaviour
             isMoving = false; // Stop movement
 
             Debug.Log($"{gameObject.name}collided with {other.name}");
-            GetComponent<MeshRenderer>().enabled = false;
+            foreach (MeshRenderer renderer in GetComponentsInChildren<MeshRenderer>())
+            {
+                renderer.enabled = false;
+            }
             GetComponent<MeshCollider>().enabled = false;
 
             StartCoroutine(ApplyAndFreeze(other.transform));
