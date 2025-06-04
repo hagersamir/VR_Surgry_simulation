@@ -14,9 +14,10 @@ public class THandleGuideWire : MonoBehaviour
         if (other.CompareTag("THandle Limit"))
         {
             // Snap to the target position and rotation
-            transform.position = snapPosition;
-            transform.rotation = snapRotation;
+            // transform.position = snapPosition;
+            // transform.rotation = snapRotation;
             Awl.SetActive(true);
+            Awl.GetComponent<Animator>().enabled = false;
             // begin awl task after T-Handle is used 
             eventManager.OnEventTHandleUsed();
         }

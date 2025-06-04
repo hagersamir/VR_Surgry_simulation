@@ -45,5 +45,6 @@ public class Blade : MonoBehaviour
         // Optionally disable the object after fading out
         gameObject.SetActive(false);
         THandle.SetActive(true);
+        THandle.GetComponent<Animator>().enabled = false;
     }
 }

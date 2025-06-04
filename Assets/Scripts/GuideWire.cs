@@ -8,8 +8,10 @@ public class GuideWire : MonoBehaviour
     public EventManager eventManager;  // Assign in inspector
     public TextMeshProUGUI cornerText;
     public float fadeDuration = 1.5f; // Duration of the fade effect (seconds)
-    private Vector3 snapPosition = new Vector3(-0.113f, 1.056f, -0.388f);
-    private Quaternion snapRotation = Quaternion.Euler(54.546f, 182.119f, 182.141f);
+    // private Vector3 snapPosition = new Vector3(-0.113f, 1.056f, -0.388f);
+    private Vector3 snapPosition = new Vector3(-0.108999997f, 1.05799997f, -0.388000011f);
+    // private Quaternion snapRotation = Quaternion.Euler(54.546f, 182.119f, 182.141f);
+    private Quaternion snapRotation = Quaternion.Euler(0, 0, 0);
     private Material wireMaterial;
     private bool isFading = false;
     public GameObject aimingGuide;
