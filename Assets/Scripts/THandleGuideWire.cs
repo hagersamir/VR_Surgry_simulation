@@ -11,7 +11,7 @@ public class THandleGuideWire : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // player has finished using the T-Handle Guide wire 
-        if (other.CompareTag("THandle"))
+        if (other.CompareTag("THandle Limit"))
         {
             // Snap to the target position and rotation
             transform.position = snapPosition;

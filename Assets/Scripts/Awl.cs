@@ -25,7 +25,7 @@ public class Awl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Awl") && !isFading)
+        if (other.CompareTag("Awl Limit") && !isFading)
         {
             isFading = true;
 

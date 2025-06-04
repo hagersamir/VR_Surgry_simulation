@@ -22,7 +22,7 @@ public class Blade : MonoBehaviour
             isFading = true;
             // Start the fading animation
             StartCoroutine(FadeOut());
-            //begin Guide wire removal task after nail is inserted 
+            //begin THandle Task
             eventManager.OnEventSkinCut();
         }
     }

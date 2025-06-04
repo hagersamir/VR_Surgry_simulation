@@ -24,6 +24,10 @@ TagManager:
   - bit
   - GuideWire
   - EntrySite
+  - blade
+  - Awl Limit
+  - Nail Limit
+  - THandle Limit
   layers:
   - Default
   - TransparentFX
