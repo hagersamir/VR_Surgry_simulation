@@ -128,6 +128,8 @@ public class smallCut : MonoBehaviour
         if (other.gameObject.CompareTag("Skin"))
         {
 
+            madeCut = true;
+
             child.gameObject.SetActive(true);
             // eventManager.OnEventProximalCut_1();
         }
@@ -163,7 +165,6 @@ public class smallCut : MonoBehaviour
             instance.transform.localScale = childLocalScale;
             child = instance.transform;
             child.gameObject.SetActive(false);
-            madeCut = true;
             // }
         }
     }
