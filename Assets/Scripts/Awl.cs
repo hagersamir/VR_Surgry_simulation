@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using TMPro;
 
 public class Awl : MonoBehaviour
 {
     public EventManager eventManager;      // Assign in inspector
+    public TextMeshProUGUI cornerText;
     public GameObject guideWire, THandle;  // Assign in inspector
     public float fadeDuration = 1.5f;      // Duration of the fade effect (seconds)
-    // public string animationName = "Awl"; // Name of forward animation
 
     private Material awlMaterial;
     private Material tHandleMaterial;
@@ -75,6 +76,9 @@ public class Awl : MonoBehaviour
         {
             tHandleMaterial.color = new Color(initialTHandleColor.r, initialTHandleColor.g, initialTHandleColor.b, 0f);
         }
+        cornerText.text = "Task 2 Is Done!";
+        yield return new WaitForSeconds(2f);
+        cornerText.text = "Task 3: Guide Wire And Nail Insertion";
 
         gameObject.SetActive(false);
         if (THandle != null)

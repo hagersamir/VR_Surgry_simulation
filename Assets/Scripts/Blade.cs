@@ -9,11 +9,12 @@ public class Blade : MonoBehaviour
     private Material bladeMaterial;
     private bool isFading = false;
     public GameObject THandle;
-    public GameObject guideWire;
+    public GameObject guideWire, guideWireRemovalDetector;
 
     private void Start()
     {
         bladeMaterial = GetComponent<Renderer>().material;
+        guideWireRemovalDetector.SetActive(false);
     }
     private void OnTriggerEnter(Collider other)
     {

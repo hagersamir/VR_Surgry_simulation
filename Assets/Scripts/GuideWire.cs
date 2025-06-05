@@ -30,6 +30,7 @@ public class GuideWire : MonoBehaviour
             transform.rotation = snapRotation;
             aimingGuide.SetActive(true);
             aimingGuide.GetComponent<Animator>().enabled = false;
+            GetComponent<Animator>().enabled = false;
             //begin nail task after Guide wire is inserted 
             eventManager.OnEventGuideWireUsed();
         }
@@ -38,19 +39,28 @@ public class GuideWire : MonoBehaviour
         if (other.CompareTag("GuideWire") && !isFading)
         {
             isFading = true;
+            // Begin DRILLING TASKs after Guide wire is removed 
+            eventManager.onEventGuideWire();
             // Start the fading animation
             StartCoroutine(FadeOut());
-            // cornerText.text = "Step 2 is Done!";
-            // yield return new WaitForSeconds(2f);
-            // cornerText.text = "";
-            eventManager.onEventGuideWire();
-            // Begin DRILLING TASKs after Guide wire is removed 
-            // HERE
         }
     }
     private IEnumerator FadeOut()
     {
+        Debug.Log("FadeOut coroutine started");
+
         Color initialColor = wireMaterial.color;
+
+        // // Ensure the material is using transparent rendering
+        // wireMaterial.SetFloat("_Mode", 3);
+        // wireMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        // wireMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        // wireMaterial.SetInt("_ZWrite", 0);
+        // wireMaterial.DisableKeyword("_ALPHATEST_ON");
+        // wireMaterial.EnableKeyword("_ALPHABLEND_ON");
+        // wireMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        // wireMaterial.renderQueue = 3000;
+
         float elapsedTime = 0f;
 
         while (elapsedTime < fadeDuration)
@@ -61,14 +71,13 @@ public class GuideWire : MonoBehaviour
             yield return null;
         }
 
-        // Ensure it's fully transparent at the end
         wireMaterial.color = new Color(initialColor.r, initialColor.g, initialColor.b, 0f);
 
-        // Optionally disable the object after fading out
-        gameObject.SetActive(false);
-
-        cornerText.text = "Task 2 is Done!";
+        cornerText.text = "Task 3 Is Done!";
         yield return new WaitForSeconds(2f);
-        cornerText.text = "Task 3: Nail Locking";
+        cornerText.text = "Task 4: Nail Locking";
+
+        gameObject.SetActive(false); // Disable only after text is shown
     }
+
 }

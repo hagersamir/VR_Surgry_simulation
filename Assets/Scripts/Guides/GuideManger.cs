@@ -2,12 +2,14 @@ using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.Rendering;
+using TMPro;
 
 public class EventManager : MonoBehaviour
 {
-    public GameObject trochar_1, bladeProximal_1, awlGuide, THandleGuide, guideWireGuide, nailGuide, drill_1, ScrewdriverProximal_1, trochar_2, bladeProximal_2, drill_2, ScrewdriverProximal_2, pladeDistal, DrillDistal, ScrewdriverDistal;
+    public GameObject trochar_1, bladeProximal_1, awlGuide, THandleGuide, guideWireGuide, guideWireRemovalDetector, wire1, wire2, nailGuide, drill_1, ScrewdriverProximal_1, trochar_2, bladeProximal_2, drill_2, ScrewdriverProximal_2, pladeDistal, DrillDistal, ScrewdriverDistal;
 
     public StepManager textDisplay; // Drag ObjectA (with ScriptA) here in the inspector
+    public TextMeshProUGUI cornerText;
     public naimte animateScript; // Assign in inspector
     public bool isDistalLocking = false;
 
@@ -97,11 +99,15 @@ public class EventManager : MonoBehaviour
     {
         // Display the task to the user
         textDisplay.ShowTask("Remove The Guide Wire");
+        guideWireRemovalDetector.SetActive(true);
+        wire1.SetActive(false);
+        wire2.SetActive(true);
+        
 
         if (guideWireGuide.gameObject != null)
         {
             // StartCoroutine(ActivateWithDelay(nailGuide, 2f)); // 2 seconds delay
-            // Activate the Awl Guide
+            // Activate the guide wire Guide
             guideWireGuide.SetActive(true);
 
             // Get the Animator component

@@ -1,15 +1,22 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Nail : MonoBehaviour
 {
     public EventManager eventManager;  // Assign in inspector
+    private XRGrabInteractable grab;
 
     // Target snap position and rotation
     private Vector3 snapPosition = new Vector3(-0.014f, 1.208f, -0.271f);
     // private Quaternion snapRotation = Quaternion.Euler(58.928f, 182.693f, 2.088f);
     private Quaternion snapRotation = Quaternion.Euler(57.6535378f,184.882233f,4.98095989f);
+
+    void Awake()
+    {
+        grab = GetComponent<XRGrabInteractableTwoAttach>();
+    }
     private void OnTriggerEnter(Collider other)
     {
         // player has finished using the T-Handle Guide wire 
@@ -27,6 +34,7 @@ public class Nail : MonoBehaviour
             animator.enabled = true;
             StartCoroutine(Animate(animator));
             other.gameObject.SetActive(false);
+            grab.enabled = false;
         }
     }
 
@@ -34,13 +42,11 @@ public class Nail : MonoBehaviour
     {
         if (animator != null)
         {
-            // animator.SetTrigger("playTHandle");
             animator.Play("Nail"); // Play the insertion animation
             Debug.Log("Animation started");
 
             // Wait for animation to finish before proceeding
             yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
-            animator.enabled = false;
         }
         else
         {

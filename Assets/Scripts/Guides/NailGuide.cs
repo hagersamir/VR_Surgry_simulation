@@ -20,14 +20,7 @@ public class NailGuide : MonoBehaviour
     {
         // Match world transform
         target.position = transform.position;
-        // target.position = transform.position;
         target.rotation = transform.rotation;
-        // target.GetComponent<MeshCollider>().enabled = true;
-        // Rigidbody rb = target.GetComponent<Rigidbody>();
-        // if (rb != null)
-        // {
-        //     rb.isKinematic = true;
-        // }
 
         Vector3 frozenPos = target.position;
         Quaternion frozenRot = target.rotation;

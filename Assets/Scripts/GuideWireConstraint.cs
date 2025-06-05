@@ -13,7 +13,7 @@ public class GuideWireConstraint : MonoBehaviour
         grab = GetComponent<XRGrabInteractableTwoAttach>();
         grab.selectEntered.AddListener(OnGrabbed);
 
-        // Optional: disable animator at start if needed
+        // Disable animator at start if needed
         if (animator != null)
         {
             animator.enabled = false;
@@ -22,17 +22,18 @@ public class GuideWireConstraint : MonoBehaviour
 
     void OnGrabbed(SelectEnterEventArgs args)
     {
+        // Lock rotation during grab
+        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         if (!hasInserted && animator != null)
         {
             animator.enabled = true;
 
-            // Optional: start from 0.75 sec if your animation is 1 sec long
+            // Start from 0.75 sec if your animation is 1 sec long
             float normalizedStartTime = 0.75f; // change if needed
-            animator.Play("GuideWire", 0, normalizedStartTime); 
+            animator.Play("GuideWire", 0, normalizedStartTime);
 
             hasInserted = true;
 
-            // Optional: disable grab if you want to prevent moving afterward
             // grab.enabled = false;
         }
     }
