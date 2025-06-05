@@ -23,13 +23,13 @@ public class GuideWire : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // player has finished inserting the Guide wire 
-        if (other.CompareTag("wire") && !aimingGuide.activeSelf)
+        if (other.CompareTag("wire"))
         {
             // Snap to the target position and rotation
             transform.position = snapPosition;
             transform.rotation = snapRotation;
-            aimingGuide.SetActive(true);
-            aimingGuide.GetComponent<Animator>().enabled = false;
+            // aimingGuide.SetActive(true);
+            // aimingGuide.GetComponent<Animator>().enabled = false;
             GetComponent<Animator>().enabled = false;
             //begin nail task after Guide wire is inserted 
             eventManager.OnEventGuideWireUsed();
@@ -74,7 +74,7 @@ public class GuideWire : MonoBehaviour
         wireMaterial.color = new Color(initialColor.r, initialColor.g, initialColor.b, 0f);
 
         cornerText.text = "Task 3 Is Done!";
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(3f);
         cornerText.text = "Task 4: Nail Locking";
 
         gameObject.SetActive(false); // Disable only after text is shown

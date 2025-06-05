@@ -23,7 +23,7 @@ public class GuideWireConstraint : MonoBehaviour
     void OnGrabbed(SelectEnterEventArgs args)
     {
         // Lock rotation during grab
-        GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+        // GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         if (!hasInserted && animator != null)
         {
             animator.enabled = true;

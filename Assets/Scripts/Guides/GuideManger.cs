@@ -7,13 +7,20 @@ using TMPro;
 public class EventManager : MonoBehaviour
 {
     public GameObject trochar_1, bladeProximal_1, awlGuide, THandleGuide, guideWireGuide, guideWireRemovalDetector, wire1, wire2, nailGuide, drill_1, ScrewdriverProximal_1, trochar_2, bladeProximal_2, drill_2, ScrewdriverProximal_2, pladeDistal, DrillDistal, ScrewdriverDistal;
-
+    public GameObject drill, screw1, screw2, screw3, trochar, cuttingBlade, screwDriver;
+    public GameObject THandle, awl, nail;
     public StepManager textDisplay; // Drag ObjectA (with ScriptA) here in the inspector
     public TextMeshProUGUI cornerText;
     public naimte animateScript; // Assign in inspector
     public bool isDistalLocking = false;
 
-
+    private void Start()
+    {
+        THandle.GetComponent<Animator>().enabled = false;
+        wire1.GetComponent<Animator>().enabled = false;
+        awl.GetComponent<Animator>().enabled = false;
+        nail.GetComponent<Animator>().enabled = false;
+    }
     private void Update()
     {
         // this is just temprory till i integrat my part with salma
@@ -34,20 +41,6 @@ public class EventManager : MonoBehaviour
         }
     }
 
-    public void onEventGuideWire()
-    {
-        textDisplay.ShowTask("Place trochar on bone and  mark skin");
-            // animate the trocher shit
-            if (trochar_1.gameObject != null)
-            {
-
-                StartCoroutine(ActivateWithDelay(trochar_1, 2f)); // 2 seconds delay
-                // trochar_1.SetActive(true);
-
-            }
-    }
-
-    // -----------------------------Added part salma ----------------------------------
     // this is called when the skin is cut
     public void OnEventSkinCut()
     {
@@ -102,7 +95,6 @@ public class EventManager : MonoBehaviour
         guideWireRemovalDetector.SetActive(true);
         wire1.SetActive(false);
         wire2.SetActive(true);
-        
 
         if (guideWireGuide.gameObject != null)
         {
@@ -123,6 +115,27 @@ public class EventManager : MonoBehaviour
                 StartCoroutine(DeactivateAfterSeconds(guideWireGuide, 2f));
             }
         }
+    }
+
+    public void onEventGuideWire()
+    {
+        drill.SetActive(true);
+        trochar.SetActive(true);
+        screw1.SetActive(true);
+        screw2.SetActive(true);
+        screw3.SetActive(true);
+        cuttingBlade.SetActive(true);
+        screwDriver.SetActive(true);
+
+        textDisplay.ShowTask("Place trochar on bone and  mark skin");
+            // animate the trocher shit
+            if (trochar_1.gameObject != null)
+            {
+
+                StartCoroutine(ActivateWithDelay(trochar_1, 2f)); // 2 seconds delay
+                // trochar_1.SetActive(true);
+
+            }
     }
 
     private IEnumerator DeactivateAfterSeconds(GameObject obj, float seconds)
