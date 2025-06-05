@@ -20,5 +20,30 @@ public class Nail : MonoBehaviour
             //begin Guide wire removal task after nail is inserted 
             eventManager.OnEventNailUsed();
         }
+        if (other.CompareTag("nail"))
+        {
+            Animator animator = GetComponent<Animator>();
+            animator.enabled = true;
+            StartCoroutine(Animate(animator));
+            other.gameObject.SetActive(false);
+        }
+    }
+
+    IEnumerator Animate(Animator animator)
+    {
+        if (animator != null)
+        {
+            // animator.SetTrigger("playTHandle");
+            animator.Play("Nail"); // Play the insertion animation
+            Debug.Log("Animation started");
+
+            // Wait for animation to finish before proceeding
+            yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+            animator.enabled = false;
+        }
+        else
+        {
+            Debug.LogWarning("No Animator found on tool.");
+        }
     }
 }

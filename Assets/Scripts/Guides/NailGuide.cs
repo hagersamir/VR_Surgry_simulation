@@ -9,7 +9,7 @@ public class NailGuide : MonoBehaviour
         // Check if the other object has the same tag
         if (other.CompareTag(gameObject.tag))
         {
-            // GetComponent<MeshRenderer>().enabled = false;
+            GetComponent<MeshRenderer>().enabled = false;
             GetComponent<MeshCollider>().enabled = false;
 
             StartCoroutine(ApplyAndFreeze(other.transform));
