@@ -29,6 +29,7 @@ public class GuideWire : MonoBehaviour
             transform.position = snapPosition;
             transform.rotation = snapRotation;
             aimingGuide.SetActive(true);
+            aimingGuide.GetComponent<Animator>().enabled = false;
             //begin nail task after Guide wire is inserted 
             eventManager.OnEventGuideWireUsed();
         }

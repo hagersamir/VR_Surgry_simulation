@@ -83,6 +83,7 @@ public class EventManager : MonoBehaviour
     // this is called when the player is done inserting the guide wire to the distal end of the bone
     public void OnEventGuideWireUsed()
     {
+        guideWireGuide.gameObject.SetActive(false);
         // Display the task to the user
         textDisplay.ShowTask("Insert The Nail");
 

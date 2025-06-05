@@ -28,7 +28,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: guide_wire
+  m_Name: GuideWire
   serializedVersion: 5
   m_AnimatorParameters: []
   m_AnimatorLayers:
@@ -64,7 +64,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 9b26befb45d14b84685e0f6dc55c5ce3, type: 2}
+  m_Motion: {fileID: 7400000, guid: d025dd2cae9b7a54bb85f4707d7ce77d, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 

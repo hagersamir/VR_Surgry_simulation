@@ -9,6 +9,7 @@ public class Blade : MonoBehaviour
     private Material bladeMaterial;
     private bool isFading = false;
     public GameObject THandle;
+    public GameObject guideWire;
 
     private void Start()
     {
@@ -46,5 +47,6 @@ public class Blade : MonoBehaviour
         gameObject.SetActive(false);
         THandle.SetActive(true);
         THandle.GetComponent<Animator>().enabled = false;
+        guideWire.GetComponent<Animator>().enabled = false;
     }
 }

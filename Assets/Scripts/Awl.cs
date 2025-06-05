@@ -8,7 +8,7 @@ public class Awl : MonoBehaviour
     public EventManager eventManager;      // Assign in inspector
     public GameObject guideWire, THandle;  // Assign in inspector
     public float fadeDuration = 1.5f;      // Duration of the fade effect (seconds)
-    public string animationName = "Awl"; // Name of forward animation
+    // public string animationName = "Awl"; // Name of forward animation
 
     private Material awlMaterial;
     private Material tHandleMaterial;
@@ -81,7 +81,8 @@ public class Awl : MonoBehaviour
             THandle.SetActive(false);
 
         guideWire.transform.SetParent(null);
-        guideWire.GetComponent<XRGrabInteractableTwoAttach>().enabled = false;
+        guideWire.GetComponent<XRGrabInteractableTwoAttach>().enabled = true;
+        guideWire.GetComponent<GuideWireConstraint>().enabled = true;
         // guideWire.SetActive(true);
         // guideWire.transform.position = new Vector3(-0.113f, 1.244f, -0.257f);
         // guideWire.transform.rotation = Quaternion.Euler(54.546f, 182.119f, 182.141f);
