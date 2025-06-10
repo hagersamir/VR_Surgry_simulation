@@ -67,7 +67,7 @@ public class ChildMoveWithParent : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Skin"))
         {
-            if (transform.childCount == 0)
+            if (transform.childCount == 2)
             {
 
 

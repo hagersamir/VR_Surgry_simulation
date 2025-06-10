@@ -5,7 +5,7 @@ using UnityEngine;
 public class Blade : MonoBehaviour
 {
     public EventManager eventManager;  // Assign in inspector
-    public float fadeDuration = 1.5f; // Duration of the fade effect (seconds)
+    public float fadeDuration = 4.0f; // Duration of the fade effect (seconds)
     private Material bladeMaterial;
     private bool isFading = false;
     public GameObject THandle;
