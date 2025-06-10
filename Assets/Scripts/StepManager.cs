@@ -7,6 +7,7 @@ public class StepManager : MonoBehaviour
 {
     public TextMeshProUGUI cornerText;
     public TextMeshProUGUI taskText;
+    public EventManager eventManager;      // Assign in inspector
     public GameObject taskPanel;
     private int currentStep = 1;
     private bool isTransitioning = false;
@@ -47,11 +48,13 @@ public class StepManager : MonoBehaviour
 
         cornerText.text = "Step 1 is finished well!";
         yield return new WaitForSeconds(2f);
-        cornerText.text = "Task 2: Guide wire & Nail Insertion";
+        cornerText.text = "Task 2: Entry Site";
+        // ShowTask("<b><color=#2A7FFF>Step1 : </color></b>Use the scalpel to make the initial incision and open the entry site over the proximal tibia");
+        eventManager.OnEventReductionDone();
 
         // Move to next step
-        currentStep++;
-        UpdateStepUI();
+        // currentStep++;
+        // UpdateStepUI();
         isTransitioning = false;
     }
 

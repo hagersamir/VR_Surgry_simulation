@@ -6,7 +6,7 @@ using TMPro;
 
 public class EventManager : MonoBehaviour
 {
-    public GameObject trochar_1, bladeProximal_1, awlGuide, THandleGuide, guideWireGuide, guideWireRemovalDetector, wire1, wire2, nailGuide, drill_1, ScrewdriverProximal_1, trochar_2, bladeProximal_2, drill_2, ScrewdriverProximal_2, pladeDistal, DrillDistal, ScrewdriverDistal;
+    public GameObject trochar_1, bladeProximal_1, scalpelGuide, awlGuide, THandleGuide, guideWireGuide, guideWireRemovalDetector, wire1, wire2, nailGuide, drill_1, ScrewdriverProximal_1, trochar_2, bladeProximal_2, drill_2, ScrewdriverProximal_2, pladeDistal, DrillDistal, ScrewdriverDistal;
     public GameObject drill, screw1, screw2, screw3, trochar, cuttingBlade, screwDriver;
     public GameObject THandle, awl, nail;
     public StepManager textDisplay; // Drag ObjectA (with ScriptA) here in the inspector
@@ -42,10 +42,20 @@ public class EventManager : MonoBehaviour
     }
 
     // this is called when the skin is cut
+    public void OnEventReductionDone()
+    {
+        // Display the task to the user
+        textDisplay.ShowTask("<b><color=#2A7FFF>Step 1: </color></b>Use the scalpel to make the initial incision and open the entry site over the proximal tibia");
+
+        if (scalpelGuide.gameObject != null)
+        {
+            StartCoroutine(ActivateWithDelay(scalpelGuide, 2f)); // 2 seconds delay
+        }
+    }
     public void OnEventSkinCut()
     {
         // Display the task to the user
-        textDisplay.ShowTask("Use The T-Handle Guide Wire");
+        textDisplay.ShowTask("<b><color=#2A7FFF>Step 2:</color></b> Use the T-handle to insert the guide wire through the entry site.");
 
         if (THandleGuide.gameObject != null)
         {
@@ -57,7 +67,7 @@ public class EventManager : MonoBehaviour
     public void OnEventTHandleUsed()
     {
         // Display the task to the user
-        textDisplay.ShowTask("Use The awl");
+        textDisplay.ShowTask("<b><color=#2A7FFF>Step 3:</color></b> Use the awl to open the medullary canal at the guide wire entry point.");
 
         if (awlGuide.gameObject != null)
         {
@@ -68,7 +78,7 @@ public class EventManager : MonoBehaviour
     public void OnEventAwlUsed()
     {
         // Display the task to the user
-        textDisplay.ShowTask("Insert The Guide Wire");
+        textDisplay.ShowTask("<b><color=#2A7FFF>Step 1:</color></b> Advance the guide wire through the medullary canal to the distal end of the tibia.");
 
         if (guideWireGuide.gameObject != null)
         {
@@ -80,7 +90,7 @@ public class EventManager : MonoBehaviour
     {
         guideWireGuide.gameObject.SetActive(false);
         // Display the task to the user
-        textDisplay.ShowTask("Insert The Nail");
+        textDisplay.ShowTask("<b><color=#2A7FFF>Step 2:</color></b> Insert the intramedullary nail over the guide wire down the canal.");
 
         if (nailGuide.gameObject != null)
         {
@@ -91,7 +101,7 @@ public class EventManager : MonoBehaviour
     public void OnEventNailUsed()
     {
         // Display the task to the user
-        textDisplay.ShowTask("Remove The Guide Wire");
+        textDisplay.ShowTask("<b><color=#2A7FFF>Step 3:</color></b> Remove the guide wire carefully after nail insertion.");
         guideWireRemovalDetector.SetActive(true);
         wire1.SetActive(false);
         wire2.SetActive(true);
@@ -144,7 +154,6 @@ public class EventManager : MonoBehaviour
         obj.SetActive(false);
     }
 
-    // -----------------------------Added part salma ----------------------------------
     public void OnEventProximalTrochar_1()
     {
         //this functuion is called when the actual trochar  is placed and made a mark on the skin   

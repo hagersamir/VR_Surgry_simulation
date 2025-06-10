@@ -51,7 +51,7 @@ private void OnTriggerEnter(Collider other)
             Debug.LogWarning("No Animator found on tool.");
         }
 
-        animator.enabled = true;
+        animator.enabled = false;
         gameObject.SetActive(false);
     }
 }
