@@ -14,6 +14,7 @@ public class GuideWire : MonoBehaviour
     private Quaternion snapRotation = Quaternion.Euler(0, 0, 0);
     private Material wireMaterial;
     private bool isFading = false;
+    private bool isDone = false;
     public GameObject aimingGuide;
 
     private void Start()
@@ -23,8 +24,9 @@ public class GuideWire : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // player has finished inserting the Guide wire 
-        if (other.CompareTag("wire"))
+        if (other.CompareTag("wire") && !isDone)
         {
+            isDone = true;
             // Snap to the target position and rotation
             transform.position = snapPosition;
             transform.rotation = snapRotation;

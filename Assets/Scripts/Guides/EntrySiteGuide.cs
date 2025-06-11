@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EntrySiteGuide : MonoBehaviour
 {
+    public GameObject skinCut;
 private void OnTriggerEnter(Collider other)
     {
         // Check if the other object has the same tag
@@ -44,6 +45,7 @@ private void OnTriggerEnter(Collider other)
 
             // Wait for animation to finish before proceeding
             yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+            skinCut.gameObject.SetActive(true);
 
         }
         else

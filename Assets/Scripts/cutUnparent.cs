@@ -35,6 +35,7 @@ public class cutUnparent : MonoBehaviour
             decalComponent.BuildAndSetDirty();
 
             Debug.Log("Child has been unparented!");
+            // gameObject.SetActive(false);
         }
 
     }
