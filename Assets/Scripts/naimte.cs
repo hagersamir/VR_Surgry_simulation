@@ -20,9 +20,9 @@ public class naimte : MonoBehaviour
 
     public void showHideAnimate()
     {
+        bone2.transform.SetParent(bone1.transform);
+        nail.transform.SetParent(bone1.transform);
         bone1.transform.SetParent(tibiaRigParent.transform);
-        bone2.transform.SetParent(tibiaRigParent.transform);
-        nail.transform.SetParent(tibiaRigParent.transform);
         feumer.transform.SetParent(feumerRigParent.transform);
         oldPatient.SetActive(false);
         animPatient.SetActive(true);
@@ -42,8 +42,8 @@ public class naimte : MonoBehaviour
         pateintCover2.SetActive(true);
         pillow.SetActive(true);
         bone1.transform.SetParent(strightLegPatient.transform);
-        bone2.transform.SetParent(strightLegPatient.transform);
-        nail.transform.SetParent(strightLegPatient.transform);
+        // bone2.transform.SetParent(strightLegPatient.transform);
+        // nail.transform.SetParent(strightLegPatient.transform);
         feumer.transform.SetParent(strightLegPatient.transform);
         animPatient.SetActive(false);
         strightLegPatient.SetActive(true);
