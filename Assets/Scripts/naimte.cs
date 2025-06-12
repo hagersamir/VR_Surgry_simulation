@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class naimte : MonoBehaviour
 {
-    public GameObject oldPatient, animPatient, strightLegPatient, bone1, bone2, feumer, tibiaRigParent, feumerRigParent, pateintCover1, pateintCover2, foam, pillow ,nail;
+    public GameObject oldPatient, animPatient, strightLegPatient, bone1, bone2, feumer, tibiaRigParent, feumerRigParent, pateintCover1, pateintCover2, foam, pillow, nail;
     //dont foragett to add the other attechs of the bione like the nail and the screws
 
     // Start is called before the first frame update
@@ -22,6 +22,7 @@ public class naimte : MonoBehaviour
     {
         bone2.transform.SetParent(bone1.transform);
         nail.transform.SetParent(bone1.transform);
+        nail.transform.localPosition = new Vector3(-0.201704949f, 6.21703529f, 11.6516876f);
         bone1.transform.SetParent(tibiaRigParent.transform);
         feumer.transform.SetParent(feumerRigParent.transform);
         oldPatient.SetActive(false);
