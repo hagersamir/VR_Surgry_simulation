@@ -24,8 +24,8 @@ public class StepManager : MonoBehaviour
     {
         new string[] { "TASK : Go and Grasp ankle with both hand", "TASK : Apply traction gently like you see" },
         new string[] { "TASK : Locate the correct entry site", "TASK : Ensure proper alignment" },
-        new string[] { "TASK : Insert the nail carefully", "TASK : Confirm depth and position" },
-        new string[] { "TASK : Lock screws in place", "TASK : Perform final inspection", "TASK : Close the wound" }
+        new string[] { "TASK : Insert the nail carefully", "TASK : Confirm depth and position" }
+        
     };
 
     void Start()
@@ -34,33 +34,53 @@ public class StepManager : MonoBehaviour
         UpdateStepUI();
     }
 
-    public void ReductionCompleted()
-    {
-        if (!isTransitioning && currentStep == 1)
-        {
-            StartCoroutine(CompleteReductionStep());
-        }
-    }
+  public void ReductionCompleted()
+  {
+      currentStep = 1;
+      CompleteStep();
+        // if (!isTransitioning && currentStep == 1)
+    // {
+    //     StartCoroutine(CompleteReductionStep());
+    // }
+  }
+  public void EntrySiteCompleted()
+  {
+      currentStep = 2;
+      CompleteStep();
+      
+  }
+  public void NailInsertionCompleted()
+  {
+      currentStep = 3;
+      CompleteStep();
+        
+  }
+  public void Locking_ClosureCompleted()
+  {
+      currentStep = 4;
+      CompleteStep();
+        
+  }
 
-    private IEnumerator CompleteReductionStep()
-    {
-        isTransitioning = true;
+    // private IEnumerator CompleteReductionStep()
+    // {
+    //     isTransitioning = true;
 
-        cornerText.text = "Step 1 is finished well!";
-        yield return new WaitForSeconds(2f);
-        cornerText.text = "Task 2: Entry Site";
-        // ShowTask("<b><color=#2A7FFF>Step1 : </color></b>Use the scalpel to make the initial incision and open the entry site over the proximal tibia");
-        eventManager.OnEventReductionDone();
+    //     cornerText.text = "Step 1 is finished well!";
+    //     yield return new WaitForSeconds(2f);
+    //     cornerText.text = "Task 2: Entry Site";
+    //     // ShowTask("<b><color=#2A7FFF>Step1 : </color></b>Use the scalpel to make the initial incision and open the entry site over the proximal tibia");
+    //     eventManager.OnEventReductionDone();
 
-        // Move to next step
-        // currentStep++;
-        // UpdateStepUI();
-        isTransitioning = false;
-    }
+    //     // Move to next step
+    //     // currentStep++;
+    //     // UpdateStepUI();
+    //     isTransitioning = false;
+    // }
 
     public void CompleteStep()
     {
-        if (currentStep < stepNames.Length && !isTransitioning && currentStep != 1)
+        if (currentStep < stepNames.Length && !isTransitioning)
         {
             StartCoroutine(TransitionToNextStep());
         }
@@ -76,30 +96,54 @@ public class StepManager : MonoBehaviour
         ShowTask("<b><color=#2A7FFF>TASK : </color></b>Apply traction gently like you see");
     }
 
-    private IEnumerator TransitionToNextStep()
+  private IEnumerator TransitionToNextStep()
+{
+    isTransitioning = true;
+
+    cornerText.text = $"Step {currentStep} is complete!";
+    ShowTask($"Step {currentStep} completed successfully!");
+    yield return new WaitForSeconds(5f);
+    HideTask();
+
+    if (currentStep == 1)
     {
-        isTransitioning = true;
-
-        cornerText.text = $"Step {currentStep} is complete!";
-        ShowTask("Step completed successfully!");
-        yield return new WaitForSeconds(15f);
-        HideTask();
-
-        currentStep++;
-        cornerText.text = $"Starting {stepNames[currentStep - 1]}...";
-        ShowTask("Preparing next step...");
-        yield return new WaitForSeconds(15f);
-        HideTask();
-
-        UpdateStepUI();
-        isTransitioning = false;
+        eventManager.OnEventReductionDone();  // Ensures event still fires
     }
+    // move to next step 
+    currentStep++;
+    cornerText.text = $"Starting {stepNames[currentStep - 1]}...";
+    ShowTask("Preparing next step...");
+    yield return new WaitForSeconds(2f);
+    HideTask();
 
-    private void UpdateStepUI()
-    {
-        cornerText.text = stepNames[currentStep - 1];
-        StartCoroutine(ShowTaskNotes());
-    }
+    UpdateStepUI();
+    isTransitioning = false;
+}
+
+  // private IEnumerator TransitionToNextStep()
+  // {
+  //     isTransitioning = true;
+
+  //     cornerText.text = $"Step {currentStep} is complete!";
+  //     ShowTask("Step completed successfully!");
+  //     yield return new WaitForSeconds(15f);
+  //     HideTask();
+
+  //     currentStep++;
+  //     cornerText.text = $"Starting {stepNames[currentStep - 1]}...";
+  //     ShowTask("Preparing next step...");
+  //     yield return new WaitForSeconds(15f);
+  //     HideTask();
+
+  //     UpdateStepUI();
+  //     isTransitioning = false;
+  // }
+
+  private void UpdateStepUI()
+  {
+    cornerText.text = stepNames[currentStep - 1];
+    StartCoroutine(ShowTaskNotes());
+  }
 
     private IEnumerator ShowTaskNotes()
     {
