@@ -34,15 +34,15 @@ public class StepManager : MonoBehaviour
         UpdateStepUI();
     }
 
-  public void ReductionCompleted()
-  {
-      currentStep = 1;
-      CompleteStep();
+    public void ReductionCompleted()
+    {
+        currentStep = 1;
+        CompleteStep();
         // if (!isTransitioning && currentStep == 1)
-    // {
-    //     StartCoroutine(CompleteReductionStep());
-    // }
-  }
+        // {
+        //     StartCoroutine(CompleteReductionStep());
+        // }
+    }
   public void EntrySiteCompleted()
   {
       currentStep = 2;
@@ -154,6 +154,18 @@ public class StepManager : MonoBehaviour
             ShowTask("<b><color=#2A7FFF>TASK : </color></b>Go and Grasp ankle with both hand");
             yield return new WaitForSeconds(3f);
             HideTask();
+        }
+        else if (currentStep == 2)
+        {
+            ShowTask("<b><color=#2A7FFF>Task 1: </color></b>Use the scalpel to make the initial incision and open the entry site over the proximal tibia");
+        }
+        else if (currentStep == 3)
+        {
+            ShowTask("<b><color=#2A7FFF>Task 1:</color></b> Advance the guide wire through the medullary canal to the distal end of the tibia.");
+        }
+        else if (currentStep == 4)
+        {
+            ShowTask("<b><color=#2A7FFF>Task 1:</color></b> Place trochar on bone and  mark skin");
         }
         // else
         // {
