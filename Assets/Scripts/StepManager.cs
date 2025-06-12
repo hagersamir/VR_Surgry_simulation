@@ -20,13 +20,13 @@ public class StepManager : MonoBehaviour
         "Step 4: Locking and Closure"
     };
 
-    private string[][] stepNotes =
-    {
-        new string[] { "TASK : Go and Grasp ankle with both hand", "TASK : Apply traction gently like you see" },
-        new string[] { "TASK : Locate the correct entry site", "TASK : Ensure proper alignment" },
-        new string[] { "TASK : Insert the nail carefully", "TASK : Confirm depth and position" }
+    // private string[][] stepNotes =
+    // {
+    //     new string[] { "TASK : Go and Grasp ankle with both hand", "TASK : Apply traction gently like you see" },
+    //     new string[] { "TASK : Locate the correct entry site", "TASK : Ensure proper alignment" },
+    //     new string[] { "TASK : Insert the nail carefully", "TASK : Confirm depth and position" }
         
-    };
+    // };
 
     void Start()
     {
