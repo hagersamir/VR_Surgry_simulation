@@ -161,7 +161,7 @@ public class ReductionScript : MonoBehaviour
 
         Vector3 initialPos = brokenBonePart.position;
         // Vector3 finalPos = new Vector3(0.1788f, 1.0248f, -0.2833f) + new Vector3(-0.297f, -0.014f, -0.143f);
-        Vector3 finalPos = new Vector3(0.187000006f, 1.02460003f, -0.284099996f)- new Vector3(0.296999991f, 0.014000058f, 0.143000007f);
+        Vector3 finalPos = new Vector3(0.187000006f, 1.02460003f, -0.284099996f)- new Vector3(0.296999991f, 0.014000058f,0.143000007f);
 
         while (timer < alignDuration)
         {

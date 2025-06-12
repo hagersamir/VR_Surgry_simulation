@@ -1,6 +1,6 @@
 using System.Collections;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class HandAnimatorController : MonoBehaviour
 {
     public GameObject rightHand;
@@ -22,8 +22,10 @@ public class HandAnimatorController : MonoBehaviour
 
         Vector3 rightStart = rightHand.transform.position;
         Vector3 leftStart = leftHand.transform.position;
-
-        stepManager.ShowTractionTask();
+    if (SceneManager.GetActiveScene().name == "TrainingScene")
+    {
+      stepManager.ShowTractionTask();
+    }
 
         for (int i = 0; i < repeatCount; i++)
         {
