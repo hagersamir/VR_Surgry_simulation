@@ -7,7 +7,7 @@ using TMPro;
 public class EventManager : MonoBehaviour
 {
     public GameObject trochar_1, bladeProximal_1, scalpelGuide, awlGuide, THandleGuide, guideWireGuide, guideWireRemovalDetector, wire1, wire2, nailGuide, drill_1, ScrewdriverProximal_1, trochar_2, bladeProximal_2, drill_2, ScrewdriverProximal_2, pladeDistal, DrillDistal, ScrewdriverDistal;
-    public GameObject drill, screw1, screw2, screw3, trochar, cuttingBlade, screwDriver;
+    public GameObject drill, screw1, screw2, screw3, trochar, cuttingBlade, screwDriver, carm;
     public GameObject THandle, awl, nail;
     public StepManager textDisplay; // Drag ObjectA (with ScriptA) here in the inspector
     public TextMeshProUGUI cornerText;
@@ -28,16 +28,16 @@ public class EventManager : MonoBehaviour
         if (Input.GetKey(KeyCode.O))
         {
 
+            onEventGuideWire();
+            // textDisplay.ShowTask("Place trochar on bone and  mark skin");
+            // // animate the trocher shit
+            // if (trochar_1.gameObject != null)
+            // {
 
-            textDisplay.ShowTask("Place trochar on bone and  mark skin");
-            // animate the trocher shit
-            if (trochar_1.gameObject != null)
-            {
+            //     StartCoroutine(ActivateWithDelay(trochar_1, 2f)); // 2 seconds delay
+            //     // trochar_1.SetActive(true);
 
-                StartCoroutine(ActivateWithDelay(trochar_1, 2f)); // 2 seconds delay
-                // trochar_1.SetActive(true);
-
-            }
+            // }
         }
     }
 
@@ -393,7 +393,9 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator waitThenAnimate()
     {
-       yield return new WaitForSeconds(6f);
+        yield return new WaitForSeconds(6f);
+        carm.transform.SetPositionAndRotation(new Vector3(-0.426999986f, 0f, -2.91000009f), Quaternion.Euler(0f, 198.909882f, 0f));
+        yield return new WaitForSeconds(6f);
         animateScript.showHideAnimate();
         yield return new WaitForSeconds(3f); // if needed after the animation
     }

@@ -44,7 +44,7 @@ public class ScrewAttachment : MonoBehaviour
 
             // Apply the specified world transformation
             screw.transform.localPosition = new Vector3(-0.243f, 0.282f, 0.696f);
-            screw.transform.localScale = new Vector3(1.17f, 1.17f, 1.17f);
+            // screw.transform.localScale = new Vector3(1.17f, 1.17f, 1.17f);
             screw.transform.localRotation = new Quaternion(-0.01696f, 0.70742f, 0.01890f, -0.70634f);
             // }
 
@@ -60,6 +60,12 @@ public class ScrewAttachment : MonoBehaviour
             // hasScrewChild = false;
 
             transform.GetComponent<MeshCollider>().enabled = false;
+            BoxCollider box = transform.GetComponent<BoxCollider>();
+            if (box != null)
+            {
+                box.enabled = false;
+            }
+
             ScrewPlaced = true;
             // eventManager.OnEventProximalScrew_1();
         }
