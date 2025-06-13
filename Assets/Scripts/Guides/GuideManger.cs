@@ -421,8 +421,8 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator waitThenAnimate()
     {
-        yield return new WaitForSeconds(6f);
-        carm.transform.SetPositionAndRotation(new Vector3(-0.426999986f, 0f, -2.91000009f), Quaternion.Euler(0f, 198.909882f, 0f));
+        // yield return new WaitForSeconds(6f);
+        // carm.transform.SetPositionAndRotation(new Vector3(-0.426999986f, 0f, -2.91000009f), Quaternion.Euler(0f, 198.909882f, 0f));
         yield return new WaitForSeconds(6f);
         animateScript.showHideAnimate();
         yield return new WaitForSeconds(3f); // if needed after the animation

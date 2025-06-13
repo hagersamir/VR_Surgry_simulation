@@ -10,6 +10,7 @@ public class ScrewAttachment : MonoBehaviour
     public bool ScrewPlaced = false;
     private MeshCollider mc;
     public StepManager stepManager; // Drag ObjectA (with ScriptA) here in the inspector
+    public XRayExtraction xrayExtraction; // Drag ObjectA (with ScriptA) here in the inspector
 
     private void Start()
     {
@@ -70,7 +71,7 @@ public class ScrewAttachment : MonoBehaviour
 
             ScrewPlaced = true;
             // eventManager.OnEventProximalScrew_1();
-            if (eventManager.isDistalLocking && SceneManager.GetActiveScene().name == "TrainingScene")
+            if (eventManager.isDistalLocking && SceneManager.GetActiveScene().name == "TrainingScene" && stepManager!=null)
             {
 
                 stepManager.Locking_ClosureCompleted();
@@ -78,6 +79,12 @@ public class ScrewAttachment : MonoBehaviour
 
 
             }
+            if (xrayExtraction != null)
+            {
+
+                xrayExtraction.SaveXrayImage("Locking Screw" , "locking screw other view");
+            }
+
         }
         if (other.CompareTag("ProximalLock1"))
         {
