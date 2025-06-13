@@ -1,3 +1,4 @@
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class ScrewAttachment : MonoBehaviour
@@ -8,6 +9,7 @@ public class ScrewAttachment : MonoBehaviour
     private bool hasScrewChild = false;
     public bool ScrewPlaced = false;
     private MeshCollider mc;
+    public StepManager stepManager; // Drag ObjectA (with ScriptA) here in the inspector
 
     private void Start()
     {
@@ -68,6 +70,14 @@ public class ScrewAttachment : MonoBehaviour
 
             ScrewPlaced = true;
             // eventManager.OnEventProximalScrew_1();
+            if (eventManager.isDistalLocking && SceneManager.GetActiveScene().name == "TrainingScene")
+            {
+
+                stepManager.Locking_ClosureCompleted();
+
+
+
+            }
         }
         if (other.CompareTag("ProximalLock1"))
         {

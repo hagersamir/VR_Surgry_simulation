@@ -61,7 +61,7 @@ public class EventManager : MonoBehaviour
     public void OnEventSkinCut()
     {
         textDisplay.HideTask();
-        StartCoroutine(DelayCoroutine(2f, () => {textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b> Use the T-handle to insert the guide wire through the entry site.");;}));
+        StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b> Use the T-handle to insert the guide wire through the entry site."); ; }));
 
         // Display the task to the user
         // textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b> Use the T-handle to insert the guide wire through the entry site.");
@@ -76,7 +76,7 @@ public class EventManager : MonoBehaviour
     public void OnEventTHandleUsed()
     {
         textDisplay.HideTask();
-        StartCoroutine(DelayCoroutine(2f, () => {textDisplay.ShowTask("<b><color=#2A7FFF>Task 3:</color></b> Use the awl to open the medullary canal at the guide wire entry point.");;}));
+        StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 3:</color></b> Use the awl to open the medullary canal at the guide wire entry point."); ; }));
         // Display the task to the user
         // textDisplay.ShowTask("<b><color=#2A7FFF>Task 3:</color></b> Use the awl to open the medullary canal at the guide wire entry point.");
 
@@ -102,7 +102,7 @@ public class EventManager : MonoBehaviour
     {
         guideWireGuide.gameObject.SetActive(false);
         textDisplay.HideTask();
-        StartCoroutine(DelayCoroutine(2f, () => {textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b> Insert the intramedullary nail over the guide wire down the canal.");;}));
+        StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b> Insert the intramedullary nail over the guide wire down the canal."); ; }));
         // Display the task to the user
         // textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b> Insert the intramedullary nail over the guide wire down the canal.");
 
@@ -115,7 +115,7 @@ public class EventManager : MonoBehaviour
     public void OnEventNailUsed()
     {
         textDisplay.HideTask();
-        StartCoroutine(DelayCoroutine(2f, () => {textDisplay.ShowTask("<b><color=#2A7FFF>Task 3:</color></b> Remove the guide wire carefully after nail insertion.");;}));
+        StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 3:</color></b> Remove the guide wire carefully after nail insertion."); ; }));
         // Display the task to the user
         // textDisplay.ShowTask("<b><color=#2A7FFF>Task 3:</color></b> Remove the guide wire carefully after nail insertion.");
         guideWireRemovalDetector.SetActive(true);
@@ -155,14 +155,14 @@ public class EventManager : MonoBehaviour
         screwDriver.SetActive(true);
 
         // textDisplay.ShowTask("Place trochar on bone and  mark skin");
-            // animate the trocher shit
-            if (trochar_1.gameObject != null)
-            {
+        // animate the trocher shit
+        if (trochar_1.gameObject != null)
+        {
+            textDisplay.ShowTask("<b><color=#2A7FFF>Task 1:</color></b>Place trochar on bone and  mark skin");
+            StartCoroutine(ActivateWithDelay(trochar_1, 2f)); // 2 seconds delay
+                                                              // trochar_1.SetActive(true);
 
-                StartCoroutine(ActivateWithDelay(trochar_1, 2f)); // 2 seconds delay
-                // trochar_1.SetActive(true);
-
-            }
+        }
     }
 
     private IEnumerator DeactivateAfterSeconds(GameObject obj, float seconds)
@@ -176,7 +176,7 @@ public class EventManager : MonoBehaviour
         //this functuion is called when the actual trochar  is placed and made a mark on the skin   
         // now here display the following message    "use a blade through skin, spread down to bone then place trochar of sleeve on bone"
         textDisplay.HideTask();
-        StartCoroutine(DelayCoroutine(2f, () => {textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b> Use a blade through skin, spread down to bone then place trochar of sleeve on bone");;}));
+        StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b> Use a blade through skin, spread down to bone then place trochar of sleeve on bone"); ; }));
         // textDisplay.ShowTask("use a blade through skin, spread down to bone then place trochar of sleeve on bone");
 
         // animate the skin cutting
@@ -194,7 +194,7 @@ public class EventManager : MonoBehaviour
         // this function is CallerLineNumberAttribute when the skin cut is displyed on the skin
         // now display this meesage "now drill to the bone"
         textDisplay.HideTask();
-        StartCoroutine(DelayCoroutine(2f, () => {textDisplay.ShowTask("<b><color=#2A7FFF>Task 3:</color></b> Now drill to the bone");;}));
+        StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 3:</color></b> Now drill to the bone"); ; }));
         // textDisplay.ShowTask("now drill to the bone");
 
         // animiate the bone drilling
@@ -213,7 +213,7 @@ public class EventManager : MonoBehaviour
         // called whent the bone is drilled
         // now display the messege" insert screw be careful not to over tighten screws as they can sink into bone easily in metaphyseal bone"
         textDisplay.HideTask();
-        StartCoroutine(DelayCoroutine(2f, () => {textDisplay.ShowTask("<b><color=#2A7FFF>Task 4:</color></b> Insert a screw, be careful not to over tighten screws as they can sink into bone easily in metaphyseal bone");;}));
+        StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 4:</color></b> Insert a screw, be careful not to over tighten screws as they can sink into bone easily in metaphyseal bone"); ; }));
         // textDisplay.ShowTask("insert screw be careful not to over tighten screws as they can sink into bone easily in metaphyseal bone");
 
         // animete the screw locking
@@ -231,8 +231,8 @@ public class EventManager : MonoBehaviour
         // called when the first proximal screw is attached to the bone
         // display the message "Repeat process for another screw"
         textDisplay.HideTask();
-        StartCoroutine(DelayCoroutine(2f, () => {textDisplay.ShowTask("Repeat the process for another screw");;}));
-        // textDisplay.ShowTask("Repeat process for another screw");
+        StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 5:</color></b>Repeat the process for another screw"); ; }));
+        // textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b>Repeat process for another screw");
 
         //animate tthe tcher inside second hole
         if (trochar_2.gameObject != null)
@@ -251,8 +251,8 @@ public class EventManager : MonoBehaviour
         //this functuion is called when the actual trochar  is placed and made a mark on the skin
         // animate the skin cutting
         textDisplay.HideTask();
-        StartCoroutine(DelayCoroutine(2f, () => {textDisplay.ShowTask("Make a cut.");;}));
-        // textDisplay.ShowTask("make a cut");
+        StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 6:</color></b>Make a cut."); ; }));
+        // textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b>make a cut");
 
         if (bladeProximal_2.gameObject != null)
         {
@@ -268,8 +268,8 @@ public class EventManager : MonoBehaviour
         // this function is CallerLineNumberAttribute when the skin cut is displyed on the skin
         // animiate the bone drilling
         textDisplay.HideTask();
-        StartCoroutine(DelayCoroutine(2f, () => {textDisplay.ShowTask("Now drill to the bone");;}));
-        // textDisplay.ShowTask("now drill to the bone");
+        StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 7:</color></b>Now drill to the bone"); ; }));
+        // textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b>now drill to the bone");
 
         if (drill_2.gameObject != null)
         {
@@ -284,7 +284,7 @@ public class EventManager : MonoBehaviour
     {
         // called whent the bone is drilled
         // animete the screw locking
-        textDisplay.ShowTask("apply second screw proximal lock");
+        textDisplay.ShowTask("<b><color=#2A7FFF>Task 8:</color></b>apply second screw proximal lock");
 
         if (ScrewdriverProximal_2.gameObject != null)
         {
@@ -299,7 +299,7 @@ public class EventManager : MonoBehaviour
     // {
     //     // called when the first proximal screw is attached to the bone
     //     // display the message "Repeat process for another screw"
-    //     textDisplay.ShowTask("Repeat process for another screw");
+    //     textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b>Repeat process for another screw");
 
     //     //animate tthe tcher inside second hole
     //     if (trochar_2.gameObject != null)
@@ -320,7 +320,7 @@ public class EventManager : MonoBehaviour
 
         //this is called when thte proximal locking is done AKA after the second screw is palced
         // message ==> "Remove targeting guide and jig from nail and bring the knee into full extension"
-        textDisplay.ShowTask("bring the knee into full extension");
+        textDisplay.ShowTask("<b><color=#2A7FFF>Task 9:</color></b>bring the knee into full extension");
 
 
         // animeate spreading the leg  and hide the aiming guide or just animate the real one and remove all tringle shit 
@@ -339,36 +339,34 @@ public class EventManager : MonoBehaviour
         StartCoroutine(KneeExtensionSequence());
 
         // called when the knee is in full extension now 
-        // textDisplay.ShowTask("now move to distal tibia and get perfect circles of interlock screws  "); // add delay here
+        // textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b>now move to distal tibia and get perfect circles of interlock screws  "); // add delay here
         // StartCoroutine(justWait(3f)); // 2 seconds delay;
 
-        // textDisplay.ShowTask("Move C-arm to get perfect distal tibia screw circles without rotating the leg. ");
+        // textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b>Move C-arm to get perfect distal tibia screw circles without rotating the leg. ");
         // StartCoroutine(justWait(3f)); // 2 seconds delay;
 
 
         // messege ==> get the Use C-arm to get perfect distal circles—don’t rotate leg
         // no animation here
-    }
 
-    public void onEventXrayShot()
-    {
-        // called when the xray shot is taken
-        textDisplay.ShowTask("use scalpel to locate the nailhole on medial distal tibia, and incise through skin");
+        textDisplay.ShowTask("<b><color=#2A7FFF>Task 10:</color></b>use scalpel to locate the nailhole on medial distal tibia, and incise through skin");
 
         //message ==>Use a blade to locate nail hole, make incision, and spread to bone.
         if (pladeDistal.gameObject != null)
         {
 
             // animate the distal skin cut
-            StartCoroutine(ActivateWithDelay(pladeDistal, 2f)); // 2 seconds delay
+            StartCoroutine(ActivateWithDelay(pladeDistal, 5f)); // 2 seconds delay
 
         }
     }
 
+
+
     public void OnEventDistalCut()
     {
         // called wqhrn the distal cut is done
-        textDisplay.ShowTask("drill toward center of C-arm beam");
+        textDisplay.ShowTask("<b><color=#2A7FFF>Task 11:</color></b>drill toward center of C-arm beam");
         // message ==>Drill toward C-arm center
         if (DrillDistal.gameObject != null)
         {
@@ -382,7 +380,7 @@ public class EventManager : MonoBehaviour
     public void OnEventDistalDrilling()
     {
         // called whren distal drilling is done
-        textDisplay.ShowTask("remove drill quickly and insert screw");
+        textDisplay.ShowTask("<b><color=#2A7FFF>Task 12:</color></b>remove drill quickly and insert screw");
         //message==> insert screw
         if (ScrewdriverDistal.gameObject != null)
         {
@@ -437,10 +435,10 @@ public class EventManager : MonoBehaviour
 
     private IEnumerator KneeExtensionSequence()
     {
-        textDisplay.ShowTask("Now move to distal tibia and get perfect circles of interlock screws.");
-        yield return new WaitForSeconds(3f);
+        // textDisplay.ShowTask("Now move to distal tibia and get perfect circles of interlock screws.");
+        // yield return new WaitForSeconds(3f);
 
-        textDisplay.ShowTask("Move C-arm to get perfect distal tibia screw circles without rotating the leg.");
+        textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b>Move C-arm to get perfect distal tibia screw circles without rotating the leg.");
         yield return new WaitForSeconds(3f);
     }
 }

@@ -32,11 +32,7 @@ public class XRayEffect : MonoBehaviour
             Shader.SetGlobalFloat("_Transparency", transparency);
         }
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            // StartCoroutine(SwitchRenderTexture());
-            eventManager.onEventXrayShot();
-        }
+      
     }
 
     private IEnumerator SwitchRenderTexture()

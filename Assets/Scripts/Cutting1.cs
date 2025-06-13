@@ -131,6 +131,12 @@ public class smallCut : MonoBehaviour
             madeCut = true;
 
             child.gameObject.SetActive(true);
+            if (eventManager.isDistalLocking)
+            {
+                eventManager.OnEventDistalCut();
+
+
+            }
             // eventManager.OnEventProximalCut_1();
         }
         if (other.CompareTag("ProximalLock1"))
@@ -145,6 +151,7 @@ public class smallCut : MonoBehaviour
             eventManager.OnEventProximalCut_2();
 
         }
+
         // if (eventManager.isDistalLocking && proxmial_2)
         // {
         //     eventManager.OnEventDistalCut();

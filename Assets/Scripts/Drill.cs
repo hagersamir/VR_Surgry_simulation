@@ -146,6 +146,7 @@ public class Drill : MonoBehaviour
         {
             proximal_2 = true;
         }
+      
     }
 
     private void OnTriggerExit(Collider other)
@@ -208,6 +209,10 @@ public class Drill : MonoBehaviour
         if (proximal_2)
         {
             eventManager?.OnEventProximalDrill_2();
+        }
+        if (eventManager.isDistalLocking)
+        {
+            eventManager?.OnEventDistalDrilling();
         }
         // if (eventManager.isDistalLocking)
         // {
