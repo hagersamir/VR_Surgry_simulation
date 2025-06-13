@@ -34,7 +34,7 @@ public class XRayEffect : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            StartCoroutine(SwitchRenderTexture());
+            // StartCoroutine(SwitchRenderTexture());
             eventManager.onEventXrayShot();
         }
     }
