@@ -224,7 +224,7 @@ public class StepManager : MonoBehaviour
 
       public void ShowTractionTask()
   {
-    ShowTask("<b><color=#2A7FFF>TASK : </color></b>Apply traction gently like you see");
+    ShowTask("<b><color=#2A7FFF>TASK : </color></b>Apply traction gently like you see until you get reduction is complete");
   }
     private IEnumerator TransitionToNextStep()
   {
