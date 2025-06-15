@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -43,6 +42,8 @@ public class LoginManager : MonoBehaviour
 
     public void OnGuestButtonClick()
     {
+        PlayerPrefs.SetInt("isGuest", 1); // Mark as guest
+        PlayerPrefs.Save();
         SceneManager.LoadScene("TrainingScene");
     }
 
@@ -68,6 +69,7 @@ public class LoginManager : MonoBehaviour
         {
             string traineeId = jsonResponse["traineeProfileId"];
             PlayerPrefs.SetString("traineeProfileId", traineeId);
+            PlayerPrefs.SetInt("isGuest", 0); // Mark as logged-in user
             PlayerPrefs.Save();
 
             SceneManager.LoadScene("MenuScene");
