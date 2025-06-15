@@ -96,10 +96,7 @@ public class ReductionScript : MonoBehaviour
         if (isRightHandGrasping && isLeftHandGrasping && !reductionCompleted)
         {
             StartCoroutine(AlignBrokenBone());
-            if (xrayExtraction != null)
-            {
-              xrayExtraction.SaveXrayImage("AFTER REDUCTION");
-            }
+            
         }
     }
 
@@ -178,7 +175,10 @@ public class ReductionScript : MonoBehaviour
             yield return null;
         }
         brokenBonePart.position = finalPos;
-
+        if (xrayExtraction != null)
+            {
+              xrayExtraction.SaveXrayImage("AFTER REDUCTION");
+            }
         yield return new WaitForSeconds(2f);
 
       
