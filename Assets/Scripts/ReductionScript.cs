@@ -14,6 +14,7 @@ public class ReductionScript : MonoBehaviour
     public HandData leftHandPose;
     public Transform brokenBonePart;
     public StepManager stepManager;
+    public XRayExtraction xrayExtraction;
 
     private bool isRightHandGrasping = false;
     private bool isLeftHandGrasping = false;
@@ -95,6 +96,10 @@ public class ReductionScript : MonoBehaviour
         if (isRightHandGrasping && isLeftHandGrasping && !reductionCompleted)
         {
             StartCoroutine(AlignBrokenBone());
+            if (xrayExtraction != null)
+            {
+              xrayExtraction.SaveXrayImage("AFTER REDUCTION");
+            }
         }
     }
 
@@ -154,13 +159,16 @@ public class ReductionScript : MonoBehaviour
 
     private IEnumerator AlignBrokenBone()
     {
+        if (xrayExtraction != null)
+        {
+          xrayExtraction.SaveXrayImage("BEFORE REDUCTION");
+        }
         reductionCompleted = true;
 
         float alignDuration = 0.5f;
         float timer = 0f;
 
         Vector3 initialPos = brokenBonePart.position;
-        // Vector3 finalPos = new Vector3(0.1788f, 1.0248f, -0.2833f) + new Vector3(-0.297f, -0.014f, -0.143f);
         Vector3 finalPos = new Vector3(0.187000006f, 1.02460003f, -0.284099996f)- new Vector3(0.296999991f, 0.014000058f,0.143000007f);
 
         while (timer < alignDuration)
@@ -177,9 +185,9 @@ public class ReductionScript : MonoBehaviour
     // Restore both hands in one step
     RestoreVRHands();
         if (stepManager != null && SceneManager.GetActiveScene().name == "TrainingScene")
-{
-    stepManager.ReductionCompleted();
-}
+        {
+          stepManager.ReductionCompleted();
+        }
 
     }
     private void RestoreVRHands()
