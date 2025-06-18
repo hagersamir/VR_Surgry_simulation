@@ -7,337 +7,323 @@ using TMPro;
 
 public class ReductionScript : MonoBehaviour
 {
-  public float slideDistance = 0.1f;
-  public float slideDuration = 0.3f;
-  public HandData rightHandPose;
-  public HandData leftHandPose;
-  public Transform brokenBonePart;
-  public StepManager stepManager;
-  public XRayExtraction xrayExtraction;
-  public AudioSource alarmAudioSource;
-  public AudioClip alarmClip;
-  public TextMeshProUGUI taskText;
-  // public EventManager eventManager;
-  public GameObject taskPanel;
+    public float slideDistance = 0.1f;
+    public float slideDuration = 0.3f;
+    public HandData rightHandPose;
+    public HandData leftHandPose;
+    public Transform brokenBonePart;
+    public StepManager stepManager;
+    public XRayExtraction xrayExtraction;
+    public AudioSource alarmAudioSource;
+    public AudioClip alarmClip;
+    public TextMeshProUGUI taskText;
+    public GameObject taskPanel;
 
-  private bool isRightHandGrasping = false;
-  private bool isLeftHandGrasping = false;
-  private bool rightWasGrasped = false;
-  private bool leftWasGrasped = false;
-  private bool isSliding = false;
-
-  private XRGrabInteractable grabInteractable;
-  private XRDirectInteractor rightInteractor;
-  private XRDirectInteractor leftInteractor;
-  private HandData rightOriginalHand;
-  private HandData leftOriginalHand;
-
-  private Vector3 rightHandStoredPosition;
-  private Quaternion rightHandStoredRotation;
-  private Vector3 leftHandStoredPosition;
-  private Quaternion leftHandStoredRotation;
-
-  private int alignmentStep = 0;
-  private int totalSteps = 4;
-  private Vector3 startPos;
-  private Vector3 finalPos;
-     //  fields for accuracy evaluation
-    private Vector3 legPosition = new Vector3(0.324f, 0.993f, -0.781f);
-    private float handExitThreshold = 0.25f;
+    private bool isRightHandGrasping = false;
+    private bool isLeftHandGrasping = false;
+    private bool rightWasGrasped = false;
+    private bool leftWasGrasped = false;
+    private bool isSliding = false;
+    private bool reductionCompleted = false;
     private bool alignmentEvaluationTriggered = false;
 
-  void Start()
-  {
-    taskPanel.SetActive(false);
-    grabInteractable = GetComponent<XRGrabInteractable>();
-    grabInteractable.selectEntered.AddListener(OnSelectEntered);
-    grabInteractable.selectExited.AddListener(OnSelectExited);
+    private XRGrabInteractable grabInteractable;
+    private XRDirectInteractor rightInteractor;
+    private XRDirectInteractor leftInteractor;
+    private HandData rightOriginalHand;
+    private HandData leftOriginalHand;
 
-    rightHandPose.gameObject.SetActive(false);
-    leftHandPose.gameObject.SetActive(false);
+    private Vector3 rightHandStoredPosition;
+    private Quaternion rightHandStoredRotation;
+    private Vector3 leftHandStoredPosition;
+    private Quaternion leftHandStoredRotation;
 
-    startPos = brokenBonePart.position;
-    finalPos = new Vector3(0.187f, 1.0246f, -0.2841f) - new Vector3(0.297f, 0.014f, 0.143f);
-  }
+    private int alignmentStep = 0;
+    private int totalSteps = 4;
+    private Vector3 startPos;
+    private Vector3 finalPos;
 
-  void Update()
-  {
-    if (Keyboard.current != null)
+    private Vector3 legPosition = new Vector3(0.324f, 0.993f, -0.781f);
+    private float handExitThreshold = 0.25f;
+
+    private bool IsTrainingMode => SceneManager.GetActiveScene().name == "TrainingScene";
+
+    void Start()
     {
-      if (Keyboard.current.gKey.wasPressedThisFrame)
-      {
-        if (isRightHandGrasping && !isSliding)
-          StartCoroutine(SlideHand(rightHandPose.transform, -slideDistance, Vector3.up));
-        else if (isLeftHandGrasping && !isSliding)
-          StartCoroutine(SlideHand(leftHandPose.transform, slideDistance, Vector3.up));
-      }
+        grabInteractable = GetComponent<XRGrabInteractable>();
+        grabInteractable.selectEntered.AddListener(OnSelectEntered);
+        grabInteractable.selectExited.AddListener(OnSelectExited);
 
-      if (Keyboard.current.uKey.wasPressedThisFrame)
-      {
-        RestoreVRHands();
-      }
+        rightHandPose.gameObject.SetActive(false);
+        leftHandPose.gameObject.SetActive(false);
+        taskPanel.SetActive(false);
+
+        startPos = brokenBonePart.position;
+        finalPos = new Vector3(0.187f, 1.0246f, -0.2841f) - new Vector3(0.297f, 0.014f, 0.143f);
     }
-    // Check if either hand moved away from leg position
+
+    void Update()
+    {
+        if (reductionCompleted) return;
+
+        if (Keyboard.current != null && Keyboard.current.gKey.wasPressedThisFrame)
+        {
+            if (isRightHandGrasping && !isSliding)
+                StartCoroutine(SlideHand(rightHandPose.transform, -slideDistance, Vector3.up));
+            if (isLeftHandGrasping && !isSliding)
+                StartCoroutine(SlideHand(leftHandPose.transform, slideDistance, Vector3.up));
+        }
+
         if (!alignmentEvaluationTriggered)
         {
-            if (rightOriginalHand != null)
+            if (rightOriginalHand && Vector3.Distance(rightOriginalHand.transform.position, legPosition) > handExitThreshold)
             {
-                float dist = Vector3.Distance(rightOriginalHand.transform.position, legPosition);
-                if (dist > handExitThreshold)
-                {
-                    alignmentEvaluationTriggered = true;
-                    EvaluateAlignment();
-                }
+                alignmentEvaluationTriggered = true;
+                EvaluateAlignment();
             }
 
-            if (leftOriginalHand != null)
+            if (leftOriginalHand && Vector3.Distance(leftOriginalHand.transform.position, legPosition) > handExitThreshold)
             {
-                float dist = Vector3.Distance(leftOriginalHand.transform.position, legPosition);
-                if (dist > handExitThreshold)
+                alignmentEvaluationTriggered = true;
+                EvaluateAlignment();
+            }
+        }
+    }
+
+    private void OnSelectEntered(SelectEnterEventArgs arg)
+    {
+        if (reductionCompleted) return;
+
+        var interactor = arg.interactorObject as XRBaseInteractor;
+        if (interactor == null) return;
+
+        HandData handData = interactor.GetComponentInChildren<HandData>();
+        if (handData == null) return;
+
+        if (handData.handModelType == HandData.HandModelType.Right)
+        {
+            rightOriginalHand = handData;
+            rightInteractor = interactor as XRDirectInteractor;
+            isRightHandGrasping = true;
+            rightWasGrasped = true;
+
+            rightHandStoredPosition = handData.transform.position;
+            rightHandStoredRotation = handData.transform.rotation;
+            rightHandPose.gameObject.SetActive(true);
+            StartCoroutine(SlideHand(rightHandPose.transform, -slideDistance, Vector3.up));
+        }
+        else if (handData.handModelType == HandData.HandModelType.Left)
+        {
+            leftOriginalHand = handData;
+            leftInteractor = interactor as XRDirectInteractor;
+            isLeftHandGrasping = true;
+            leftWasGrasped = true;
+
+            leftHandStoredPosition = handData.transform.position;
+            leftHandStoredRotation = handData.transform.rotation;
+            leftHandPose.gameObject.SetActive(true);
+            StartCoroutine(SlideHand(leftHandPose.transform, slideDistance, Vector3.up));
+        }
+
+        handData.animator.enabled = false;
+        handData.root.gameObject.SetActive(false);
+
+        // Trigger reduction logic
+        if (IsTrainingMode)
+        {
+            if (isRightHandGrasping && isLeftHandGrasping && !reductionCompleted)
+                StartCoroutine(OneStepReduction());
+        }
+        else
+        {
+            if ((handData.handModelType == HandData.HandModelType.Right && leftWasGrasped) ||
+                (handData.handModelType == HandData.HandModelType.Left && rightWasGrasped))
+            {
+                StartCoroutine(AlignBrokenBoneStep());
+            }
+
+            if (alignmentStep >= totalSteps)
+            {
+                taskPanel.SetActive(true);
+                taskText.text = "<b><color=red>WARNING:</color></b> Bone already aligned!";
+                if (alarmAudioSource && alarmClip)
                 {
-                    alignmentEvaluationTriggered = true;
-                    EvaluateAlignment();
+                    alarmAudioSource.clip = alarmClip;
+                    alarmAudioSource.Play();
+                    StartCoroutine(StopAlarmAfterSeconds(3f));
                 }
             }
         }
-  }
-
-  private IEnumerator StopAlarmAfterSeconds(float seconds)
-  {
-    yield return new WaitForSeconds(seconds);
-    if (alarmAudioSource.isPlaying)
-      alarmAudioSource.Stop();
-
-    
-    taskPanel.SetActive(false);
-
-  }
-
-  private void OnSelectEntered(SelectEnterEventArgs arg)
-  {
-    if (alignmentStep >= totalSteps)
-    {
-        taskPanel.SetActive(true);
-        taskText.text = "<b><color=red>WARNING:</color></b> Be careful! Bone has already reached the final position.";
-      if (alarmAudioSource != null && alarmClip != null)
-      {
-        alarmAudioSource.clip = alarmClip;
-        alarmAudioSource.Play();
-        StartCoroutine(StopAlarmAfterSeconds(3f));
-      }
-     }
-     
-    var interactor = arg.interactorObject as XRBaseInteractor;
-    if (interactor == null) return;
-
-    HandData handData = interactor.GetComponentInChildren<HandData>();
-    if (handData == null) return;
-
-    if (handData.handModelType == HandData.HandModelType.Right)
-    {
-      rightOriginalHand = handData;
-      rightInteractor = interactor as XRDirectInteractor;
-      isRightHandGrasping = true;
-      rightWasGrasped = true;
-
-      // Store position/rotation before hiding
-      rightHandStoredPosition = handData.transform.position;
-      rightHandStoredRotation = handData.transform.rotation;
-
-      rightHandPose.gameObject.SetActive(true);
-      StartCoroutine(SlideHand(rightHandPose.transform, -slideDistance, Vector3.up));
-    }
-    else if (handData.handModelType == HandData.HandModelType.Left)
-    {
-      leftOriginalHand = handData;
-      leftInteractor = interactor as XRDirectInteractor;
-      isLeftHandGrasping = true;
-      leftWasGrasped = true;
-
-      // Store position/rotation before hiding
-      leftHandStoredPosition = handData.transform.position;
-      leftHandStoredRotation = handData.transform.rotation;
-
-      leftHandPose.gameObject.SetActive(true);
-      StartCoroutine(SlideHand(leftHandPose.transform, slideDistance, Vector3.up));
     }
 
-    handData.animator.enabled = false;
-    handData.root.gameObject.SetActive(false);
-
-    // Trigger alignment if second hand is grasped after first
-    if ((handData.handModelType == HandData.HandModelType.Right && leftWasGrasped) ||
-        (handData.handModelType == HandData.HandModelType.Left && rightWasGrasped))
+    private IEnumerator OneStepReduction()
     {
-      StartCoroutine(AlignBrokenBoneStep());
-    }
-  }
+        reductionCompleted = true;
 
-  private void OnSelectExited(SelectExitEventArgs arg)
-  {
-    var interactor = arg.interactorObject as XRBaseInteractor;
-    if (interactor == null) return;
+        Vector3 initialPos = brokenBonePart.position;
+        Vector3 finalPos =  new Vector3(0.187000006f, 1.02460003f, -0.284099996f)- new Vector3(0.296999991f, 0.014000058f,0.143000007f);
+        float duration = 0.5f;
+        float timer = 0f;
 
-    HandData handData = interactor.GetComponentInChildren<HandData>();
-    if (handData == null) return;
+        while (timer < duration)
+        {
+            brokenBonePart.position = Vector3.Lerp(initialPos, finalPos, timer / duration);
+            timer += Time.deltaTime;
+            yield return null;
+        }
 
-    handData.animator.enabled = true;
-    handData.root.gameObject.SetActive(true);
+        brokenBonePart.position = finalPos;
+        yield return new WaitForSeconds(2f);
+        RestoreVRHands();
 
-    if (handData.handModelType == HandData.HandModelType.Right)
-    {
-      isRightHandGrasping = false;
-      rightHandPose.gameObject.SetActive(false);
-      rightOriginalHand = null;
-    }
-    else
-    {
-      isLeftHandGrasping = false;
-      leftHandPose.gameObject.SetActive(false);
-      leftOriginalHand = null;
-    }
-  }
-
-  private IEnumerator SlideHand(Transform handTransform, float distance, Vector3 direction)
-  {
-    isSliding = true;
-    Vector3 slideDirection = direction.normalized;
-    Vector3 startPos = handTransform.position;
-    Vector3 targetPos = startPos + slideDirection * distance;
-
-    float timer = 0f;
-    while (timer < slideDuration)
-    {
-      handTransform.position = Vector3.Lerp(startPos, targetPos, timer / slideDuration);
-      timer += Time.deltaTime;
-      yield return null;
-    }
-    handTransform.position = targetPos;
-
-    yield return new WaitForSeconds(0.2f);
-
-    timer = 0f;
-    while (timer < slideDuration)
-    {
-      handTransform.position = Vector3.Lerp(targetPos, startPos, timer / slideDuration);
-      timer += Time.deltaTime;
-      yield return null;
-    }
-    handTransform.position = startPos;
-    isSliding = false;
-  }
-
-  private IEnumerator AlignBrokenBoneStep()
-  {
-    if (alignmentStep >= totalSteps) yield break;
-
-    if (xrayExtraction != null && alignmentStep == 0)
-    {
-      xrayExtraction.SaveXrayImage("BEFORE REDUCTION");
+        if (stepManager != null)
+            stepManager.ReductionCompleted();
     }
 
-    alignmentStep++;
-
-    float alignDuration = 0.4f;
-    float timer = 0f;
-
-    Vector3 initialPos = brokenBonePart.position;
-    Vector3 targetPos = Vector3.Lerp(startPos, finalPos, (float)alignmentStep / totalSteps);
-
-    while (timer < alignDuration)
+    private IEnumerator AlignBrokenBoneStep()
     {
-      brokenBonePart.position = Vector3.Lerp(initialPos, targetPos, timer / alignDuration);
-      timer += Time.deltaTime;
-      yield return null;
-    }
-    brokenBonePart.position = targetPos;
-    yield return new WaitForSeconds(1f);
+        if (alignmentStep >= totalSteps) yield break;
 
-    RestoreVRHands();
+        if (alignmentStep == 0 && xrayExtraction != null)
+            xrayExtraction.SaveXrayImage("BEFORE REDUCTION");
 
-    if (alignmentStep == totalSteps)
-    {
-      
+        alignmentStep++;
+        float alignDuration = 0.4f;
+        float timer = 0f;
+        Vector3 initialPos = brokenBonePart.position;
+        Vector3 targetPos = Vector3.Lerp(startPos, finalPos, (float)alignmentStep / totalSteps);
 
-      yield return new WaitForSeconds(2f);
-      RestoreVRHands();
+        while (timer < alignDuration)
+        {
+            brokenBonePart.position = Vector3.Lerp(initialPos, targetPos, timer / alignDuration);
+            timer += Time.deltaTime;
+            yield return null;
+        }
 
-      if (stepManager != null && SceneManager.GetActiveScene().name == "TrainingScene")
-      {
-        stepManager.ReductionCompleted();
-      }
+        brokenBonePart.position = targetPos;
+        yield return new WaitForSeconds(1f);
 
-      rightWasGrasped = false;
-      leftWasGrasped = false;
-    }
-  }
+        RestoreVRHands();
 
-  private void RestoreVRHands()
-  {
-    if (rightOriginalHand != null && rightInteractor != null)
-    {
-      rightOriginalHand.root.gameObject.SetActive(true);
-      rightOriginalHand.animator.enabled = true;
+        if (alignmentStep == totalSteps)
+        {
+            reductionCompleted = true;
+            yield return new WaitForSeconds(2f);
+            RestoreVRHands();
 
-      rightOriginalHand.transform.SetParent(null);
-      rightOriginalHand.transform.position = rightHandStoredPosition;
-      rightOriginalHand.transform.rotation = rightHandStoredRotation;
+            if (stepManager != null && !IsTrainingMode)
+                stepManager.ReductionCompleted();
 
-      rightOriginalHand.transform.SetParent(rightInteractor.transform);
-      rightHandPose.gameObject.SetActive(false);
+            rightWasGrasped = false;
+            leftWasGrasped = false;
+        }
     }
 
-    if (leftOriginalHand != null && leftInteractor != null)
+    private void OnSelectExited(SelectExitEventArgs arg)
     {
-      leftOriginalHand.root.gameObject.SetActive(true);
-      leftOriginalHand.animator.enabled = true;
+        var interactor = arg.interactorObject as XRBaseInteractor;
+        if (interactor == null) return;
 
-      leftOriginalHand.transform.SetParent(null);
-      leftOriginalHand.transform.position = leftHandStoredPosition;
-      leftOriginalHand.transform.rotation = leftHandStoredRotation;
+        HandData handData = interactor.GetComponentInChildren<HandData>();
+        if (handData == null) return;
 
-      leftOriginalHand.transform.SetParent(leftInteractor.transform);
-      leftHandPose.gameObject.SetActive(false);
+        handData.animator.enabled = true;
+        handData.root.gameObject.SetActive(true);
+
+        if (handData.handModelType == HandData.HandModelType.Right)
+        {
+            isRightHandGrasping = false;
+            rightHandPose.gameObject.SetActive(false);
+            rightOriginalHand = null;
+        }
+        else
+        {
+            isLeftHandGrasping = false;
+            leftHandPose.gameObject.SetActive(false);
+            leftOriginalHand = null;
+        }
     }
 
-    isRightHandGrasping = false;
-    isLeftHandGrasping = false;
-  }
-    
-     private void EvaluateAlignment()
+    private IEnumerator SlideHand(Transform handTransform, float distance, Vector3 direction)
+    {
+        isSliding = true;
+        Vector3 slideDir = direction.normalized;
+        Vector3 start = handTransform.position;
+        Vector3 end = start + slideDir * distance;
+
+        float timer = 0f;
+        while (timer < slideDuration)
+        {
+            handTransform.position = Vector3.Lerp(start, end, timer / slideDuration);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        handTransform.position = end;
+        yield return new WaitForSeconds(0.2f);
+
+        timer = 0f;
+        while (timer < slideDuration)
+        {
+            handTransform.position = Vector3.Lerp(end, start, timer / slideDuration);
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
+        handTransform.position = start;
+        isSliding = false;
+    }
+
+    private void RestoreVRHands()
+    {
+        if (rightOriginalHand != null && rightInteractor != null)
+        {
+            rightOriginalHand.root.gameObject.SetActive(true);
+            rightOriginalHand.animator.enabled = true;
+            rightOriginalHand.transform.SetParent(rightInteractor.transform);
+            rightOriginalHand.transform.localPosition = Vector3.zero;
+            rightOriginalHand.transform.localRotation = Quaternion.identity;
+            rightHandPose.gameObject.SetActive(false);
+        }
+
+        if (leftOriginalHand != null && leftInteractor != null)
+        {
+            leftOriginalHand.root.gameObject.SetActive(true);
+            leftOriginalHand.animator.enabled = true;
+            leftOriginalHand.transform.SetParent(leftInteractor.transform);
+            leftOriginalHand.transform.localPosition = Vector3.zero;
+            leftOriginalHand.transform.localRotation = Quaternion.identity;
+            leftHandPose.gameObject.SetActive(false);
+        }
+
+        isRightHandGrasping = false;
+        isLeftHandGrasping = false;
+    }
+
+    private void EvaluateAlignment()
     {
         if (xrayExtraction != null)
-        xrayExtraction.SaveXrayImage("AFTER REDUCTION");
-        float accuracy = GetAlignmentAccuracy(brokenBonePart.position);
-        // string grade = GetAccuracyGrade(accuracy);
+            xrayExtraction.SaveXrayImage("AFTER REDUCTION");
 
-        Debug.Log($"User moved hand away from leg area.");
-        Debug.Log($"Final bone position: {brokenBonePart.position}");
-        Debug.Log($"Alignment Accuracy: {(accuracy * 100f):F2}%");
-        // Debug.Log($"Grade: {grade}");
+        float accuracy = GetAlignmentAccuracy(brokenBonePart.position);
+        Debug.Log($"User moved hand away. Accuracy: {(accuracy * 100f):F2}%");
     }
 
     private float GetAlignmentAccuracy(Vector3 currentPos)
     {
-        float totalDistance = Vector3.Distance(startPos, finalPos);
-        float currentDistance = Vector3.Distance(currentPos, finalPos);
-
-        if (totalDistance == 0f) return 1f;
-
-        float accuracy = 1f - (currentDistance / totalDistance);
-        return Mathf.Clamp01(accuracy);
+        float totalDist = Vector3.Distance(startPos, finalPos);
+        float currentDist = Vector3.Distance(currentPos, finalPos);
+        return totalDist == 0f ? 1f : Mathf.Clamp01(1f - (currentDist / totalDist));
     }
 
-    // private string GetAccuracyGrade(float accuracy)
-    // {
-    //     if (accuracy >= 0.95f) return "Excellent";
-    //     if (accuracy >= 0.80f) return "Good";
-    //     if (accuracy >= 0.60f) return "Fair";
-    //     return "Needs Improvement";
-    // }
-public float NeededBoneLength => Vector3.Distance(startPos, finalPos);
-public float ActualBoneLength => Vector3.Distance(startPos, brokenBonePart.position);
-public float AlignmentAccuracy => GetAlignmentAccuracy(brokenBonePart.position);
+    private IEnumerator StopAlarmAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        if (alarmAudioSource.isPlaying)
+            alarmAudioSource.Stop();
+        taskPanel.SetActive(false);
+    }
 
-
+    public float reductionErrorLength => Vector3.Distance(brokenBonePart.position, finalPos);
+    public float AlignmentAccuracy => GetAlignmentAccuracy(brokenBonePart.position);
 }

@@ -47,8 +47,7 @@ public class SurgeryDataSender : MonoBehaviour
     {
       traineeProfileId = traineeId,
       reductionDuration = StepManager.reductionDuration,
-      reductionNeededBoneLength = reduction.NeededBoneLength,
-      reductionActualBoneLength = reduction.ActualBoneLength,
+      reductionErrorLength = reduction.reductionErrorLength,
       reductionAccuracy = reduction.AlignmentAccuracy,
       reductionBeforeReductionXrayImg = "../SavedImages/BEFORE REDUCTION.png",
       reductionAfterReductionXrayImg = "../SavedImages/AFTER REDUCTION.png",
@@ -124,20 +123,20 @@ public class SurgeryAttemptMock
 {
   public string traineeProfileId;
 
-
+  // reduction data 
   public float reductionDuration;
-  public float reductionNeededBoneLength;
-  public float reductionActualBoneLength;
+  public float reductionErrorLength;
   public float reductionAccuracy;
   public string reductionBeforeReductionXrayImg;
   public string reductionAfterReductionXrayImg;
-
+  // cutting data 
+  public float entrySiteDuration;
   public string cuttingScreenshotImg;
   public float cuttingAccuracy;
   public float neededThandleDepth;
   public float actualThandleDepth;
   public float tHandleAccuracy;
-
+  // guide and nail insertion data
   public string guideWireXrayImg;
   public string nailXrayImg;
   public StepToolAccuracy stepToolAccuracy;
@@ -148,7 +147,6 @@ public class SurgeryAttemptMock
   public float actualNailDepth;
   public float nailPositionAccuracy;
 
-  public float entrySiteDuration;
   public float nailInsertionDuration;
   public float lockingClosureDuration;
   public List<string> toolUsageOrder;
