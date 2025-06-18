@@ -32,6 +32,7 @@ TagManager:
   - aimng guide free
   - sleeve insert
   - sleeve free
+  - notEntry
   layers:
   - Default
   - TransparentFX

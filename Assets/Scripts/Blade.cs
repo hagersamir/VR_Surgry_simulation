@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Blade : MonoBehaviour
 {
@@ -12,6 +14,12 @@ public class Blade : MonoBehaviour
     public GameObject guideWire, guideWireRemovalDetector;
     public string cuttingScreenshotImg;
     public float cuttingAccuracy;
+    private bool IsTrainingMode => SceneManager.GetActiveScene().name == "TrainingScene";
+    public AudioSource alarmAudioSource;
+    public AudioClip alarmClip;
+    public TextMeshProUGUI taskText;
+    public GameObject taskPanel;
+
 
     private void Start()
     {
@@ -24,11 +32,46 @@ public class Blade : MonoBehaviour
         if (other.CompareTag("EntrySite") && !isFading)
         {
             isFading = true;
-            // Start the fading animation
-            StartCoroutine(FadeOut());
+            if (IsTrainingMode)
+            {
+                // Start the fading animation
+                StartCoroutine(FadeOut());
+            }
+            else
+            {
+                TakeScreenshot();
+                taskPanel.SetActive(true);
+                taskText.text = "<b><color=green>SUCCESS:</color></b> Correct entry site!";
+                StartCoroutine(StopAlarmAfterSeconds(3f));
+            }
             //begin THandle Task
             eventManager.OnEventSkinCut();
         }
+        if (other.CompareTag("notEntry") && !IsTrainingMode)
+        {
+            taskPanel.SetActive(true);
+            taskText.text = "<b><color=red>WARNING:</color></b> Incorrect entry site!";
+            if (alarmAudioSource && alarmClip)
+            {
+                alarmAudioSource.clip = alarmClip;
+                alarmAudioSource.Play();
+                StartCoroutine(StopAlarmAfterSeconds(3f));
+            }
+        }
+    }
+    void TakeScreenshot()
+    {
+        cuttingScreenshotImg = Application.dataPath + "/savedImages/EntrySiteCut.png";
+        ScreenCapture.CaptureScreenshot(cuttingScreenshotImg);
+        Debug.Log("Screenshot saved to: " + cuttingScreenshotImg);
+    }
+
+    private IEnumerator StopAlarmAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        if (alarmAudioSource.isPlaying)
+            alarmAudioSource.Stop();
+        taskPanel.SetActive(false);
     }
     private IEnumerator FadeOut()
     {
