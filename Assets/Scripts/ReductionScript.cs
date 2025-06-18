@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class ReductionScript : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class ReductionScript : MonoBehaviour
   public Transform brokenBonePart;
   public StepManager stepManager;
   public XRayExtraction xrayExtraction;
+  public AudioSource alarmAudioSource;
+  public AudioClip alarmClip;
+  public TextMeshProUGUI taskText;
+  // public EventManager eventManager;
+  public GameObject taskPanel;
 
   private bool isRightHandGrasping = false;
   private bool isLeftHandGrasping = false;
@@ -42,6 +48,7 @@ public class ReductionScript : MonoBehaviour
 
   void Start()
   {
+    taskPanel.SetActive(false);
     grabInteractable = GetComponent<XRGrabInteractable>();
     grabInteractable.selectEntered.AddListener(OnSelectEntered);
     grabInteractable.selectExited.AddListener(OnSelectExited);
@@ -95,10 +102,31 @@ public class ReductionScript : MonoBehaviour
         }
   }
 
+  private IEnumerator StopAlarmAfterSeconds(float seconds)
+  {
+    yield return new WaitForSeconds(seconds);
+    if (alarmAudioSource.isPlaying)
+      alarmAudioSource.Stop();
+
+    
+    taskPanel.SetActive(false);
+
+  }
+
   private void OnSelectEntered(SelectEnterEventArgs arg)
   {
-    if (alignmentStep >= totalSteps) return;
-
+    if (alignmentStep >= totalSteps)
+    {
+        taskPanel.SetActive(true);
+        taskText.text = "<b><color=red>WARNING:</color></b> Be careful! Bone has already reached the final position.";
+      if (alarmAudioSource != null && alarmClip != null)
+      {
+        alarmAudioSource.clip = alarmClip;
+        alarmAudioSource.Play();
+        StartCoroutine(StopAlarmAfterSeconds(3f));
+      }
+     }
+     
     var interactor = arg.interactorObject as XRBaseInteractor;
     if (interactor == null) return;
 
@@ -281,12 +309,12 @@ public class ReductionScript : MonoBehaviour
         if (xrayExtraction != null)
         xrayExtraction.SaveXrayImage("AFTER REDUCTION");
         float accuracy = GetAlignmentAccuracy(brokenBonePart.position);
-        string grade = GetAccuracyGrade(accuracy);
+        // string grade = GetAccuracyGrade(accuracy);
 
         Debug.Log($"User moved hand away from leg area.");
         Debug.Log($"Final bone position: {brokenBonePart.position}");
         Debug.Log($"Alignment Accuracy: {(accuracy * 100f):F2}%");
-        Debug.Log($"Grade: {grade}");
+        // Debug.Log($"Grade: {grade}");
     }
 
     private float GetAlignmentAccuracy(Vector3 currentPos)
@@ -300,12 +328,16 @@ public class ReductionScript : MonoBehaviour
         return Mathf.Clamp01(accuracy);
     }
 
-    private string GetAccuracyGrade(float accuracy)
-    {
-        if (accuracy >= 0.95f) return "Excellent";
-        if (accuracy >= 0.80f) return "Good";
-        if (accuracy >= 0.60f) return "Fair";
-        return "Needs Improvement";
-    }
+    // private string GetAccuracyGrade(float accuracy)
+    // {
+    //     if (accuracy >= 0.95f) return "Excellent";
+    //     if (accuracy >= 0.80f) return "Good";
+    //     if (accuracy >= 0.60f) return "Fair";
+    //     return "Needs Improvement";
+    // }
+public float NeededBoneLength => Vector3.Distance(startPos, finalPos);
+public float ActualBoneLength => Vector3.Distance(startPos, brokenBonePart.position);
+public float AlignmentAccuracy => GetAlignmentAccuracy(brokenBonePart.position);
+
 
 }

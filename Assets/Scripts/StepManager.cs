@@ -296,7 +296,7 @@ public class StepManager : MonoBehaviour
 
     public void ShowTask(string message)
     {
-        if (!isTrainingMode) return;
+        // if (!isTrainingMode) return;
 
         taskPanel.SetActive(true);
         taskText.text = message;
