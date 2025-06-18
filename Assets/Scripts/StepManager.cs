@@ -206,10 +206,10 @@ public class StepManager : MonoBehaviour
         if (currentStep <= stepNames.Length && !isTransitioning)
         {
             RecordStepDuration();
-            // if (currentStep == 1)
-            // {
-            //     Debug.Log($"[StepManager] Reduction Duration: {reductionDuration:F2} seconds");
-            // }
+            if (currentStep == 1)
+            {
+                Debug.Log($"[StepManager] Reduction Duration: {reductionDuration:F2} seconds");
+            }
             if (currentStep < stepNames.Length)
             {
                 StartCoroutine(TransitionToNextStep());
