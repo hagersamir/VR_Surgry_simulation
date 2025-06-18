@@ -12,13 +12,15 @@ public class ScrewAttachment : MonoBehaviour
     public StepManager stepManager; // Drag ObjectA (with ScriptA) here in the inspector
     public XRayExtraction xrayExtraction; // Drag ObjectA (with ScriptA) here in the inspector
     public string tagOfScrewDeattachment;
-  public GameObject sendData; 
+    public GameObject sendData;
+
+    public float ScrewPositionAcc;
     private void Start()
-  {
-    Debug.Log($"Local Position: {transform.localPosition}");
-    Debug.Log($"Local Rotation: {transform.localRotation}");
-    Debug.Log($"Local Scale: {transform.localScale}");
-  }
+    {
+        Debug.Log($"Local Position: {transform.localPosition}");
+        Debug.Log($"Local Rotation: {transform.localRotation}");
+        Debug.Log($"Local Scale: {transform.localScale}");
+    }
     private void OnTriggerEnter(Collider other)
     {
         Debug.Log("saf");
@@ -71,16 +73,16 @@ public class ScrewAttachment : MonoBehaviour
             }
 
             ScrewPlaced = true;
-      // eventManager.OnEventProximalScrew_1();
-      if (eventManager.isDistalLocking && SceneManager.GetActiveScene().name == "TrainingScene" && stepManager != null)
-      {
+            // eventManager.OnEventProximalScrew_1();
+            if (eventManager.isDistalLocking && SceneManager.GetActiveScene().name == "TrainingScene" && stepManager != null)
+            {
 
-        stepManager.Locking_ClosureCompleted();
+                stepManager.Locking_ClosureCompleted();
             }
-      if (eventManager.isDistalLocking && SceneManager.GetActiveScene().name == "AssessmentScene" )
-      {
+            if (eventManager.isDistalLocking && SceneManager.GetActiveScene().name == "AssessmentScene")
+            {
 
-            sendData.SetActive(true);
+                sendData.SetActive(true);
             }
             if (xrayExtraction != null)
             {
