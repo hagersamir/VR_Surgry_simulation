@@ -11,7 +11,7 @@ public class ScrewAttachment : MonoBehaviour
     private MeshCollider mc;
     public StepManager stepManager; // Drag ObjectA (with ScriptA) here in the inspector
     public XRayExtraction xrayExtraction; // Drag ObjectA (with ScriptA) here in the inspector
-
+    public string tagOfScrewDeattachment;
     private void Start()
     {
         Debug.Log($"Local Position: {transform.localPosition}");
@@ -52,7 +52,7 @@ public class ScrewAttachment : MonoBehaviour
             // }
 
         }
-        if (other.CompareTag("hole"))
+        if (other.CompareTag(tagOfScrewDeattachment))
         {
             isInHole = true;
             Debug.Log("brush");
@@ -71,7 +71,7 @@ public class ScrewAttachment : MonoBehaviour
 
             ScrewPlaced = true;
             // eventManager.OnEventProximalScrew_1();
-            if (eventManager.isDistalLocking && SceneManager.GetActiveScene().name == "TrainingScene" && stepManager!=null)
+            if (eventManager.isDistalLocking && SceneManager.GetActiveScene().name == "TrainingScene" && stepManager != null)
             {
 
                 stepManager.Locking_ClosureCompleted();
@@ -82,7 +82,7 @@ public class ScrewAttachment : MonoBehaviour
             if (xrayExtraction != null)
             {
 
-                xrayExtraction.SaveXrayImage("Locking Screw" , "locking screw other view");
+                xrayExtraction.SaveXrayImage("Locking Screw", "locking screw other view");
             }
 
         }

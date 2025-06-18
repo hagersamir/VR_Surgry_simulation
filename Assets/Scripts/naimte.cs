@@ -4,14 +4,19 @@ using UnityEngine;
 
 public class naimte : MonoBehaviour
 {
-    public GameObject oldPatient, animPatient, strightLegPatient, bone1, bone2, feumer, tibiaRigParent, feumerRigParent, pateintCover1, pateintCover2, foam, pillow, nail, aimgGuide1, aimgGuide2, carm, carmRoatePoint, other_xrayScreen;
+    public GameObject oldPatient, animPatient, strightLegPatient, bone1, bone2, feumer, tibiaRigParent, feumerRigParent, pateintCover1, pateintCover2, foam, pillow, nail, aimgGuide1, aimgGuide2, carm, carmRoatePoint, other_xrayScreen, horzontalCam, verticalCam;
     public XRayExtraction xrayExtraction;
     //dont foragett to add the other attechs of the bione like the nail and the screws
+    Camera cam1;
 
+    Camera cam2;
     // Start is called before the first frame update
     void Start()
     {
         // showHideAnimate();
+
+        cam1 = horzontalCam.GetComponent<Camera>();
+        cam2 = verticalCam.GetComponent<Camera>();
     }
 
     // Update is called once per frame
@@ -58,12 +63,14 @@ public class naimte : MonoBehaviour
         strightLegPatient.SetActive(true);
         carm.transform.SetPositionAndRotation(new Vector3(-0.426999986f, 0f, -2.91000009f), Quaternion.Euler(0f, 198.909882f, 0f));
         carmRoatePoint.transform.rotation = Quaternion.Euler(0f, carmRoatePoint.transform.eulerAngles.y, carmRoatePoint.transform.eulerAngles.z);
+        other_xrayScreen.SetActive(true);
+        cam1.orthographicSize = 0.1f;
+        cam2.orthographicSize = 0.1f;
         if (xrayExtraction != null)
         {
             yield return new WaitForSeconds(4);
             xrayExtraction.SaveXrayImage("distal nail circle");
         }
-        other_xrayScreen.SetActive(true);
 
 
     }
