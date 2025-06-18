@@ -8,6 +8,10 @@ public class THandleGuideWire : MonoBehaviour
     private Vector3 snapPosition = new Vector3(-0.101f,1.491f,-0.097f);
     private Quaternion snapRotation = Quaternion.Euler(0.837f,275.577f,326.616f);
     public GameObject Awl;
+    public float neededThandleDepth;
+    public float actualThandleDepth;
+    public float tHandleAccuracy;
+    public float entrySiteDuration;
     private void OnTriggerEnter(Collider other)
     {
         // player has finished using the T-Handle Guide wire 

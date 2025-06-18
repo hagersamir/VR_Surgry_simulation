@@ -16,6 +16,11 @@ public class GuideWire : MonoBehaviour
     private bool isFading = false;
     private bool isDone = false;
     public GameObject aimingGuide;
+    public string guideWireXrayImg;
+    public float neededWireDepth;
+    public float actualWireDepth;
+    public float wirePositionAccuracy;
+    public float nailInsertionDuration;
 
     private void Start()
     {

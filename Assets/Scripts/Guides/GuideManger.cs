@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using TMPro;
 using System;
+using System.Collections.Generic;
 
 public class EventManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class EventManager : MonoBehaviour
     public TextMeshProUGUI cornerText;
     public naimte animateScript; // Assign in inspector
     public bool isDistalLocking = false;
+    public List<string> toolUsageOrder;
 
     private void Start()
     {

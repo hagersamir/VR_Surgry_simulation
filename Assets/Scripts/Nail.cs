@@ -12,6 +12,9 @@ public class Nail : MonoBehaviour
     private Vector3 snapPosition = new Vector3(-0.014f, 1.208f, -0.271f);
     // private Quaternion snapRotation = Quaternion.Euler(58.928f, 182.693f, 2.088f);
     private Quaternion snapRotation = Quaternion.Euler(57.6535378f,184.882233f,4.98095989f);
+    public float neededNailDepth;
+    public float actualNailDepth;
+    public float nailPositionAccuracy;
 
     void Awake()
     {

@@ -10,6 +10,8 @@ public class Blade : MonoBehaviour
     private bool isFading = false;
     public GameObject THandle;
     public GameObject guideWire, guideWireRemovalDetector;
+    public string cuttingScreenshotImg;
+    public float cuttingAccuracy;
 
     private void Start()
     {
