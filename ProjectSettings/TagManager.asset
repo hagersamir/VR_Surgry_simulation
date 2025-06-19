@@ -39,6 +39,8 @@ TagManager:
   - Drill Limit
   - toolAlign
   - toolFree
+  - awlOverLimit
+  - nailOverLimit
   layers:
   - Default
   - TransparentFX
