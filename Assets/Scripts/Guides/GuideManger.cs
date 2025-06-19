@@ -5,6 +5,7 @@ using UnityEngine.Rendering;
 using TMPro;
 using System;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class EventManager : MonoBehaviour
 {
@@ -16,6 +17,7 @@ public class EventManager : MonoBehaviour
     public naimte animateScript; // Assign in inspector
     public bool isDistalLocking = false;
     public List<string> toolUsageOrder;
+    private bool IsTrainingMode => SceneManager.GetActiveScene().name == "TrainingScene";
 
     private void Start()
     {
@@ -55,21 +57,18 @@ public class EventManager : MonoBehaviour
         // Display the task to the user
         // textDisplay.ShowTask("<b><color=#2A7FFF>Task 1: </color></b>Use the scalpel to make the initial incision and open the entry site over the proximal tibia");
 
-        if (scalpelGuide.gameObject != null)
+        if (scalpelGuide.gameObject != null && IsTrainingMode)
         {
             StartCoroutine(ActivateWithDelay(scalpelGuide, 2f)); // 2 seconds delay
         }
     }
     public void OnEventSkinCut()
     {
-        textDisplay.HideTask();
-        StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b> Use the T-handle to insert the guide wire through the entry site."); ; }));
-
-        // Display the task to the user
-        // textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b> Use the T-handle to insert the guide wire through the entry site.");
-
-        if (THandleGuide.gameObject != null)
+        if (THandleGuide.gameObject != null && IsTrainingMode)
         {
+            // Display the task to the user
+            textDisplay.HideTask();
+            StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b> Use the T-handle to insert the guide wire through the entry site."); ; }));
             StartCoroutine(ActivateWithDelay(THandleGuide, 2f)); // 2 seconds delay
         }
     }
@@ -77,55 +76,48 @@ public class EventManager : MonoBehaviour
     // this is called when the player is done using the T-Handle
     public void OnEventTHandleUsed()
     {
-        textDisplay.HideTask();
-        StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 3:</color></b> Use the awl to open the medullary canal at the guide wire entry point."); ; }));
-        // Display the task to the user
-        // textDisplay.ShowTask("<b><color=#2A7FFF>Task 3:</color></b> Use the awl to open the medullary canal at the guide wire entry point.");
-
-        if (awlGuide.gameObject != null)
+        if (awlGuide.gameObject != null && IsTrainingMode)
         {
+            // Display the task to the user
+            textDisplay.HideTask();
+            StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 3:</color></b> Use the awl to open the medullary canal at the guide wire entry point."); ; }));
             StartCoroutine(ActivateWithDelay(awlGuide, 2f)); // 2 seconds delay
         }
     }
     // this is called when the player is done using the Awl
     public void OnEventAwlUsed()
     {
-        textDisplay.EntrySiteCompleted();
-        // Display the task to the user
-        // textDisplay.ShowTask("<b><color=#2A7FFF>Task 1:</color></b> Advance the guide wire through the medullary canal to the distal end of the tibia.");
-
-        if (guideWireGuide.gameObject != null)
+        if (guideWireGuide.gameObject != null && IsTrainingMode)
         {
+            // Display the task to the user
+            textDisplay.EntrySiteCompleted();
             StartCoroutine(ActivateWithDelay(guideWireGuide, 2f)); // 2 seconds delay
         }
     }
     // this is called when the player is done inserting the guide wire to the distal end of the bone
     public void OnEventGuideWireUsed()
     {
-        guideWireGuide.gameObject.SetActive(false);
-        textDisplay.HideTask();
-        StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b> Insert the intramedullary nail over the guide wire down the canal."); ; }));
-        // Display the task to the user
-        // textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b> Insert the intramedullary nail over the guide wire down the canal.");
-
-        if (nailGuide.gameObject != null)
+        if (nailGuide.gameObject != null && IsTrainingMode)
         {
+            // Display the task to the user
+            guideWireGuide.gameObject.SetActive(false);
+            textDisplay.HideTask();
+            StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 2:</color></b> Insert the intramedullary nail over the guide wire down the canal."); ; }));
             StartCoroutine(ActivateWithDelay(nailGuide, 2f)); // 2 seconds delay
         }
     }
     // this is called when the player is done inserting the Nail to the distal end of the bone
     public void OnEventNailUsed()
     {
-        textDisplay.HideTask();
-        StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 3:</color></b> Remove the guide wire carefully after nail insertion."); ; }));
-        // Display the task to the user
-        // textDisplay.ShowTask("<b><color=#2A7FFF>Task 3:</color></b> Remove the guide wire carefully after nail insertion.");
         guideWireRemovalDetector.SetActive(true);
         wire1.SetActive(false);
         wire2.SetActive(true);
 
-        if (guideWireGuide.gameObject != null)
+        if (guideWireGuide.gameObject != null && IsTrainingMode)
         {
+            // Display the task to the user
+            textDisplay.HideTask();
+            StartCoroutine(DelayCoroutine(2f, () => { textDisplay.ShowTask("<b><color=#2A7FFF>Task 3:</color></b> Remove the guide wire carefully after nail insertion."); ; }));
             // StartCoroutine(ActivateWithDelay(nailGuide, 2f)); // 2 seconds delay
             // Activate the guide wire Guide
             guideWireGuide.SetActive(true);
