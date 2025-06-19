@@ -33,6 +33,9 @@ TagManager:
   - sleeve insert
   - sleeve free
   - notEntry
+  - Second Proximal Locking Hole
+  - First Proximal Locking Hole
+  - Distal Locking Hole
   layers:
   - Default
   - TransparentFX

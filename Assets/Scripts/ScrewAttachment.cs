@@ -1,6 +1,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine;
-
+using System.Collections;
+using TMPro;
 public class ScrewAttachment : MonoBehaviour
 {
 
@@ -15,6 +16,16 @@ public class ScrewAttachment : MonoBehaviour
     public GameObject sendData;
 
     public float ScrewPositionAcc;
+
+
+    private bool IsTrainingMode => SceneManager.GetActiveScene().name == "TrainingScene";
+    public AudioSource alarmAudioSource;
+    public AudioClip alarmClip;
+    public TextMeshProUGUI taskText;
+    public GameObject taskPanel;
+
+    public string wrongLoking1;
+    public string wrongLoking2;
     private void Start()
     {
         Debug.Log($"Local Position: {transform.localPosition}");
@@ -106,6 +117,28 @@ public class ScrewAttachment : MonoBehaviour
             Debug.Log("proximal2");
 
         }
+
+        if (SceneManager.GetActiveScene().name == "AssessmentScene")
+        {
+
+            if (other.tag == wrongLoking1 || other.tag == wrongLoking2)
+            {
+                taskPanel.SetActive(true);
+                taskText.text = "<b><color=red>WARNING:</color></b> Wrong Screw Length";
+                StartCoroutine(StopAlarmAfterSeconds(3f));
+            }
+            else if (other.CompareTag(transform.tag))
+            {
+                taskPanel.SetActive(true);
+                taskText.text = "<b><color=green>Sucsess:</color></b> Right Screw Lenght";
+                if (alarmAudioSource && alarmClip)
+                {
+                    alarmAudioSource.clip = alarmClip;
+                    alarmAudioSource.Play();
+                    StartCoroutine(StopAlarmAfterSeconds(3f));
+                }
+            }
+        }
         // if (other.CompareTag("Bone") )// in here 
         // {
         //     Debug.Log("hole and bone");
@@ -120,7 +153,18 @@ public class ScrewAttachment : MonoBehaviour
         if (other.CompareTag("hole"))
             isInHole = false;
     }
+
+
+    private IEnumerator StopAlarmAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        if (alarmAudioSource.isPlaying)
+            alarmAudioSource.Stop();
+        taskPanel.SetActive(false);
+    }
+
 }
+
 
 // Local Position: (-0.23, 0.28, 0.71)
 // UnityEngine.Debug:Log (object)
