@@ -69,6 +69,8 @@ public class LoginManager : MonoBehaviour
         {
             string traineeId = jsonResponse["traineeProfileId"];
             PlayerPrefs.SetString("traineeProfileId", traineeId);
+            string loginTime = System.DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+            PlayerPrefs.SetString("loginTime", loginTime);
             PlayerPrefs.SetInt("isGuest", 0); // Mark as logged-in user
             PlayerPrefs.Save();
 

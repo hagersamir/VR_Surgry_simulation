@@ -46,6 +46,7 @@ public class SurgeryDataSender : MonoBehaviour
     SurgeryAttemptMock mockData = new SurgeryAttemptMock
     {
       traineeProfileId = traineeId,
+      loginTime = PlayerPrefs.GetString("loginTime", "Unknown"),
       reductionDuration = StepManager.reductionDuration,
       reductionErrorLength = reduction.reductionErrorLength,
       reductionAccuracy = reduction.AlignmentAccuracy,
@@ -122,6 +123,7 @@ public class SurgeryDataSender : MonoBehaviour
 public class SurgeryAttemptMock
 {
   public string traineeProfileId;
+  public string loginTime;
 
   // reduction data 
   public float reductionDuration;
