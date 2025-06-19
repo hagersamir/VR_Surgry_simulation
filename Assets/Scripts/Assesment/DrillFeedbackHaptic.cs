@@ -5,6 +5,9 @@ using TMPro;
 
 public class DrillFeedbackHaptic : MonoBehaviour
 {
+    public AudioSource alarmAudioSource;
+    public AudioClip alarmClip;
+
     public TextMeshProUGUI taskText;
     public GameObject taskPanel;
     // Start is called before the first frame update
@@ -27,6 +30,17 @@ public class DrillFeedbackHaptic : MonoBehaviour
             taskText.text = "Drill Collide The Bone";
             StartCoroutine(StopAlarmAfterSeconds(3f));
 
+        }
+        if (other.CompareTag("Drill Limit"))
+        {
+            taskPanel.SetActive(true);
+            taskText.text = "<b><color=red>WARNING:</color></b> Drill inserted too deep! ";
+            if (alarmAudioSource && alarmClip)
+            {
+                alarmAudioSource.clip = alarmClip;
+                alarmAudioSource.Play();
+                StartCoroutine(StopAlarmAfterSeconds(3f));
+            }
         }
     }
 

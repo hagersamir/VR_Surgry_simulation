@@ -36,6 +36,7 @@ TagManager:
   - Second Proximal Locking Hole
   - First Proximal Locking Hole
   - Distal Locking Hole
+  - Drill Limit
   layers:
   - Default
   - TransparentFX
