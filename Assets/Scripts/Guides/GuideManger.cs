@@ -147,6 +147,8 @@ public class EventManager : MonoBehaviour
         screw3.SetActive(true);
         cuttingBlade.SetActive(true);
         screwDriver.SetActive(true);
+        awl.SetActive(false);
+        THandle.SetActive(false);
 
         // textDisplay.ShowTask("Place trochar on bone and  mark skin");
         // animate the trocher shit
