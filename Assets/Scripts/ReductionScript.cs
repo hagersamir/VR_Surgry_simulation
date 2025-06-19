@@ -44,7 +44,7 @@ public class ReductionScript : MonoBehaviour
     private Vector3 finalPos;
 
     private Vector3 legPosition = new Vector3(0.324f, 0.993f, -0.781f);
-    private float handExitThreshold = 0.25f;
+    private float handExitThreshold = 1.5f;
 
     private bool IsTrainingMode => SceneManager.GetActiveScene().name == "TrainingScene";
 
@@ -92,6 +92,9 @@ public class ReductionScript : MonoBehaviour
 
     private void OnSelectEntered(SelectEnterEventArgs arg)
     {
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+            rb.isKinematic = true;
         if (reductionCompleted) return;
 
         var interactor = arg.interactorObject as XRBaseInteractor;
@@ -112,7 +115,7 @@ public class ReductionScript : MonoBehaviour
             rightHandPose.gameObject.SetActive(true);
             StartCoroutine(SlideHand(rightHandPose.transform, -slideDistance, Vector3.up));
         }
-        else if (handData.handModelType == HandData.HandModelType.Left)
+        if (handData.handModelType == HandData.HandModelType.Left)
         {
             leftOriginalHand = handData;
             leftInteractor = interactor as XRDirectInteractor;
@@ -161,7 +164,7 @@ public class ReductionScript : MonoBehaviour
         reductionCompleted = true;
 
         Vector3 initialPos = brokenBonePart.position;
-        Vector3 finalPos =  new Vector3(0.187000006f, 1.02460003f, -0.284099996f)- new Vector3(0.296999991f, 0.014000058f,0.143000007f);
+        Vector3 finalPos = new Vector3(0.187000006f, 1.02460003f, -0.284099996f) - new Vector3(0.296999991f, 0.014000058f, 0.143000007f);
         float duration = 0.5f;
         float timer = 0f;
 
@@ -302,11 +305,13 @@ public class ReductionScript : MonoBehaviour
 
     private void EvaluateAlignment()
     {
+        reductionCompleted = true;
         if (xrayExtraction != null)
             xrayExtraction.SaveXrayImage("AFTER REDUCTION");
 
         float accuracy = GetAlignmentAccuracy(brokenBonePart.position);
         Debug.Log($"User moved hand away. Accuracy: {(accuracy * 100f):F2}%");
+        RestoreVRHands();
     }
 
     private float GetAlignmentAccuracy(Vector3 currentPos)
