@@ -17,7 +17,11 @@ public class EventManager : MonoBehaviour
     public naimte animateScript; // Assign in inspector
     public bool isDistalLocking = false;
     public List<string> toolUsageOrder;
-    private bool IsTrainingMode => SceneManager.GetActiveScene().name == "TrainingScene";
+    public bool IsTrainingMode => SceneManager.GetActiveScene().name == "TrainingScene";
+    public AudioSource alarmAudioSource;
+    public AudioClip alarmClip;
+    public TextMeshProUGUI taskText;
+    public GameObject taskPanel;
 
     private void Start()
     {
@@ -44,6 +48,13 @@ public class EventManager : MonoBehaviour
 
             // }
         }
+    }
+    public IEnumerator StopAlarmAfterSeconds(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        if (alarmAudioSource.isPlaying)
+            alarmAudioSource.Stop();
+        taskPanel.SetActive(false);
     }
     private IEnumerator DelayCoroutine(float seconds, Action callback)
     {

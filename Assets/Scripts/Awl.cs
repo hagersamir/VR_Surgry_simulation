@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using TMPro;
 
 public class Awl : MonoBehaviour
@@ -10,7 +11,6 @@ public class Awl : MonoBehaviour
     public TextMeshProUGUI cornerText;
     public GameObject guideWire, THandle;  // Assign in inspector
     public float fadeDuration = 1.5f;      // Duration of the fade effect (seconds)
-
     private Material awlMaterial;
     private Material tHandleMaterial;
     private Animator awlAnimator;
@@ -33,9 +33,31 @@ public class Awl : MonoBehaviour
         {
             isFading = true;
 
+            if (!eventManager.IsTrainingMode)
+            {
+            // }
+            // else
+            // {
+                eventManager.taskPanel.SetActive(true);
+                eventManager.taskText.text = "<b><color=green>SUCCESS:</color></b> Entry canal successfully opened, you can proceed";
+                StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
+                // eventManager.taskPanel.SetActive(true);
+                // eventManager.taskText.text = "<b><color=blue>Hint:</color></b> You can remove the Awl and the T-Handle";
+                // StartCoroutine(eventManager.StopAlarmAfterSeconds(5f));
+            }
             eventManager.OnEventAwlUsed();
-
             StartCoroutine(PlayReverseAnimationAndFadeOut());
+        }
+        if (other.CompareTag("AwlOverLimit") && eventManager.IsTrainingMode)
+        {
+            eventManager.taskPanel.SetActive(true);
+            eventManager.taskText.text = "<b><color=red>WARNING:</color></b> Be carefull not to damage internal structures or the far cortex";
+            if (eventManager.alarmAudioSource && eventManager.alarmClip)
+            {
+                eventManager.alarmAudioSource.clip = eventManager.alarmClip;
+                eventManager.alarmAudioSource.Play();
+                StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
+            }
         }
     }
 
@@ -43,6 +65,7 @@ public class Awl : MonoBehaviour
     {
         if (awlAnimator != null)
         {
+            awlAnimator.enabled = true;
             awlAnimator.Play("Awl_Reverse");
             float reverseClipLength = awlAnimator.runtimeAnimatorController.animationClips.FirstOrDefault(c => c.name == "Awl_Reverse")?.length ?? 1f;
             yield return new WaitForSeconds(reverseClipLength);
@@ -81,12 +104,15 @@ public class Awl : MonoBehaviour
         cornerText.text = "Task 3: Guide Wire And Nail Insertion";
 
         gameObject.SetActive(false);
+        guideWire.transform.SetParent(null);
         if (THandle != null)
             THandle.SetActive(false);
 
-        guideWire.transform.SetParent(null);
         guideWire.GetComponent<XRGrabInteractableTwoAttach>().enabled = true;
-        guideWire.GetComponent<GuideWireConstraint>().enabled = true;
+        if (eventManager.IsTrainingMode)
+        {
+            guideWire.GetComponent<GuideWireConstraint>().enabled = true;
+        }
         // guideWire.SetActive(true);
         // guideWire.transform.position = new Vector3(-0.113f, 1.244f, -0.257f);
         // guideWire.transform.rotation = Quaternion.Euler(54.546f, 182.119f, 182.141f);

@@ -35,8 +35,6 @@ public class GuideWire : MonoBehaviour
             // Snap to the target position and rotation
             transform.position = snapPosition;
             transform.rotation = snapRotation;
-            // aimingGuide.SetActive(true);
-            // aimingGuide.GetComponent<Animator>().enabled = false;
             GetComponent<Animator>().enabled = false;
             //begin nail task after Guide wire is inserted 
             eventManager.OnEventGuideWireUsed();
@@ -48,8 +46,21 @@ public class GuideWire : MonoBehaviour
             isFading = true;
             // Begin DRILLING TASKs after Guide wire is removed 
             eventManager.onEventGuideWire();
+            aimingGuide.GetComponent<Nail>().grab.enabled = false;
             // Start the fading animation
             StartCoroutine(FadeOut());
+        }
+        // player inserted the Guide wire too deep 
+        if (other.CompareTag("nailOverLimit") && isDone && eventManager.IsTrainingMode)
+        {
+            eventManager.taskPanel.SetActive(true);
+            eventManager.taskText.text = "<b><color=red>WARNING:</color></b> Guide wire inserted too deep! Pull back slightly.";
+            if (eventManager.alarmAudioSource && eventManager.alarmClip)
+            {
+                eventManager.alarmAudioSource.clip = eventManager.alarmClip;
+                eventManager.alarmAudioSource.Play();
+                StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
+            }
         }
     }
     private IEnumerator FadeOut()
@@ -57,16 +68,6 @@ public class GuideWire : MonoBehaviour
         Debug.Log("FadeOut coroutine started");
 
         Color initialColor = wireMaterial.color;
-
-        // // Ensure the material is using transparent rendering
-        // wireMaterial.SetFloat("_Mode", 3);
-        // wireMaterial.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
-        // wireMaterial.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
-        // wireMaterial.SetInt("_ZWrite", 0);
-        // wireMaterial.DisableKeyword("_ALPHATEST_ON");
-        // wireMaterial.EnableKeyword("_ALPHABLEND_ON");
-        // wireMaterial.DisableKeyword("_ALPHAPREMULTIPLY_ON");
-        // wireMaterial.renderQueue = 3000;
 
         float elapsedTime = 0f;
 

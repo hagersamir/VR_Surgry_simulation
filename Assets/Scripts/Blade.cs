@@ -14,11 +14,6 @@ public class Blade : MonoBehaviour
     public GameObject guideWire, guideWireRemovalDetector;
     public string cuttingScreenshotImg;
     public float cuttingAccuracy;
-    private bool IsTrainingMode => SceneManager.GetActiveScene().name == "TrainingScene";
-    public AudioSource alarmAudioSource;
-    public AudioClip alarmClip;
-    public TextMeshProUGUI taskText;
-    public GameObject taskPanel;
 
 
     private void Start()
@@ -32,7 +27,7 @@ public class Blade : MonoBehaviour
         if (other.CompareTag("EntrySite") && !isFading)
         {
             isFading = true;
-            if (IsTrainingMode)
+            if (eventManager.IsTrainingMode)
             {
                 // Start the fading animation
                 StartCoroutine(FadeOut());
@@ -40,22 +35,22 @@ public class Blade : MonoBehaviour
             else
             {
                 TakeScreenshot();
-                taskPanel.SetActive(true);
-                taskText.text = "<b><color=green>SUCCESS:</color></b> Correct entry site!";
-                StartCoroutine(StopAlarmAfterSeconds(3f));
+                eventManager.taskPanel.SetActive(true);
+                eventManager.taskText.text = "<b><color=green>SUCCESS:</color></b> Correct entry site!";
+                StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
             }
             //begin THandle Task
             eventManager.OnEventSkinCut();
         }
-        if (other.CompareTag("notEntry") && !IsTrainingMode)
+        if (other.CompareTag("notEntry") && !eventManager.IsTrainingMode)
         {
-            taskPanel.SetActive(true);
-            taskText.text = "<b><color=red>WARNING:</color></b> Incorrect entry site!";
-            if (alarmAudioSource && alarmClip)
+            eventManager.taskPanel.SetActive(true);
+            eventManager.taskText.text = "<b><color=red>WARNING:</color></b> Incorrect entry site!";
+            if (eventManager.alarmAudioSource && eventManager.alarmClip)
             {
-                alarmAudioSource.clip = alarmClip;
-                alarmAudioSource.Play();
-                StartCoroutine(StopAlarmAfterSeconds(3f));
+                eventManager.alarmAudioSource.clip = eventManager.alarmClip;
+                eventManager.alarmAudioSource.Play();
+                StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
             }
         }
     }
@@ -64,14 +59,6 @@ public class Blade : MonoBehaviour
         cuttingScreenshotImg = Application.dataPath + "/savedImages/EntrySiteCut.png";
         ScreenCapture.CaptureScreenshot(cuttingScreenshotImg);
         Debug.Log("Screenshot saved to: " + cuttingScreenshotImg);
-    }
-
-    private IEnumerator StopAlarmAfterSeconds(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        if (alarmAudioSource.isPlaying)
-            alarmAudioSource.Stop();
-        taskPanel.SetActive(false);
     }
     private IEnumerator FadeOut()
     {

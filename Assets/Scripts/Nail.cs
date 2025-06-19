@@ -6,7 +6,7 @@ using UnityEngine.XR.Interaction.Toolkit;
 public class Nail : MonoBehaviour
 {
     public EventManager eventManager;  // Assign in inspector
-    private XRGrabInteractable grab;
+    public XRGrabInteractable grab;
 
     // Target snap position and rotation
     private Vector3 snapPosition = new Vector3(-0.014f, 1.208f, -0.271f);
@@ -31,7 +31,7 @@ public class Nail : MonoBehaviour
             //begin Guide wire removal task after nail is inserted 
             eventManager.OnEventNailUsed();
         }
-        if (other.CompareTag("nail"))
+        if (other.CompareTag("nail") && eventManager.IsTrainingMode)
         {
             Animator animator = GetComponent<Animator>();
             animator.enabled = true;
@@ -39,8 +39,18 @@ public class Nail : MonoBehaviour
             other.gameObject.SetActive(false);
             grab.enabled = false;
         }
+        if (other.CompareTag("nailOverLimit") && eventManager.IsTrainingMode)
+        {
+            eventManager.taskPanel.SetActive(true);
+            eventManager.taskText.text = "<b><color=red>WARNING:</color></b> Nail inserted too deep! Pull back slightly.";
+            if (eventManager.alarmAudioSource && eventManager.alarmClip)
+            {
+                eventManager.alarmAudioSource.clip = eventManager.alarmClip;
+                eventManager.alarmAudioSource.Play();
+                StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
+            }
+        }
     }
-
     IEnumerator Animate(Animator animator)
     {
         if (animator != null)
