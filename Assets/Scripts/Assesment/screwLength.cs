@@ -33,18 +33,19 @@ public class screwLength : MonoBehaviour
         {
             taskPanel.SetActive(true);
             taskText.text = "<b><color=red>WARNING:</color></b> Wrong Screw Length";
-            StartCoroutine(StopAlarmAfterSeconds(3f));
-        }
-        else if (other.CompareTag(transform.tag))
-        {
-            taskPanel.SetActive(true);
-            taskText.text = "<b><color=green>Sucsess:</color></b> Right Screw Lenght";
             if (alarmAudioSource && alarmClip)
             {
                 alarmAudioSource.clip = alarmClip;
                 alarmAudioSource.Play();
                 StartCoroutine(StopAlarmAfterSeconds(3f));
             }
+        }
+        else if (other.CompareTag(transform.tag))
+        {
+            taskPanel.SetActive(true);
+            taskText.text = "<b><color=green>Sucsess:</color></b> Right Screw Lenght";
+            StartCoroutine(StopAlarmAfterSeconds(3f));
+
         }
     }
     
