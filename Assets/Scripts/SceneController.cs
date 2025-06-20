@@ -4,7 +4,9 @@ using UnityEngine.InputSystem.XR;
 public class BoneSelectorUI : MonoBehaviour
 {
   public GameObject popUpWindow;
-  // public GameObject[] bonesToShow;
+  public GameObject menu;
+  public GameObject currentStep;
+  public GameObject xray;
   public GameObject Bone1;
   public GameObject Bone2;
   // public GameObject Bone3;
@@ -12,6 +14,9 @@ public class BoneSelectorUI : MonoBehaviour
   void Start()
   {
     popUpWindow.SetActive(true);
+    menu.SetActive(false);
+    currentStep.SetActive(false);
+    xray.SetActive(false);
 
   }
 
@@ -19,11 +24,17 @@ public class BoneSelectorUI : MonoBehaviour
   public void Case1()
   {
     popUpWindow.SetActive(false);
+    menu.SetActive(true);
+    currentStep.SetActive(true);
+    xray.SetActive(true);
     Bone1.SetActive(true);
   }
   public void Case2()
   {
     popUpWindow.SetActive(false);
+    menu.SetActive(true);
+    currentStep.SetActive(true);
+    xray.SetActive(true);
     Bone2.SetActive(true);
   }
   // public void Case3()
