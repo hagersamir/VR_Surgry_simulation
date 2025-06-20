@@ -15,7 +15,7 @@ public class BoneSelectorUI : MonoBehaviour
   {
     popUpWindow.SetActive(true);
     menu.SetActive(false);
-    currentStep.SetActive(false);
+    if(currentStep!=null) currentStep.SetActive(false);
     xray.SetActive(false);
 
   }
@@ -25,7 +25,7 @@ public class BoneSelectorUI : MonoBehaviour
   {
     popUpWindow.SetActive(false);
     menu.SetActive(true);
-    currentStep.SetActive(true);
+    if(currentStep!=null) currentStep.SetActive(true);
     xray.SetActive(true);
     Bone1.SetActive(true);
   }
@@ -33,7 +33,7 @@ public class BoneSelectorUI : MonoBehaviour
   {
     popUpWindow.SetActive(false);
     menu.SetActive(true);
-    currentStep.SetActive(true);
+    if(currentStep!=null) currentStep.SetActive(true);
     xray.SetActive(true);
     Bone2.SetActive(true);
   }
