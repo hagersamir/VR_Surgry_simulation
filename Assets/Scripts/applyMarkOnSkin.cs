@@ -39,6 +39,8 @@ public class SkinCollisionDecal : MonoBehaviour
             decalInstance.transform.SetPositionAndRotation(hole.transform.position, hole.transform.rotation);
             decalInstance.localScale = new Vector3(hole.lossyScale.x / transform.lossyScale.x, hole.lossyScale.y / transform.lossyScale.y, hole.lossyScale.z / transform.lossyScale.z);
             decalInstance.SetParent(null, true);
+            decalInstance.SetParent(other.transform);
+
 
             // this is to call the build methond to display the texture
             Decal decalComponent = decalInstance.GetComponent<Decal>();

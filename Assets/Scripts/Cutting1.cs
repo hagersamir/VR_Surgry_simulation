@@ -172,6 +172,7 @@ public class smallCut : MonoBehaviour
             instance.transform.localScale = childLocalScale;
             child = instance.transform;
             child.gameObject.SetActive(false);
+            child.SetParent(other.transform);
             // }
         }
     }
