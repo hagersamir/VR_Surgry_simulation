@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro;
+using System.IO;
 
 public class Blade : MonoBehaviour
 {
@@ -10,6 +9,7 @@ public class Blade : MonoBehaviour
     public float fadeDuration = 4.0f; // Duration of the fade effect (seconds)
     private Material bladeMaterial;
     private bool isFading = false;
+    public Camera screenshotCamera;
     public GameObject THandle;
     public GameObject guideWire, guideWireRemovalDetector;
     public string cuttingScreenshotImg;
@@ -34,7 +34,7 @@ public class Blade : MonoBehaviour
             }
             else
             {
-                TakeScreenshot();
+                TakeScreenshotWithCamera();
                 eventManager.taskPanel.SetActive(true);
                 eventManager.taskText.text = "<b><color=green>SUCCESS:</color></b> Correct entry site!";
                 StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
@@ -54,10 +54,43 @@ public class Blade : MonoBehaviour
             }
         }
     }
-    void TakeScreenshot()
+    public void TakeScreenshotWithCamera()
     {
-        cuttingScreenshotImg = Application.dataPath + "/savedImages/EntrySiteCut.png";
-        ScreenCapture.CaptureScreenshot(cuttingScreenshotImg);
+        int width = 1920;
+        int height = 1080;
+
+#if UNITY_EDITOR
+        string directory = Application.dataPath + "/savedImages";
+        Directory.CreateDirectory(directory);
+        cuttingScreenshotImg = directory + "/EntrySiteCut.png";
+#else
+        // In build, use persistent path
+        string directory = Application.persistentDataPath + "/savedImages";
+        Directory.CreateDirectory(directory);
+        cuttingScreenshotImg = directory + "/EntrySiteCut.png";
+#endif
+
+        // Create render texture and texture to hold the screenshot
+        RenderTexture rt = new RenderTexture(width, height, 24);
+        screenshotCamera.targetTexture = rt;
+
+        Texture2D screenshot = new Texture2D(width, height, TextureFormat.RGB24, false);
+
+        // Render and read pixels
+        screenshotCamera.Render();
+        RenderTexture.active = rt;
+        screenshot.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+        screenshot.Apply();
+
+        // Encode to PNG and save
+        byte[] bytes = screenshot.EncodeToPNG();
+        File.WriteAllBytes(cuttingScreenshotImg, bytes);
+
+        // Cleanup
+        screenshotCamera.targetTexture = null;
+        RenderTexture.active = null;
+        Destroy(rt);
+
         Debug.Log("Screenshot saved to: " + cuttingScreenshotImg);
     }
     private IEnumerator FadeOut()
