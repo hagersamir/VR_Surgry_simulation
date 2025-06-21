@@ -6,6 +6,7 @@ public class naimte : MonoBehaviour
 {
     public GameObject oldPatient, animPatient, strightLegPatient, bone1, bone2, feumer, tibiaRigParent, feumerRigParent, pateintCover1, pateintCover2, foam, pillow, nail, aimgGuide1, aimgGuide2, carm, carmRoatePoint, other_xrayScreen, horzontalCam, verticalCam;
     public XRayExtraction xrayExtraction;
+    public EventManager eventManager;
     //dont foragett to add the other attechs of the bione like the nail and the screws
     Camera cam1;
 
@@ -71,6 +72,9 @@ public class naimte : MonoBehaviour
             yield return new WaitForSeconds(4);
             xrayExtraction.SaveXrayImage("distal nail circle");
         }
+
+        eventManager.isDistalLocking = true;
+        eventManager.OnEventKneeExtnsion();
 
 
     }
