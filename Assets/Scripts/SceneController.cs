@@ -6,7 +6,7 @@ public class BoneSelectorUI : MonoBehaviour
   public GameObject popUpWindow;
   public GameObject menu;
   public GameObject currentStep;
-  public GameObject xray;
+  // public GameObject xray;
   public GameObject Bone1;
   public GameObject Bone2;
   // public GameObject Bone3;
@@ -16,7 +16,7 @@ public class BoneSelectorUI : MonoBehaviour
     popUpWindow.SetActive(true);
     menu.SetActive(false);
     if(currentStep!=null) currentStep.SetActive(false);
-    xray.SetActive(false);
+    // xray.SetActive(false);
 
   }
 
@@ -26,7 +26,7 @@ public class BoneSelectorUI : MonoBehaviour
     popUpWindow.SetActive(false);
     menu.SetActive(true);
     if(currentStep!=null) currentStep.SetActive(true);
-    xray.SetActive(true);
+    // xray.SetActive(true);
     Bone1.SetActive(true);
   }
   public void Case2()
@@ -34,7 +34,7 @@ public class BoneSelectorUI : MonoBehaviour
     popUpWindow.SetActive(false);
     menu.SetActive(true);
     if(currentStep!=null) currentStep.SetActive(true);
-    xray.SetActive(true);
+    // xray.SetActive(true);
     Bone2.SetActive(true);
   }
   // public void Case3()
