@@ -11,6 +11,7 @@ public class SurgeryDataSender : MonoBehaviour
   ReductionScript reduction = FindObjectOfType<ReductionScript>();
   Blade cuttingEntrySite = FindObjectOfType<Blade>();
   THandleGuideWire THandleWire = FindObjectOfType<THandleGuideWire>();
+  Awl Awl = FindObjectOfType<Awl>();
   GuideWire guideWire = FindObjectOfType<GuideWire>();
   Nail nail = FindObjectOfType<Nail>();
   EventManager manager = FindObjectOfType<EventManager>();
@@ -52,7 +53,7 @@ public class SurgeryDataSender : MonoBehaviour
       reductionAccuracy = reduction.AlignmentAccuracy,
       reductionBeforeReductionXrayImg = "../SavedImages/BEFORE REDUCTION.png",
       reductionAfterReductionXrayImg = "../SavedImages/AFTER REDUCTION.png",
-      entrySiteDuration = THandleWire.entrySiteDuration,
+      entrySiteDuration = Awl.entrySiteDuration,
       cuttingScreenshotImg = cuttingEntrySite.cuttingScreenshotImg,
       cuttingAccuracy = cuttingEntrySite.cuttingAccuracy,
       neededThandleDepth = THandleWire.neededThandleDepth,

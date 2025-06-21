@@ -49,6 +49,10 @@ public class GuideWire : MonoBehaviour
             aimingGuide.GetComponent<Nail>().grab.enabled = false;
             // Start the fading animation
             StartCoroutine(FadeOut());
+            TimerManager.StopTimer();
+            nailInsertionDuration = TimerManager.GetDuration();
+            TimerManager.ResetTimer();
+            TimerManager.StartTimer(); // SHOULD END WHEN DRILLING IS DONE
         }
         // player inserted the Guide wire too deep 
         if (other.CompareTag("nailOverLimit") && isDone && eventManager.IsTrainingMode)

@@ -119,9 +119,9 @@ public class Blade : MonoBehaviour
         // 5. Average both:
         cuttingAccuracy = (positionAccuracy + rotationAccuracy) / 2f * 100f;
 
-        Debug.Log($"📍 Position Error: {positionError:F4} m");
-        Debug.Log($"🔁 Rotation Error: {rotationError:F2}°");
-        Debug.Log($"✅ Final Accuracy: {cuttingAccuracy:F1}%");
+        Debug.Log($"Position Error: {positionError:F4} m");
+        Debug.Log($"Rotation Error: {rotationError:F2}°");
+        Debug.Log($"Final Accuracy: {cuttingAccuracy:F1}%");
     }
 
     private IEnumerator FadeOut()

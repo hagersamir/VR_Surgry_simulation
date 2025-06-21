@@ -1,8 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using TMPro;
 
 public class THandleGuideWire : MonoBehaviour
 {
@@ -13,7 +9,6 @@ public class THandleGuideWire : MonoBehaviour
     public float neededThandleDepth;
     public float actualThandleDepth;
     public float tHandleAccuracy;
-    public float entrySiteDuration;
 
     private void OnTriggerEnter(Collider other)
     {

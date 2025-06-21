@@ -15,6 +15,7 @@ public class Awl : MonoBehaviour
     private Material tHandleMaterial;
     private Animator awlAnimator;
     private bool isFading = false;
+    public float entrySiteDuration;
 
     private void Start()
     {
@@ -35,12 +36,16 @@ public class Awl : MonoBehaviour
 
             if (!eventManager.IsTrainingMode)
             {
-            // }
-            // else
-            // {
+                // }
+                // else
+                // {
                 eventManager.taskPanel.SetActive(true);
                 eventManager.taskText.text = "<b><color=green>SUCCESS:</color></b> Entry canal successfully opened, you can proceed";
                 StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
+                TimerManager.StopTimer();
+                entrySiteDuration = TimerManager.GetDuration();
+                TimerManager.ResetTimer();
+                TimerManager.StartTimer();
                 // eventManager.taskPanel.SetActive(true);
                 // eventManager.taskText.text = "<b><color=blue>Hint:</color></b> You can remove the Awl and the T-Handle";
                 // StartCoroutine(eventManager.StopAlarmAfterSeconds(5f));
@@ -48,7 +53,7 @@ public class Awl : MonoBehaviour
             eventManager.OnEventAwlUsed();
             StartCoroutine(PlayReverseAnimationAndFadeOut());
         }
-        if (other.CompareTag("AwlOverLimit") && eventManager.IsTrainingMode)
+        if (other.CompareTag("AwlOverLimit") && !eventManager.IsTrainingMode)
         {
             eventManager.taskPanel.SetActive(true);
             eventManager.taskText.text = "<b><color=red>WARNING:</color></b> Be carefull not to damage internal structures or the far cortex";
