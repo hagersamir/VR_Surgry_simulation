@@ -3,7 +3,7 @@ using UnityEngine;
 public class THandleGuideWire : MonoBehaviour
 {
     public EventManager eventManager;  // Assign in inspector
-    private Vector3 snapPosition = new Vector3(-0.101f, 1.491f, -0.097f);
+    private Vector3 snapPosition = new Vector3(-0.109999999f, 1.51999998f, -0.125f);
     private Quaternion snapRotation = Quaternion.Euler(0.837f, 275.577f, 326.616f);
     public GameObject Awl;
     public float neededThandleDepth;
@@ -29,7 +29,7 @@ public class THandleGuideWire : MonoBehaviour
             // begin awl task after T-Handle is used 
             eventManager.OnEventTHandleUsed();
         }
-        if (other.CompareTag("THandle")&& !eventManager.IsTrainingMode)
+        if (other.CompareTag("THandle") && !eventManager.IsTrainingMode)
         {
             eventManager.taskPanel.SetActive(true);
             eventManager.taskText.text = "<b><color=red>WARNING:</color></b> Guide wire inserted too deep! Pull back slightly before you continue.";
