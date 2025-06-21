@@ -33,7 +33,7 @@ public class BoneSelectorUI : MonoBehaviour
     // xray.SetActive(true);
     Bone1.SetActive(true);
     // if (stepManager != null)
-    StartCoroutine(stepManager.ShowTaskNotes());
+    StartCoroutine(stepManager.showInitially());
     // if (nurseController != null)
     nurseController.StartNurseActions();
     
@@ -45,9 +45,9 @@ public class BoneSelectorUI : MonoBehaviour
     if (currentStep != null) currentStep.SetActive(true);
     // xray.SetActive(true);
     Bone2.SetActive(true);
-    if (stepManager != null)
-      StartCoroutine(stepManager.ShowTaskNotes());
-    if (nurseController != null)
+    // if (stepManager != null)
+    StartCoroutine(stepManager.showInitially());
+    // if (nurseController != null)
     nurseController.StartNurseActions();  
   }
   // public void Case3()
