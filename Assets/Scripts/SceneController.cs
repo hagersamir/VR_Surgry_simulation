@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem.XR;
+using UnityEngine.SceneManagement;
 
 public class BoneSelectorUI : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class BoneSelectorUI : MonoBehaviour
   public GameObject Bone2;
   public StepManager stepManager; 
   public NurseController nurseController; 
+  private bool IsTrainingMode => SceneManager.GetActiveScene().name == "TrainingScene";
 
 
   // public GameObject Bone3;
@@ -32,7 +34,7 @@ public class BoneSelectorUI : MonoBehaviour
     if (currentStep != null) currentStep.SetActive(true);
     // xray.SetActive(true);
     Bone1.SetActive(true);
-    // if (stepManager != null)
+    if (stepManager != null && IsTrainingMode)
     StartCoroutine(stepManager.showInitially());
     // if (nurseController != null)
     nurseController.StartNurseActions();
@@ -45,7 +47,7 @@ public class BoneSelectorUI : MonoBehaviour
     if (currentStep != null) currentStep.SetActive(true);
     // xray.SetActive(true);
     Bone2.SetActive(true);
-    // if (stepManager != null)
+    if (stepManager != null && IsTrainingMode)
     StartCoroutine(stepManager.showInitially());
     // if (nurseController != null)
     nurseController.StartNurseActions();  
