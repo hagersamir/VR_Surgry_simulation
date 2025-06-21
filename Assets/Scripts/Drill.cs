@@ -125,10 +125,10 @@ public class Drill : MonoBehaviour
             hasDuplicated = false;
         }
 
-        if (Input.GetKey(KeyCode.N))
-        {
-            eventManager.OnEventDistalDrilling();
-        }
+        // if (Input.GetKey(KeyCode.N))
+        // {
+        //     eventManager.OnEventDistalDrilling();
+        // }
     }
 
     private void OnTriggerEnter(Collider other)

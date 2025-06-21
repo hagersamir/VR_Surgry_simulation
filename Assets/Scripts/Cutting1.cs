@@ -178,9 +178,9 @@ public class smallCut : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKey(KeyCode.M))
-        {
-            eventManager.OnEventDistalCut();
-        }
+        // if (Input.GetKey(KeyCode.M))
+        // {
+        //     eventManager.OnEventDistalCut();
+        // }
     }
 }
