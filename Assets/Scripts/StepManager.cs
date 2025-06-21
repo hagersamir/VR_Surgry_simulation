@@ -262,14 +262,17 @@ public class StepManager : MonoBehaviour
 
     private void UpdateStepUI()
     {
-        if (isTrainingMode)
-        {
-            cornerText.text = stepNames[currentStep - 1];
+    if (isTrainingMode)
+    {
+      cornerText.text = stepNames[currentStep - 1];
+            if (currentStep != 1)
+            {
             StartCoroutine(ShowTaskNotes());
-        }
+            }
+    }
     }
 
-    private IEnumerator ShowTaskNotes()
+    public IEnumerator ShowTaskNotes()
     {
         if (!isTrainingMode) yield break;
 

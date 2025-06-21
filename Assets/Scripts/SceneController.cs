@@ -9,6 +9,10 @@ public class BoneSelectorUI : MonoBehaviour
   // public GameObject xray;
   public GameObject Bone1;
   public GameObject Bone2;
+  public StepManager stepManager; 
+  public NurseController nurseController; 
+
+
   // public GameObject Bone3;
 
   void Start()
@@ -25,17 +29,26 @@ public class BoneSelectorUI : MonoBehaviour
   {
     popUpWindow.SetActive(false);
     menu.SetActive(true);
-    if(currentStep!=null) currentStep.SetActive(true);
+    if (currentStep != null) currentStep.SetActive(true);
     // xray.SetActive(true);
     Bone1.SetActive(true);
+    // if (stepManager != null)
+    StartCoroutine(stepManager.ShowTaskNotes());
+    // if (nurseController != null)
+    nurseController.StartNurseActions();
+    
   }
   public void Case2()
   {
     popUpWindow.SetActive(false);
     menu.SetActive(true);
-    if(currentStep!=null) currentStep.SetActive(true);
+    if (currentStep != null) currentStep.SetActive(true);
     // xray.SetActive(true);
     Bone2.SetActive(true);
+    if (stepManager != null)
+      StartCoroutine(stepManager.ShowTaskNotes());
+    if (nurseController != null)
+    nurseController.StartNurseActions();  
   }
   // public void Case3()
   // {
