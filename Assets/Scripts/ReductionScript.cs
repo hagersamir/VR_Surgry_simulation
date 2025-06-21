@@ -11,7 +11,12 @@ public class ReductionScript : MonoBehaviour
     public float slideDuration = 0.3f;
     public HandData rightHandPose;
     public HandData leftHandPose;
-    public Transform brokenBonePart;
+  // public Transform brokenBonePart;
+    private Transform brokenBonePart;
+
+    public GameObject brokenBone1;
+    public GameObject brokenBone2;
+
     public StepManager stepManager;
     public XRayExtraction xrayExtraction;
     public AudioSource alarmAudioSource;
@@ -42,24 +47,27 @@ public class ReductionScript : MonoBehaviour
     private int totalSteps = 4;
     private Vector3 startPos;
     private Vector3 finalPos;
+    private Quaternion finalRot;
+    private Quaternion startRot;
+
 
     private Vector3 legPosition = new Vector3(0.324f, 0.993f, -0.781f);
     private float handExitThreshold = 1.5f;
 
     private bool IsTrainingMode => SceneManager.GetActiveScene().name == "TrainingScene";
 
-    void Start()
-    {
-        grabInteractable = GetComponent<XRGrabInteractable>();
-        grabInteractable.selectEntered.AddListener(OnSelectEntered);
-        grabInteractable.selectExited.AddListener(OnSelectExited);
 
-        rightHandPose.gameObject.SetActive(false);
-        leftHandPose.gameObject.SetActive(false);
-        taskPanel.SetActive(false);
+  void Start()
+  {
+    grabInteractable = GetComponent<XRGrabInteractable>();
+    grabInteractable.selectEntered.AddListener(OnSelectEntered);
+    grabInteractable.selectExited.AddListener(OnSelectExited);
 
-        startPos = brokenBonePart.position;
-        finalPos = new Vector3(0.187f, 1.0246f, -0.2841f) - new Vector3(0.297f, 0.014f, 0.143f);
+    rightHandPose.gameObject.SetActive(false);
+    leftHandPose.gameObject.SetActive(false);
+    taskPanel.SetActive(false);
+
+
     }
 
     void Update()
@@ -131,121 +139,124 @@ public class ReductionScript : MonoBehaviour
         handData.animator.enabled = false;
         handData.root.gameObject.SetActive(false);
 
-        // Trigger reduction logic
-        if (IsTrainingMode)
-        {
-            if (isRightHandGrasping && isLeftHandGrasping && !reductionCompleted)
-                StartCoroutine(OneStepReduction());
-        }
-        else
-        {
-            if ((handData.handModelType == HandData.HandModelType.Right && leftWasGrasped) ||
-                (handData.handModelType == HandData.HandModelType.Left && rightWasGrasped))
-            {
-                StartCoroutine(AlignBrokenBoneStep());
-            }
-
-            if (alignmentStep >= totalSteps)
-            {
-                taskPanel.SetActive(true);
-                taskText.text = "<b><color=red>WARNING:</color></b> Bone already aligned!";
-                if (alarmAudioSource && alarmClip)
-                {
-                    alarmAudioSource.clip = alarmClip;
-                    alarmAudioSource.Play();
-                    StartCoroutine(StopAlarmAfterSeconds(3f));
-                }
-            }
-        }
-    }
-
-    private IEnumerator OneStepReduction()
+  
+      if ((handData.handModelType == HandData.HandModelType.Right && leftWasGrasped) ||
+          (handData.handModelType == HandData.HandModelType.Left && rightWasGrasped))
+      {
+        StartCoroutine(AlignBrokenBoneStep());
+      }
+      if (!IsTrainingMode && alignmentStep >= totalSteps)
     {
-        reductionCompleted = true;
-
-        Vector3 initialPos = brokenBonePart.position;
-        Vector3 finalPos = new Vector3(0.187000006f, 1.02460003f, -0.284099996f) - new Vector3(0.296999991f, 0.014000058f, 0.143000007f);
-        float duration = 0.5f;
-        float timer = 0f;
-
-        while (timer < duration)
+        taskPanel.SetActive(true);
+        taskText.text = "<b><color=red>WARNING:</color></b> Bone already aligned!";
+        if (alarmAudioSource && alarmClip)
         {
-            brokenBonePart.position = Vector3.Lerp(initialPos, finalPos, timer / duration);
-            timer += Time.deltaTime;
-            yield return null;
+            alarmAudioSource.clip = alarmClip;
+            alarmAudioSource.Play();
+            StartCoroutine(StopAlarmAfterSeconds(3f));
         }
+    // }
 
-        brokenBonePart.position = finalPos;
-        yield return new WaitForSeconds(2f);
-        RestoreVRHands();
-
-        if (stepManager != null)
-            stepManager.ReductionCompleted();
+    
+    }
     }
 
-    private IEnumerator AlignBrokenBoneStep()
+
+
+  private IEnumerator AlignBrokenBoneStep()
+  {
+
+      // Detect active bone
+    if (brokenBone1.activeInHierarchy && !brokenBone2.activeInHierarchy)
     {
-        if (alignmentStep >= totalSteps) yield break;
-
-        if (alignmentStep == 0 && xrayExtraction != null)
-            xrayExtraction.SaveXrayImage("BEFORE REDUCTION");
-
-        alignmentStep++;
-        float alignDuration = 0.4f;
-        float timer = 0f;
-        Vector3 initialPos = brokenBonePart.position;
-        Vector3 targetPos = Vector3.Lerp(startPos, finalPos, (float)alignmentStep / totalSteps);
-
-        while (timer < alignDuration)
-        {
-            brokenBonePart.position = Vector3.Lerp(initialPos, targetPos, timer / alignDuration);
-            timer += Time.deltaTime;
-            yield return null;
-        }
-
-        brokenBonePart.position = targetPos;
-        yield return new WaitForSeconds(1f);
-
-        RestoreVRHands();
-
-        if (alignmentStep == totalSteps)
-        {
-            reductionCompleted = true;
-            yield return new WaitForSeconds(2f);
-            RestoreVRHands();
-
-            if (stepManager != null && !IsTrainingMode)
-                stepManager.ReductionCompleted();
-
-            rightWasGrasped = false;
-            leftWasGrasped = false;
-        }
+        brokenBonePart = brokenBone1.transform;
+        finalPos = new Vector3(-0.109999985f, 1.01609993f, -0.424899996f);
+        finalRot = Quaternion.Euler(271.004822f, 35.7930183f, 150.642258f);
     }
-
-    private void OnSelectExited(SelectExitEventArgs arg)
+    else if (brokenBone2.activeInHierarchy && !brokenBone1.activeInHierarchy)
     {
-        var interactor = arg.interactorObject as XRBaseInteractor;
-        if (interactor == null) return;
-
-        HandData handData = interactor.GetComponentInChildren<HandData>();
-        if (handData == null) return;
-
-        handData.animator.enabled = true;
-        handData.root.gameObject.SetActive(true);
-
-        if (handData.handModelType == HandData.HandModelType.Right)
-        {
-            isRightHandGrasping = false;
-            rightHandPose.gameObject.SetActive(false);
-            rightOriginalHand = null;
-        }
-        else
-        {
-            isLeftHandGrasping = false;
-            leftHandPose.gameObject.SetActive(false);
-            leftOriginalHand = null;
-        }
+        brokenBonePart = brokenBone2.transform;
+        finalPos = new Vector3(-0.5686f, 0.8396f, -2.5571f);
+        finalRot = Quaternion.Euler(87.9211426f, 124.444504f, 298.536621f);
     }
+    else
+    {
+        Debug.LogWarning("Both or neither broken bones are active! Please check.");
+    }
+
+    startPos = brokenBonePart.position;
+    startRot = brokenBonePart.rotation;
+
+
+    if (alignmentStep >= totalSteps) yield break;
+
+    if (alignmentStep == 0 && xrayExtraction != null)
+      xrayExtraction.SaveXrayImage("BEFORE REDUCTION");
+
+    alignmentStep++;
+    float alignDuration = 0.4f;
+    float timer = 0f;
+
+    Vector3 initialPos = brokenBonePart.position;
+    Vector3 targetPos = Vector3.Lerp(startPos, finalPos, (float)alignmentStep / totalSteps);
+
+    Quaternion initialRot = brokenBonePart.rotation;
+    Quaternion targetRot = Quaternion.Slerp(startRot, finalRot, (float)alignmentStep / totalSteps);
+
+    while (timer < alignDuration)
+    {
+      float t = timer / alignDuration;
+      brokenBonePart.position = Vector3.Lerp(initialPos, targetPos, t);
+      brokenBonePart.rotation = Quaternion.Slerp(initialRot, targetRot, t);
+      timer += Time.deltaTime;
+      yield return null;
+    }
+
+    brokenBonePart.position = targetPos;
+    brokenBonePart.rotation = targetRot;
+
+    yield return new WaitForSeconds(1f);
+    RestoreVRHands();
+
+    if (alignmentStep == totalSteps)
+    {
+      reductionCompleted = true;
+      yield return new WaitForSeconds(2f);
+      RestoreVRHands();
+
+      if (stepManager != null && IsTrainingMode)
+        stepManager.ReductionCompleted();
+
+      rightWasGrasped = false;
+      leftWasGrasped = false;
+    }
+  }
+
+
+  private void OnSelectExited(SelectExitEventArgs arg)
+  {
+    var interactor = arg.interactorObject as XRBaseInteractor;
+    if (interactor == null) return;
+
+    HandData handData = interactor.GetComponentInChildren<HandData>();
+    if (handData == null) return;
+
+    handData.animator.enabled = true;
+    handData.root.gameObject.SetActive(true);
+
+    if (handData.handModelType == HandData.HandModelType.Right)
+    {
+      isRightHandGrasping = false;
+      rightHandPose.gameObject.SetActive(false);
+      rightOriginalHand = null;
+    }
+    else
+    {
+      isLeftHandGrasping = false;
+      leftHandPose.gameObject.SetActive(false);
+      leftOriginalHand = null;
+    }
+  }
 
     private IEnumerator SlideHand(Transform handTransform, float distance, Vector3 direction)
     {
