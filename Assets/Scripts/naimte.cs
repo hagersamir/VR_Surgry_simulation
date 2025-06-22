@@ -1,12 +1,15 @@
 using System.Collections;
 using JetBrains.Annotations;
 using UnityEngine;
+using DecalSystem;
+
 
 public class naimte : MonoBehaviour
 {
     public GameObject oldPatient, animPatient, strightLegPatient, bone1, bone2, feumer, tibiaRigParent, feumerRigParent, pateintCover1, pateintCover2, foam, pillow, nail, aimgGuide1, aimgGuide2, carm, carmRoatePoint, other_xrayScreen, horzontalCam, verticalCam;
     public XRayExtraction xrayExtraction;
     public EventManager eventManager;
+    public GameObject wond;
     //dont foragett to add the other attechs of the bione like the nail and the screws
     Camera cam1;
 
@@ -67,12 +70,18 @@ public class naimte : MonoBehaviour
         other_xrayScreen.SetActive(true);
         cam1.orthographicSize = 0.1f;
         cam2.orthographicSize = 0.1f;
+        Decal decalComponent = wond.GetComponent<Decal>();
+        if (decalComponent != null)
+        {
+            // Call the BuildAndSetDirty method
+            decalComponent.BuildAndSetDirty();
+            Debug.Log("Decal build triggered successfully!");
+        }
         if (xrayExtraction != null)
         {
             yield return new WaitForSeconds(4);
             xrayExtraction.SaveXrayImage("distal nail circle");
         }
-
         eventManager.isDistalLocking = true;
         eventManager.OnEventKneeExtnsion();
 

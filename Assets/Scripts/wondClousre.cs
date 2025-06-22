@@ -19,6 +19,7 @@ public class wondClousre : MonoBehaviour
         {
             Decal decalComponent = transform.GetComponent<Decal>();
             decalComponent.Sprite = wondClousreSprite;
+            decalComponent.BuildAndSetDirty();
         }
     }
 }
