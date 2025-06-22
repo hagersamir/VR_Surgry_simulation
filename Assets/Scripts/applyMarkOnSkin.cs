@@ -11,6 +11,8 @@ public class SkinCollisionDecal : MonoBehaviour
     private bool shouldMove = false;
     private bool move = false;
     private Vector3 targetPos;
+    private float lastCutTime = -Mathf.Infinity;  // Initialized to allow the first cut
+
     private void OnTriggerEnter(Collider other)
     {
         // remove the box collider of the skin and add the mesh to make the mark on thre right place
@@ -26,6 +28,10 @@ public class SkinCollisionDecal : MonoBehaviour
         if (other.CompareTag("Skin"))
         {
             // Get the collision point in world space
+            if (Time.time - lastCutTime < 1f)
+                return;
+
+            lastCutTime = Time.time;  // Update the time of the last cu
 
             Transform hole = transform.Find("mark");
             isCollidingWithSkin = true;
