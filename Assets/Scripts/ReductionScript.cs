@@ -162,93 +162,96 @@ public class ReductionScript : MonoBehaviour
     }
 
 
-private IEnumerator AlignBrokenBoneStep()
-{
-    bool skipBoneMovement = false;
-
-    // Detect active bone
-    if (brokenBone1.activeInHierarchy && !brokenBone2.activeInHierarchy)
+    private IEnumerator AlignBrokenBoneStep()
     {
-        brokenBonePart = brokenBone1.transform;
-        finalPos = new Vector3(-0.109999985f, 1.01609993f, -0.424899996f);
-        finalRot = Quaternion.Euler(271.004822f, 35.7930183f, 150.642258f);
-    }
-    else if (brokenBone2.activeInHierarchy && !brokenBone1.activeInHierarchy)
-    {
-        brokenBonePart = brokenBone2.transform;
+        bool skipBoneMovement = false;
 
-        // values just for consistency, won't be used in actual movement
-        finalPos = brokenBonePart.position;
-        finalRot = brokenBonePart.rotation;
-        skipBoneMovement = true;
-    }
-    else
-    {
-        Debug.LogWarning("Both or neither broken bones are active! Please check.");
-        yield break;
-    }
+        // Detect active bone
+        if (brokenBone1.activeInHierarchy && !brokenBone2.activeInHierarchy)
+        {
+            brokenBonePart = brokenBone1.transform;
+            finalPos = new Vector3(-0.109999985f, 1.01609993f, -0.424899996f);
+            finalRot = Quaternion.Euler(271.004822f, 35.7930183f, 150.642258f);
+        }
+        else if (brokenBone2.activeInHierarchy && !brokenBone1.activeInHierarchy)
+        {
+            brokenBonePart = brokenBone2.transform;
 
-    startPos = brokenBonePart.position;
-    startRot = brokenBonePart.rotation;
+            // values just for consistency, won't be used in actual movement
+            finalPos = brokenBonePart.position;
+            finalRot = brokenBonePart.rotation;
+            skipBoneMovement = true;
+        }
+        else
+        {
+            Debug.LogWarning("Both or neither broken bones are active! Please check.");
+            yield break;
+        }
 
-    if (alignmentStep >= totalSteps) yield break;
+        startPos = brokenBonePart.position;
+        startRot = brokenBonePart.rotation;
 
-    if (alignmentStep == 0 && xrayExtraction != null)
-        xrayExtraction.SaveXrayImage("BEFORE REDUCTION");
+        if (alignmentStep >= totalSteps) yield break;
 
-    alignmentStep++;
-    float alignDuration = 0.4f;
-    float timer = 0f;
+        if (alignmentStep == 0 && xrayExtraction != null)
+            xrayExtraction.SaveXrayImage("BEFORE REDUCTION");
 
-    Vector3 initialPos = brokenBonePart.position;
-    Vector3 targetPos = Vector3.Lerp(startPos, finalPos, (float)alignmentStep / totalSteps);
+        alignmentStep++;
+        float alignDuration = 0.4f;
+        float timer = 0f;
 
-    Quaternion initialRot = brokenBonePart.rotation;
-    Quaternion targetRot = Quaternion.Slerp(startRot, finalRot, (float)alignmentStep / totalSteps);
+        Vector3 initialPos = brokenBonePart.position;
+        Vector3 targetPos = Vector3.Lerp(startPos, finalPos, (float)alignmentStep / totalSteps);
 
-    while (timer < alignDuration)
-    {
-        float t = timer / alignDuration;
+        Quaternion initialRot = brokenBonePart.rotation;
+        Quaternion targetRot = Quaternion.Slerp(startRot, finalRot, (float)alignmentStep / totalSteps);
 
-        // Skip movement if it's bone2
+        while (timer < alignDuration)
+        {
+            float t = timer / alignDuration;
+
+            // Skip movement if it's bone2
+            if (!skipBoneMovement)
+            {
+                brokenBonePart.position = Vector3.Lerp(initialPos, targetPos, t);
+                brokenBonePart.rotation = Quaternion.Slerp(initialRot, targetRot, t);
+            }
+
+            timer += Time.deltaTime;
+            yield return null;
+        }
+
         if (!skipBoneMovement)
         {
-            brokenBonePart.position = Vector3.Lerp(initialPos, targetPos, t);
-            brokenBonePart.rotation = Quaternion.Slerp(initialRot, targetRot, t);
+            brokenBonePart.SetPositionAndRotation(targetPos, targetRot);
         }
 
-        timer += Time.deltaTime;
-        yield return null;
-    }
-
-    if (!skipBoneMovement)
-    {
-        brokenBonePart.SetPositionAndRotation(targetPos, targetRot);
-    }
-
-    yield return new WaitForSeconds(1f);
-    RestoreVRHands();
-
-    if (alignmentStep == totalSteps)
-    {
-        reductionCompleted = true;
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         RestoreVRHands();
 
-        if (stepManager != null && IsTrainingMode)
-            stepManager.ReductionCompleted();
-
-        rightWasGrasped = false;
-        leftWasGrasped = false;
-
-        // 👇 After 4 steps on bone2, activate bone3 and hide bone2
-        if (skipBoneMovement)
+        if (alignmentStep == totalSteps)
         {
-            yield return new WaitForSeconds(1f);
-            brokenBone2.SetActive(false);
-            brokenBone3.SetActive(true);
+            reductionCompleted = true;
+            yield return new WaitForSeconds(2f);
+            RestoreVRHands();
+
+            if (stepManager != null && IsTrainingMode)
+                stepManager.ReductionCompleted();
+
+            rightWasGrasped = false;
+            leftWasGrasped = false;
+              if (xrayExtraction != null)
+            xrayExtraction.SaveXrayImage("AFTER REDUCTION");
+            // 👇 After 4 steps on bone2, activate bone3 and hide bone2
+            if (skipBoneMovement)
+            {
+                yield return new WaitForSeconds(1f);
+                brokenBone2.SetActive(false);
+                brokenBone3.SetActive(true);
+    
+            }
         }
-    }
+    
 }
 
   // private IEnumerator AlignBrokenBoneStep()
