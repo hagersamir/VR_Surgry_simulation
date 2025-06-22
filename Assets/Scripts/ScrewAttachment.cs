@@ -79,11 +79,11 @@ public class ScrewAttachment : MonoBehaviour
 
                 stepManager.Locking_ClosureCompleted();
             }
-            if (eventManager.isDistalLocking && SceneManager.GetActiveScene().name == "AssessmentScene")
-            {
+            // if (eventManager.isDistalLocking && SceneManager.GetActiveScene().name == "AssessmentScene")
+            // {
 
-                sendData.SetActive(true);
-            }
+            //     sendData.SetActive(true);
+            // }
             if (xrayExtraction != null)
             {
 
