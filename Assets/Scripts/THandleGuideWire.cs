@@ -3,8 +3,8 @@ using UnityEngine;
 public class THandleGuideWire : MonoBehaviour
 {
     public EventManager eventManager;  // Assign in inspector
-    private Vector3 snapPosition = new Vector3(-0.109999999f, 1.51999998f, -0.125f);
-    private Quaternion snapRotation = Quaternion.Euler(0.837f, 275.577f, 326.616f);
+    private Vector3 targetPosition = new Vector3(-0.116999999f, 1.51300001f, -0.128000006f);
+    private Quaternion targetRotation = Quaternion.Euler(2.511993f, 267.749f, 334.316f);
     public GameObject Awl;
     public float neededThandleDepth;
     public float actualThandleDepth;
@@ -18,11 +18,12 @@ public class THandleGuideWire : MonoBehaviour
             // Snap to the target position and rotation
             if (!eventManager.IsTrainingMode)
             {
-                transform.position = snapPosition;
-                transform.rotation = snapRotation;
+                // transform.position = snapPosition;
+                // transform.rotation = snapRotation;
                 eventManager.taskPanel.SetActive(true);
                 eventManager.taskText.text = "<b><color=green>SUCCESS:</color></b> Correct guide wire depth. Ready to continue";
                 StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
+                CalculateAccuracy();
             }
             Awl.SetActive(true);
             Awl.GetComponent<Animator>().enabled = false;
@@ -40,5 +41,41 @@ public class THandleGuideWire : MonoBehaviour
                 StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
             }
         }
+        if (other.CompareTag("Bone") && !eventManager.IsTrainingMode)
+        {
+            eventManager.taskPanel.SetActive(true);
+            eventManager.taskText.text = "You collided with the bone";
+            if (eventManager.alarmAudioSource && eventManager.alarmClip)
+            {
+                StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
+            }
+        }
     }
+    private void CalculateAccuracy()
+    {
+        // 1. Actual position & rotation
+        Vector3 actualPosition = transform.position;
+        Quaternion actualRotation = transform.rotation;
+
+        // 2. Position error
+        float positionError = Vector3.Distance(actualPosition, targetPosition); // in meters
+
+        // 3. Rotation error
+        float rotationError = Quaternion.Angle(actualRotation, targetRotation); // in degrees
+
+        // 4. Accuracy calculation (example: normalized to 0–1)
+        float maxPositionError = 0.05f;  // tolerance (5 cm)
+        float maxRotationError = 30f;    // tolerance (30 degrees)
+
+        float positionAccuracy = Mathf.Clamp01(1f - (positionError / maxPositionError));
+        float rotationAccuracy = Mathf.Clamp01(1f - (rotationError / maxRotationError));
+
+        // 5. Average both:
+        tHandleAccuracy = (positionAccuracy + rotationAccuracy) / 2f * 100f;
+
+        Debug.Log($"THandle Position Error: {positionError:F4} m");
+        Debug.Log($"THandle Rotation Error: {rotationError:F2}°");
+        Debug.Log($"THandle Final Accuracy: {tHandleAccuracy:F1}%");
+    }
+
 }

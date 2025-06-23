@@ -2,16 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System.IO;
 
 public class GuideWire : MonoBehaviour
 {
     public EventManager eventManager;  // Assign in inspector
     public TextMeshProUGUI cornerText;
     public float fadeDuration = 1.5f; // Duration of the fade effect (seconds)
-    // private Vector3 snapPosition = new Vector3(-0.113f, 1.056f, -0.388f);
-    private Vector3 snapPosition = new Vector3(-0.108999997f, 1.05799997f, -0.388000011f);
-    // private Quaternion snapRotation = Quaternion.Euler(54.546f, 182.119f, 182.141f);
-    private Quaternion snapRotation = Quaternion.Euler(0, 0, 0);
+    private Vector3 targetPosition = new Vector3(-0.118000001f, 1.03499997f, -0.409000009f);
+    private Quaternion targetRotation = Quaternion.Euler(0.0994562954f, 4.67367411f, 2.12592959f);
     private Material wireMaterial;
     private bool isFading = false;
     private bool isDone = false;
@@ -21,6 +20,7 @@ public class GuideWire : MonoBehaviour
     public float actualWireDepth;
     public float wirePositionAccuracy;
     public float nailInsertionDuration;
+    private XRayExtraction xrayExtraction;
 
     private void Start()
     {
@@ -33,8 +33,8 @@ public class GuideWire : MonoBehaviour
         {
             isDone = true;
             // Snap to the target position and rotation
-            transform.position = snapPosition;
-            transform.rotation = snapRotation;
+            transform.position = targetPosition;
+            transform.rotation = targetRotation;
             GetComponent<Animator>().enabled = false;
             //begin nail task after Guide wire is inserted 
             eventManager.OnEventGuideWireUsed();
@@ -49,13 +49,34 @@ public class GuideWire : MonoBehaviour
             aimingGuide.GetComponent<Nail>().grab.enabled = false;
             // Start the fading animation
             StartCoroutine(FadeOut());
-            TimerManager.StopTimer();
-            nailInsertionDuration = TimerManager.GetDuration();
-            TimerManager.ResetTimer();
-            TimerManager.StartTimer(); // SHOULD END WHEN DRILLING IS DONE
+            if (!eventManager.IsTrainingMode)
+            {
+                eventManager.taskPanel.SetActive(true);
+                eventManager.taskText.text = "<b><color=green>SUCCESS:</color></b> Correct guide wire depth. Ready to continue";
+                if (eventManager.alarmAudioSource && eventManager.alarmClip)
+                {
+                    StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
+                }
+                TimerManager.StopTimer();
+                nailInsertionDuration = TimerManager.GetDuration();
+                TimerManager.ResetTimer();
+                TimerManager.StartTimer(); // SHOULD END WHEN DRILLING IS DONE
+                CalculateAccuracy();
+#if UNITY_EDITOR
+                string directory = Application.dataPath + "/savedImages";
+                Directory.CreateDirectory(directory);
+                guideWireXrayImg = directory + "/GuideWire.png";
+#else
+                // In build, use persistent path
+                string directory = Application.persistentDataPath + "/savedImages";
+                Directory.CreateDirectory(directory);
+                guideWireXrayImg = directory + "/GuideWire.png";
+#endif
+                xrayExtraction.SaveXrayImage("GuideWire");
+            }
         }
         // player inserted the Guide wire too deep 
-        if (other.CompareTag("nailOverLimit") && isDone && eventManager.IsTrainingMode)
+        if (other.CompareTag("nailOverLimit") && isDone && !eventManager.IsTrainingMode)
         {
             eventManager.taskPanel.SetActive(true);
             eventManager.taskText.text = "<b><color=red>WARNING:</color></b> Guide wire inserted too deep! Pull back slightly.";
@@ -66,6 +87,41 @@ public class GuideWire : MonoBehaviour
                 StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
             }
         }
+        if (other.CompareTag("Bone") && !eventManager.IsTrainingMode)
+        {
+            eventManager.taskPanel.SetActive(true);
+            eventManager.taskText.text = "You collided with the bone";
+            if (eventManager.alarmAudioSource && eventManager.alarmClip)
+            {
+                StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
+            }
+        }
+    }
+    private void CalculateAccuracy()
+    {
+        // 1. Actual position & rotation
+        Vector3 actualPosition = transform.position;
+        Quaternion actualRotation = transform.rotation;
+
+        // 2. Position error
+        float positionError = Vector3.Distance(actualPosition, targetPosition); // in meters
+
+        // 3. Rotation error
+        float rotationError = Quaternion.Angle(actualRotation, targetRotation); // in degrees
+
+        // 4. Accuracy calculation (example: normalized to 0–1)
+        float maxPositionError = 0.05f;  // tolerance (5 cm)
+        float maxRotationError = 30f;    // tolerance (30 degrees)
+
+        float positionAccuracy = Mathf.Clamp01(1f - (positionError / maxPositionError));
+        float rotationAccuracy = Mathf.Clamp01(1f - (rotationError / maxRotationError));
+
+        // 5. Average both:
+        wirePositionAccuracy = (positionAccuracy + rotationAccuracy) / 2f * 100f;
+
+        Debug.Log($"Guide Wire Position Error: {positionError:F4} m");
+        Debug.Log($"Guide Wire Rotation Error: {rotationError:F2}°");
+        Debug.Log($"Guide Wire Final Accuracy: {wirePositionAccuracy:F1}%");
     }
     private IEnumerator FadeOut()
     {

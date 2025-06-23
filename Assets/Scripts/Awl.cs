@@ -36,9 +36,6 @@ public class Awl : MonoBehaviour
 
             if (!eventManager.IsTrainingMode)
             {
-                // }
-                // else
-                // {
                 eventManager.taskPanel.SetActive(true);
                 eventManager.taskText.text = "<b><color=green>SUCCESS:</color></b> Entry canal successfully opened, you can proceed";
                 StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
@@ -46,9 +43,6 @@ public class Awl : MonoBehaviour
                 entrySiteDuration = TimerManager.GetDuration();
                 TimerManager.ResetTimer();
                 TimerManager.StartTimer();
-                // eventManager.taskPanel.SetActive(true);
-                // eventManager.taskText.text = "<b><color=blue>Hint:</color></b> You can remove the Awl and the T-Handle";
-                // StartCoroutine(eventManager.StopAlarmAfterSeconds(5f));
             }
             eventManager.OnEventAwlUsed();
             StartCoroutine(PlayReverseAnimationAndFadeOut());
@@ -61,6 +55,15 @@ public class Awl : MonoBehaviour
             {
                 eventManager.alarmAudioSource.clip = eventManager.alarmClip;
                 eventManager.alarmAudioSource.Play();
+                StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
+            }
+        }
+        if (other.CompareTag("Bone") && !eventManager.IsTrainingMode)
+        {
+            eventManager.taskPanel.SetActive(true);
+            eventManager.taskText.text = "You collided with the bone";
+            if (eventManager.alarmAudioSource && eventManager.alarmClip)
+            {
                 StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
             }
         }
