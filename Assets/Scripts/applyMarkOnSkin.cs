@@ -13,6 +13,8 @@ public class SkinCollisionDecal : MonoBehaviour
     private Vector3 targetPos;
     private float lastCutTime = -Mathf.Infinity;  // Initialized to allow the first cut
 
+    private float x =0 ;
+
     private void OnTriggerEnter(Collider other)
     {
         // remove the box collider of the skin and add the mesh to make the mark on thre right place
@@ -65,14 +67,16 @@ public class SkinCollisionDecal : MonoBehaviour
             // Remove the decal after a delay
             // Destroy(decalInstance, decalLifetime);
         }
-        if (other.CompareTag("ProximalLock1"))
+        if (other.CompareTag("ProximalLock1") && x == 0)
         {
             eventManager.OnEventProximalTrochar_1();
+            x+=1;
 
         }
-        if (other.CompareTag("ProximalLock2"))
+        if (other.CompareTag("ProximalLock2") && x==1)
         {
             eventManager.OnEventProximalTrochar_2();
+            x+=1;
 
         }
     }

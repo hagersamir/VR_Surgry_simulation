@@ -37,7 +37,7 @@ public class MoveForwardAndReset : MonoBehaviour
             GetComponent<MeshRenderer>().enabled = false;
             GetComponent<MeshCollider>().enabled = false;
 
-            StartCoroutine(ApplyAndFreeze(other.transform));
+            // StartCoroutine(ApplyAndFreeze(other.transform));
         }
     }
 
