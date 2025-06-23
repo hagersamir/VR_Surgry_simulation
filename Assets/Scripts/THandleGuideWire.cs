@@ -1,17 +1,29 @@
 using UnityEngine;
+using UnityEngine.XR.Interaction.Toolkit;
+using System.Collections;
 
 public class THandleGuideWire : MonoBehaviour
 {
     public EventManager eventManager;  // Assign in inspector
+    public XRGrabInteractable grab;
     private Vector3 targetPosition = new Vector3(-0.116999999f, 1.51300001f, -0.128000006f);
     private Quaternion targetRotation = Quaternion.Euler(2.511993f, 267.749f, 334.316f);
     public GameObject Awl;
     public float neededThandleDepth;
     public float actualThandleDepth;
     public float tHandleAccuracy;
-
+    void Awake()
+    {
+        grab = GetComponent<XRGrabInteractableTwoAttach>();
+    }
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("toolAlign") && !eventManager.IsTrainingMode)
+        {
+            Animator animator = GetComponent<Animator>();
+            animator.enabled = true;
+            StartCoroutine(Animate(animator));
+        }
         // player has finished using the T-Handle Guide wire 
         if (other.CompareTag("THandle Limit"))
         {
@@ -76,6 +88,21 @@ public class THandleGuideWire : MonoBehaviour
         Debug.Log($"THandle Position Error: {positionError:F4} m");
         Debug.Log($"THandle Rotation Error: {rotationError:F2}°");
         Debug.Log($"THandle Final Accuracy: {tHandleAccuracy:F1}%");
+    }
+    IEnumerator Animate(Animator animator)
+    {
+        if (animator != null)
+        {
+            animator.Play("THandle"); // Play the insertion animation
+            Debug.Log("Animation started");
+
+            // Wait for animation to finish before proceeding
+            yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        }
+        else
+        {
+            Debug.LogWarning("No Animator found on tool.");
+        }
     }
 
 }

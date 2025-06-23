@@ -1,15 +1,16 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using System.IO;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class GuideWire : MonoBehaviour
 {
     public EventManager eventManager;  // Assign in inspector
     public TextMeshProUGUI cornerText;
+    public XRGrabInteractable grab;
     public float fadeDuration = 1.5f; // Duration of the fade effect (seconds)
-    private Vector3 targetPosition = new Vector3(-0.118000001f, 1.03499997f, -0.409000009f);
+    private Vector3 targetPosition = new Vector3(-0.112000003f, 1.03499997f, -0.409000009f);
     private Quaternion targetRotation = Quaternion.Euler(0.0994562954f, 4.67367411f, 2.12592959f);
     private Material wireMaterial;
     private bool isFading = false;
@@ -20,7 +21,11 @@ public class GuideWire : MonoBehaviour
     public float actualWireDepth;
     public float wirePositionAccuracy;
     public float nailInsertionDuration;
-    private XRayExtraction xrayExtraction;
+    public XRayExtraction xrayExtraction;
+    void Awake()
+    {
+        grab = GetComponent<XRGrabInteractableTwoAttach>();
+    }
 
     private void Start()
     {
@@ -28,6 +33,13 @@ public class GuideWire : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("toolAlign") && !eventManager.IsTrainingMode)
+        {
+            Animator animator = GetComponent<Animator>();
+            animator.enabled = true;
+            StartCoroutine(Animate(animator));
+            // grab.enabled = false;
+        }
         // player has finished inserting the Guide wire 
         if (other.CompareTag("wire") && !isDone)
         {
@@ -38,6 +50,27 @@ public class GuideWire : MonoBehaviour
             GetComponent<Animator>().enabled = false;
             //begin nail task after Guide wire is inserted 
             eventManager.OnEventGuideWireUsed();
+            if (!eventManager.IsTrainingMode)
+            {
+                eventManager.taskPanel.SetActive(true);
+                eventManager.taskText.text = "<b><color=green>SUCCESS:</color></b> Correct guide wire depth. Ready to continue";
+                if (eventManager.alarmAudioSource && eventManager.alarmClip)
+                {
+                    StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
+                }
+                CalculateAccuracy();
+                xrayExtraction.SaveXrayImage("GuideWire");
+#if UNITY_EDITOR
+                string directory = Application.dataPath + "/savedImages";
+                Directory.CreateDirectory(directory);
+                guideWireXrayImg = directory + "/GuideWire.png";
+#else
+                // In build, use persistent path
+                string directory = Application.persistentDataPath + "/savedImages";
+                Directory.CreateDirectory(directory);
+                guideWireXrayImg = directory + "/GuideWire.png";
+#endif
+            }
         }
 
         // player has finished REMOVING the Guide wire 
@@ -52,7 +85,7 @@ public class GuideWire : MonoBehaviour
             if (!eventManager.IsTrainingMode)
             {
                 eventManager.taskPanel.SetActive(true);
-                eventManager.taskText.text = "<b><color=green>SUCCESS:</color></b> Correct guide wire depth. Ready to continue";
+                eventManager.taskText.text = "<b><color=green>SUCCESS:</color></b> You removed the guide wire.";
                 if (eventManager.alarmAudioSource && eventManager.alarmClip)
                 {
                     StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
@@ -61,18 +94,6 @@ public class GuideWire : MonoBehaviour
                 nailInsertionDuration = TimerManager.GetDuration();
                 TimerManager.ResetTimer();
                 TimerManager.StartTimer(); // SHOULD END WHEN DRILLING IS DONE
-                CalculateAccuracy();
-#if UNITY_EDITOR
-                string directory = Application.dataPath + "/savedImages";
-                Directory.CreateDirectory(directory);
-                guideWireXrayImg = directory + "/GuideWire.png";
-#else
-                // In build, use persistent path
-                string directory = Application.persistentDataPath + "/savedImages";
-                Directory.CreateDirectory(directory);
-                guideWireXrayImg = directory + "/GuideWire.png";
-#endif
-                xrayExtraction.SaveXrayImage("GuideWire");
             }
         }
         // player inserted the Guide wire too deep 
@@ -147,5 +168,19 @@ public class GuideWire : MonoBehaviour
 
         gameObject.SetActive(false); // Disable only after text is shown
     }
+    IEnumerator Animate(Animator animator)
+    {
+        if (animator != null)
+        {
+            animator.Play("GuideWire"); // Play the insertion animation
+            Debug.Log("Animation started");
 
+            // Wait for animation to finish before proceeding
+            yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        }
+        else
+        {
+            Debug.LogWarning("No Animator found on tool.");
+        }
+    }
 }

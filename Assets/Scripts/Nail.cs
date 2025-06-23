@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR.Interaction.Toolkit;
 using System.IO;
@@ -10,11 +9,11 @@ public class Nail : MonoBehaviour
     public XRGrabInteractable grab;
     // Target snap position and rotation
     private Vector3 targetPosition = new Vector3(-0.00625181943f, 1.22146058f, -0.270748317f);
-    private Quaternion targetRotation = Quaternion.Euler(60.5820045f,182.789017f,1.44400513f);
+    private Quaternion targetRotation = Quaternion.Euler(60.5496979f,184.50705f,2.94030118f);
     public float neededNailDepth;
     public float actualNailDepth;
     public float nailPositionAccuracy;
-    private XRayExtraction xrayExtraction;
+    public XRayExtraction xrayExtraction;
     public string nailXrayImg;
 
     void Awake()
@@ -23,6 +22,13 @@ public class Nail : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("toolAlign") && !eventManager.IsTrainingMode)
+        {
+            Animator animator = GetComponent<Animator>();
+            animator.enabled = true;
+            StartCoroutine(Animate(animator));
+            grab.enabled = false;
+        }
         // player has finished using the T-Handle Guide wire 
         if (other.CompareTag("wire"))
         {
@@ -35,21 +41,20 @@ public class Nail : MonoBehaviour
                 eventManager.taskText.text = "<b><color=green>SUCCESS:</color></b> Correct nail depth. Ready to continue";
                 if (eventManager.alarmAudioSource && eventManager.alarmClip)
                 {
-                    StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
+                    StartCoroutine(eventManager.StopAlarmAfterSeconds(5f));
                 }
                 CalculateAccuracy();
                 xrayExtraction.SaveXrayImage("Nail");
-                #if UNITY_EDITOR
+#if UNITY_EDITOR
                 string directory = Application.dataPath + "/savedImages";
                 Directory.CreateDirectory(directory);
-                nailXrayImg = directory + "/GuideWire.png";
+                nailXrayImg = directory + "/Nail.png";
 #else
                 // In build, use persistent path
                 string directory = Application.persistentDataPath + "/savedImages";
                 Directory.CreateDirectory(directory);
-                nailXrayImg = directory + "/GuideWire.png";
+                nailXrayImg = directory + "/Nail.png";
 #endif
-                xrayExtraction.SaveXrayImage("GuideWire");
             }
             //begin Guide wire removal task after nail is inserted 
             eventManager.OnEventNailUsed();

@@ -1,14 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class Awl : MonoBehaviour
 {
     public EventManager eventManager;      // Assign in inspector
     public TextMeshProUGUI cornerText;
+    public XRGrabInteractable grab;
     public GameObject guideWire, THandle;  // Assign in inspector
     public float fadeDuration = 1.5f;      // Duration of the fade effect (seconds)
     private Material awlMaterial;
@@ -16,7 +16,10 @@ public class Awl : MonoBehaviour
     private Animator awlAnimator;
     private bool isFading = false;
     public float entrySiteDuration;
-
+    void Awake()
+    {
+        grab = GetComponent<XRGrabInteractableTwoAttach>();
+    }
     private void Start()
     {
         guideWire.GetComponent<XRGrabInteractableTwoAttach>().enabled = false;
@@ -30,6 +33,13 @@ public class Awl : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("toolAlign") && !eventManager.IsTrainingMode)
+        {
+            Animator animator = GetComponent<Animator>();
+            animator.enabled = true;
+            StartCoroutine(Animate(animator));
+            // grab.enabled = false;
+        }
         if (other.CompareTag("Awl Limit") && !isFading)
         {
             isFading = true;
@@ -47,7 +57,7 @@ public class Awl : MonoBehaviour
             eventManager.OnEventAwlUsed();
             StartCoroutine(PlayReverseAnimationAndFadeOut());
         }
-        if (other.CompareTag("AwlOverLimit") && !eventManager.IsTrainingMode)
+        if (other.CompareTag("awlOverLimit") && !eventManager.IsTrainingMode)
         {
             eventManager.taskPanel.SetActive(true);
             eventManager.taskText.text = "<b><color=red>WARNING:</color></b> Be carefull not to damage internal structures or the far cortex";
@@ -125,5 +135,21 @@ public class Awl : MonoBehaviour
         // guideWire.transform.position = new Vector3(-0.113f, 1.244f, -0.257f);
         // guideWire.transform.rotation = Quaternion.Euler(54.546f, 182.119f, 182.141f);
     }
+    IEnumerator Animate(Animator animator)
+    {
+        if (animator != null)
+        {
+            animator.Play("Awl"); // Play the insertion animation
+            Debug.Log("Animation started");
+
+            // Wait for animation to finish before proceeding
+            yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+        }
+        else
+        {
+            Debug.LogWarning("No Animator found on tool.");
+        }
+    }
 }
+
 
