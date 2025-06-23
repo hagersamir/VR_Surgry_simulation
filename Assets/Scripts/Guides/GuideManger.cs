@@ -1,11 +1,10 @@
 using System.Collections;
-using System.Runtime.CompilerServices;
 using UnityEngine;
-using UnityEngine.Rendering;
 using TMPro;
 using System;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.XR.Interaction.Toolkit;
 
 public class EventManager : MonoBehaviour
 {
@@ -14,6 +13,7 @@ public class EventManager : MonoBehaviour
     public GameObject THandle, awl, nail;
     public StepManager textDisplay; // Drag ObjectA (with ScriptA) here in the inspector
     public TextMeshProUGUI cornerText;
+    public XRGrabInteractable legGrab;
     public naimte animateScript; // Assign in inspector
     public bool isDistalLocking = false;
     public List<string> toolUsageOrder;
@@ -87,6 +87,10 @@ public class EventManager : MonoBehaviour
     // this is called when the player is done using the T-Handle
     public void OnEventTHandleUsed()
     {
+        if (!IsTrainingMode)
+        {
+            legGrab.enabled = false;
+        }
         if (awlGuide.gameObject != null && IsTrainingMode)
         {
             // Display the task to the user

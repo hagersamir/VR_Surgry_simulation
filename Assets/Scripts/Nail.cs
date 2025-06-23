@@ -43,6 +43,9 @@ public class Nail : MonoBehaviour
                 {
                     StartCoroutine(eventManager.StopAlarmAfterSeconds(5f));
                 }
+                Animator animator = GetComponent<Animator>();
+                animator.enabled = false;
+                grab.enabled = false;
                 CalculateAccuracy();
                 xrayExtraction.SaveXrayImage("Nail");
 #if UNITY_EDITOR
