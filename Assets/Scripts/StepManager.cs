@@ -172,15 +172,19 @@ public class StepManager : MonoBehaviour
             {
                 case 1:
                     reductionDuration = duration;
+                    Debug.Log($"[StepManager] Reduction Duration: {reductionDuration:F2} seconds");
                     break;
                 case 2:
                     entrySiteDuration = duration;
+                    Debug.Log($"[StepManager] Entry Site Duration: {entrySiteDuration:F2} seconds");
                     break;
                 case 3:
                     nailInsertionDuration = duration;
+                    Debug.Log($"[StepManager] Nail Insertion Duration: {nailInsertionDuration:F2} seconds");
                     break;
                 case 4:
                     lockingClosureDuration = duration;
+                    Debug.Log($"[StepManager] Locking and Closure Duration: {lockingClosureDuration:F2} seconds");
                     break;
             }
         }

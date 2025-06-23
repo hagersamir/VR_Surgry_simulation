@@ -235,21 +235,20 @@ public class ReductionScript : MonoBehaviour
             yield return new WaitForSeconds(2f);
             RestoreVRHands();
 
+            if (skipBoneMovement)
+            {
+                // yield return new WaitForSeconds(1f);
+                brokenBone2.SetActive(false);
+                brokenBone3.SetActive(true);
+            }
+            
             if (stepManager != null && IsTrainingMode)
-                stepManager.ReductionCompleted();
+            stepManager.ReductionCompleted();
 
             rightWasGrasped = false;
             leftWasGrasped = false;
-              if (xrayExtraction != null)
+            if (xrayExtraction != null)
             xrayExtraction.SaveXrayImage("AFTER REDUCTION");
-            // 👇 After 4 steps on bone2, activate bone3 and hide bone2
-            if (skipBoneMovement)
-            {
-                yield return new WaitForSeconds(1f);
-                brokenBone2.SetActive(false);
-                brokenBone3.SetActive(true);
-    
-            }
         }
     
 }

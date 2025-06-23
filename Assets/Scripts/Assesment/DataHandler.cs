@@ -4,13 +4,16 @@ using TMPro;
 
 public class DataHandler : MonoBehaviour
 {
-    [Header("Reduction")]
+  [Header("Reduction")]
+    public TextMeshProUGUI ReductionDurationValue;
+
     public TextMeshProUGUI ReductionDistanceErrorValue;
     public TextMeshProUGUI ReductionStepAccuracyValue;
     public Image ReductionImage01;
     public Image ReductionImage02;
 
-    [Header("Entry / Cutting")]
+  [Header("Entry / Cutting")]
+    
     public TextMeshProUGUI CuttingDistanceErrorValue;
     public TextMeshProUGUI CuttingStepAccuracyValue;
     public Image CuttingXRayImage;
@@ -47,7 +50,7 @@ public class DataHandler : MonoBehaviour
     public Toggle DistalScrewLockingToggle;
 
     public void SetAssessmentValues(
-        float reductionError, float reductionAccuracy,
+        float reductionDuration,float reductionError, float reductionAccuracy,
         float cuttingError, float cuttingAccuracy,
         float insertionDuration, float insertionError, float insertionAccuracy,
         float lockingDuration, float lockingError1, float lockingError2, float lockingError3, float lockingAccuracy,
@@ -60,7 +63,9 @@ public class DataHandler : MonoBehaviour
         bool distalCut, bool distalDrill, bool distalScrew
     )
     {
-        // Reduction
+    // Reduction
+        ReductionDurationValue.text = $"{reductionDuration:F2} sec";
+
         ReductionDistanceErrorValue.text = $"{reductionError:F2} mm";
         ReductionStepAccuracyValue.text = $"{reductionAccuracy * 100:F1}%";
         ReductionImage01.sprite = reductionImg1;
@@ -108,7 +113,7 @@ public class DataHandler : MonoBehaviour
 ExampleUsage:
 
 DataHandler.SetAssessmentValues(
-    2.4f, 0.95f,
+    12.5f , 2.4f, 0.95f,
     1.5f, 0.88f,
     30f, 2.1f, 0.9f,
     42f, 1.2f, 2.2f, 1.1f, 0.92f,
