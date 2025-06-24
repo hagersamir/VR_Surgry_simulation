@@ -24,17 +24,27 @@ public class Nail : MonoBehaviour
     {
         if (other.CompareTag("toolAlign") && !eventManager.IsTrainingMode)
         {
+            grab.enabled = false;
             Animator animator = GetComponent<Animator>();
             animator.enabled = true;
             StartCoroutine(Animate(animator));
-            grab.enabled = false;
+        }
+        if (other.CompareTag("canalZone") && !eventManager.IsTrainingMode)
+        {
+            eventManager.taskPanel.SetActive(true);
+            eventManager.DelayCoroutine(4f, () => { eventManager.taskText.text = "<color=green>Inside canal. Proceed carefully.</color>"; });
+
+            if (eventManager.alarmAudioSource && eventManager.alarmClip)
+            {
+                StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
+            }
         }
         // player has finished using the T-Handle Guide wire 
         if (other.CompareTag("wire"))
         {
             // Snap to the target position and rotation
-            transform.position = targetPosition;
-            transform.rotation = targetRotation;
+            // transform.position = targetPosition; 
+            // transform.rotation = targetRotation;
             if (!eventManager.IsTrainingMode)
             {
                 eventManager.taskPanel.SetActive(true);
@@ -91,6 +101,22 @@ public class Nail : MonoBehaviour
             }
         }
     }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("canalZone") && !eventManager.IsTrainingMode)
+        {
+            eventManager.taskPanel.SetActive(true);
+            eventManager.taskText.text = "<b><color=red>WARNING:</color></b> Nail touching bone walls! Realign to continue safely.";
+
+            if (eventManager.alarmAudioSource && eventManager.alarmClip)
+            {
+                eventManager.alarmAudioSource.clip = eventManager.alarmClip;
+                eventManager.alarmAudioSource.Play();
+                StartCoroutine(eventManager.StopAlarmAfterSeconds(3f));
+            }
+        }
+    }
+
     private void CalculateAccuracy()
     {
         // 1. Actual position & rotation
@@ -124,12 +150,20 @@ public class Nail : MonoBehaviour
             animator.Play("Nail"); // Play the insertion animation
             Debug.Log("Animation started");
 
-            // Wait for animation to finish before proceeding
-            yield return new WaitForSeconds(animator.GetCurrentAnimatorStateInfo(0).length);
+            // Wait until the state actually switches to "Nail"
+            yield return new WaitUntil(() => animator.GetCurrentAnimatorStateInfo(0).IsName("Nail"));
+
+            // Now wait for its length
+            float duration = animator.GetCurrentAnimatorStateInfo(0).length;
+            Debug.Log($"Animation duration: {duration:F2} seconds");
+            yield return new WaitForSeconds(duration);
+
+            grab.enabled = false;
         }
         else
         {
             Debug.LogWarning("No Animator found on tool.");
         }
     }
+
 }

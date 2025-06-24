@@ -33,13 +33,13 @@ public class GuideWire : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("toolAlign") && !eventManager.IsTrainingMode)
-        {
-            Animator animator = GetComponent<Animator>();
-            animator.enabled = true;
-            StartCoroutine(Animate(animator));
-            // grab.enabled = false;
-        }
+        // if (other.CompareTag("toolAlign") && !eventManager.IsTrainingMode)
+        // {
+        //     Animator animator = GetComponent<Animator>();
+        //     animator.enabled = true;
+        //     StartCoroutine(Animate(animator));
+        //     // grab.enabled = false;
+        // }
         // player has finished inserting the Guide wire 
         if (other.CompareTag("wire") && !isDone)
         {

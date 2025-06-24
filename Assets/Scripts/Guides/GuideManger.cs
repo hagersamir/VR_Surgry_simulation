@@ -22,6 +22,7 @@ public class EventManager : MonoBehaviour
     public AudioClip alarmClip;
     public TextMeshProUGUI taskText;
     public GameObject taskPanel;
+    public GuideWireConstraint guideWireConstraint;
 
     private void Start()
     {
@@ -29,6 +30,8 @@ public class EventManager : MonoBehaviour
         wire1.GetComponent<Animator>().enabled = false;
         awl.GetComponent<Animator>().enabled = false;
         nail.GetComponent<Animator>().enabled = false;
+        guideWireConstraint = wire1.GetComponent<GuideWireConstraint>();
+        guideWireConstraint.enabled = false;
     }
     private void Update()
     {
@@ -56,7 +59,7 @@ public class EventManager : MonoBehaviour
             alarmAudioSource.Stop();
         taskPanel.SetActive(false);
     }
-    private IEnumerator DelayCoroutine(float seconds, Action callback)
+    public IEnumerator DelayCoroutine(float seconds, Action callback)
     {
         yield return new WaitForSeconds(seconds);
         callback?.Invoke();
@@ -65,6 +68,11 @@ public class EventManager : MonoBehaviour
     // this is called when the skin is cut
     public void OnEventReductionDone()
     {
+        // COMMENT THIS IF ANY GRAPPING ISSUE OCCURES
+        if (!IsTrainingMode)
+        {
+            legGrab.enabled = false;
+        }
         // Display the task to the user
         // textDisplay.ShowTask("<b><color=#2A7FFF>Task 1: </color></b>Use the scalpel to make the initial incision and open the entry site over the proximal tibia");
 
@@ -102,6 +110,10 @@ public class EventManager : MonoBehaviour
     // this is called when the player is done using the Awl
     public void OnEventAwlUsed()
     {
+        if (!IsTrainingMode)
+        {
+            guideWireConstraint.enabled = true;
+        }
         if (guideWireGuide.gameObject != null && IsTrainingMode)
         {
             // Display the task to the user
@@ -112,6 +124,10 @@ public class EventManager : MonoBehaviour
     // this is called when the player is done inserting the guide wire to the distal end of the bone
     public void OnEventGuideWireUsed()
     {
+        if (!IsTrainingMode)
+        {
+            guideWireConstraint.enabled = false;
+        }
         if (nailGuide.gameObject != null && IsTrainingMode)
         {
             // Display the task to the user
@@ -125,8 +141,11 @@ public class EventManager : MonoBehaviour
     public void OnEventNailUsed()
     {
         guideWireRemovalDetector.SetActive(true);
-        wire1.SetActive(false);
-        wire2.SetActive(true);
+        if (IsTrainingMode)
+        {
+            wire1.SetActive(false);
+            wire2.SetActive(true);
+        }
 
         if (guideWireGuide.gameObject != null && IsTrainingMode)
         {

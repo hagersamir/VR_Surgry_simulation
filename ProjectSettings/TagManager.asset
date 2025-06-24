@@ -41,6 +41,7 @@ TagManager:
   - toolFree
   - awlOverLimit
   - nailOverLimit
+  - canalZone
   layers:
   - Default
   - TransparentFX
