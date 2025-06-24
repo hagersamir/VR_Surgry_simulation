@@ -54,8 +54,12 @@ public class screw : MonoBehaviour
                 renderer.enabled = false;
             }
             GetComponent<MeshCollider>().enabled = false;
+            if (isDistal)
+            {
 
-            StartCoroutine(ApplyAndFreeze(other.transform));
+                StartCoroutine(ApplyAndFreeze(other.transform));
+            }
+            // StartCoroutine(ApplyAndFreeze(other.transform));
             // Destroy(gameObject);
             // GetComponent<MeshCollider>().enabled = false;
             // StartCoroutine(TemporarilyDisableCollider(5f));

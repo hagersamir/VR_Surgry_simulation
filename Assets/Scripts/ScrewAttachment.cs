@@ -65,7 +65,7 @@ public class ScrewAttachment : MonoBehaviour
             // transform.tag = "Untagged";
             // hasScrewChild = false;
 
-            transform.GetComponent<MeshCollider>().enabled = false;
+            transform.GetComponent<BoxCollider>().enabled = false;
             BoxCollider box = transform.GetComponent<BoxCollider>();
             if (box != null)
             {

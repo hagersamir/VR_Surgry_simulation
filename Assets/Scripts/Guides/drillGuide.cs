@@ -49,7 +49,11 @@ public class drill : MonoBehaviour
             {
                 renderer.enabled = false;
             }
-            StartCoroutine(ApplyAndFreeze(other.transform));
+            if (isDistal)
+            {
+
+                StartCoroutine(ApplyAndFreeze(other.transform));
+            }
             isMoving = false; // Stop movement
         }
     }
