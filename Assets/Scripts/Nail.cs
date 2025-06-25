@@ -57,17 +57,19 @@ public class Nail : MonoBehaviour
                 animator.enabled = false;
                 grab.enabled = false;
                 CalculateAccuracy();
-                xrayExtraction.SaveXrayImage("Nail");
-#if UNITY_EDITOR
-                string directory = Application.dataPath + "/savedImages";
-                Directory.CreateDirectory(directory);
-                nailXrayImg = directory + "/Nail.png";
-#else
-                // In build, use persistent path
-                string directory = Application.persistentDataPath + "/savedImages";
-                Directory.CreateDirectory(directory);
-                nailXrayImg = directory + "/Nail.png";
-#endif
+                StartCoroutine(DelayedXrayCapture());
+
+//                 xrayExtraction.SaveXrayImage("Nail");
+// #if UNITY_EDITOR
+//                 string directory = Application.dataPath + "/savedImages";
+//                 Directory.CreateDirectory(directory);
+//                 nailXrayImg = directory + "/Nail.png";
+// #else
+//                 // In build, use persistent path
+//                 string directory = Application.persistentDataPath + "/savedImages";
+//                 Directory.CreateDirectory(directory);
+//                 nailXrayImg = directory + "/Nail.png";
+// #endif
             }
             //begin Guide wire removal task after nail is inserted 
             eventManager.OnEventNailUsed();
@@ -116,6 +118,22 @@ public class Nail : MonoBehaviour
             }
         }
     }
+    private IEnumerator DelayedXrayCapture()
+    {
+        yield return new WaitForSeconds(5f);
+        xrayExtraction.SaveXrayImage("Nail");
+
+    #if UNITY_EDITOR
+        string directory = Application.dataPath + "/savedImages";
+        Directory.CreateDirectory(directory);
+        nailXrayImg = directory + "/Nail.png";
+    #else
+        string directory = Application.persistentDataPath + "/savedImages";
+        Directory.CreateDirectory(directory);
+        nailXrayImg = directory + "/Nail.png";
+    #endif
+    }
+
 
     private void CalculateAccuracy()
     {
