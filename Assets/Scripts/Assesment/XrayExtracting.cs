@@ -21,7 +21,7 @@ public class XRayExtraction : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            SaveXrayImage("xrayFileName", "null");
+            SaveXrayImage("xrayFileNameTrainingf", "null");
 
         }
     }

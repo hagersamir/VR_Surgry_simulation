@@ -5,16 +5,19 @@ using UnityEngine.EventSystems;
 public class DuplicateOnClick : MonoBehaviour, IPointerClickHandler
 {
     public GameObject targetTransform; // Assign this in Inspector
+    public GameObject zoomBG; // Assign this in Inspector
     public Canvas parentCanvas;        // Optional, assign if needed for hierarchy
 
     public void OnPointerClick(PointerEventData eventData)
     {
         // Duplicate the current image
+        zoomBG.SetActive(true);
         GameObject duplicate = Instantiate(gameObject);
         Destroy(duplicate.GetComponent<DuplicateOnClick>());
 
         // Add DestroyOnClick script to the duplicate
         duplicate.AddComponent<Destroy>();
+        duplicate.GetComponent<Destroy>().ZoomBG = zoomBG;
 
         // Make sure the duplicate is parented correctly
         if (parentCanvas != null)
