@@ -4,22 +4,24 @@ using UnityEngine.EventSystems;
 
 public class DuplicateOnClick : MonoBehaviour, IPointerClickHandler
 {
-    public GameObject targetTransform; // Assign this in Inspector
-    public GameObject zoomBG; // Assign this in Inspector
-    public Canvas parentCanvas;        // Optional, assign if needed for hierarchy
+    public GameObject targetTransform;
+    public GameObject zoomBG;
+    public Canvas parentCanvas;
+
+    private bool hasClicked = false; // 👈 prevent multiple triggers
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        // Duplicate the current image
+        if (hasClicked) return;     // 👈 skip if already clicked
+        hasClicked = true;          // 👈 lock the click
+
         zoomBG.SetActive(true);
+
         GameObject duplicate = Instantiate(gameObject);
         Destroy(duplicate.GetComponent<DuplicateOnClick>());
 
-        // Add DestroyOnClick script to the duplicate
-        duplicate.AddComponent<Destroy>();
-        duplicate.GetComponent<Destroy>().ZoomBG = zoomBG;
+        duplicate.AddComponent<Destroy>().ZoomBG = zoomBG;
 
-        // Make sure the duplicate is parented correctly
         if (parentCanvas != null)
         {
             duplicate.transform.SetParent(parentCanvas.transform, false);
@@ -29,7 +31,6 @@ public class DuplicateOnClick : MonoBehaviour, IPointerClickHandler
             duplicate.transform.SetParent(transform.parent, false);
         }
 
-        // Set position and scale to match the target GameObject
         if (targetTransform != null)
         {
             RectTransform dupRect = duplicate.GetComponent<RectTransform>();
@@ -41,5 +42,13 @@ public class DuplicateOnClick : MonoBehaviour, IPointerClickHandler
                 dupRect.localScale = targetRect.localScale;
             }
         }
+
+        // Optional: reset lock after short delay (in case you want to allow future clicks)
+        Invoke(nameof(ResetClick), 0.3f); // adjust delay as needed
+    }
+
+    private void ResetClick()
+    {
+        hasClicked = false;
     }
 }
