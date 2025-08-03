@@ -3,7 +3,19 @@
 ** VR-based surgical training simulation that focuses on orthopedic procedures — specifically _tibial intramedullary nailing_. This immersive project combines the power of **Unity**, **Blender**, and **Next.js** to provide a risk-free, realistic training experience for surgeons with integrated **remote mentorship\*\* through a web-based platform.
 
 ---
+## 📚 Table of Contents
 
+- [🎯 Features](#-features)
+- [📽️ Demo](#-demo)
+  - [2️⃣ Bone Reduction Step](#2-bone-reduction-step)
+  - [3️⃣ Entry Site Creation & Nail Insertion](#3-entry-site-creation--nail-insertion)
+  - [4️⃣ Proximal Locking](#4-proximal-locking)
+  - [5️⃣ Distal Locking](#5-distal-locking)
+  - [6️⃣ Performance Review](#6-performance-review)
+- [🧠 Technologies Used](#-technologies-used)
+- [👥 Authors](#-authors)
+
+---
 ## 🎯 Features
 
 ### 🛠️ Surgical Simulation
