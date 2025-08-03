@@ -38,7 +38,8 @@ This immersive project combines the power of **Unity**, **Blender**, and **Next.
 ---
 
 ## 📽️ Demo
-
+### Project Overview
+https://www.youtube.com/watch?v=oN2mQlsdLbs
 ### 2️⃣ Bone Reduction Step
 
 <div align="center">
