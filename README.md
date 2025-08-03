@@ -1,6 +1,7 @@
-#Virtual Reality in Orthopedic Surgery Training 🎮🦴
+# 🦴 Virtual Reality in Orthopedic Surgery Training 🎮
 
-** VR-based surgical training simulation that focuses on orthopedic procedures — specifically _tibial intramedullary nailing_. This immersive project combines the power of **Unity**, **Blender**, and **Next.js** to provide a risk-free, realistic training experience for surgeons with integrated **remote mentorship\*\* through a web-based platform.
+**VR-based surgical training simulation** that focuses on orthopedic procedures — specifically _tibial intramedullary nailing_.  
+This immersive project combines the power of **Unity**, **Blender**, and **Next.js** to provide a risk-free, realistic training experience for surgeons with integrated **remote mentorship** through a web-based platform.
 
 ---
 ## 📚 Table of Contents
