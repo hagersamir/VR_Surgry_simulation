@@ -1,3 +1,7 @@
+
+
+https://github.com/user-attachments/assets/4cdd5590-1a8b-479e-b749-5f8222fb5094
+
 # 🦴 Virtual Reality in Orthopedic Surgery Training 🎮
 
 **VR-based surgical training simulation** that focuses on orthopedic procedures — specifically _tibial intramedullary nailing_.  
@@ -51,8 +55,11 @@ https://drive.google.com/file/d/1g2kbhFi1RhHC5HOPzfQ7fZVIpIYqLUo5/view?usp=drive
 ---
 
 ### 4️⃣ Proximal Locking
-  - <video src=" https://github.com/user-attachments/assets/08a26a79-ef0b-42b8-aeaf-6a0693cd3a19
-" controls width="700"></video>
+
+
+
+https://github.com/user-attachments/assets/a4deb502-0f2b-4092-9b6a-fca5579ab478
+
 
 ---
 
