@@ -42,33 +42,44 @@ This immersive project combines the power of **Unity**, **Blender**, and **Next.
 https://drive.google.com/file/d/1g2kbhFi1RhHC5HOPzfQ7fZVIpIYqLUo5/view?usp=drive_link
 ### 2️⃣ Bone Reduction Step
 
-
-
-https://github.com/user-attachments/assets/56c9334f-d84d-468e-9e6c-64bc58a890e6
-
-
-
+<div align="center">
+  <img src= https://github.com/user-attachments/assets/56c9334f-d84d-468e-9e6c-64bc58a890e6
+  width="640">
+</div>
 ---
 
 ### 3️⃣ Entry Site Creation & Nail Insertion
 
-
-
-https://github.com/user-attachments/assets/46af4539-6a78-4b2a-a7db-26860e506e02
-
-
+<div align="center">
+  <img src= 
+https://github.com/user-attachments/assets/10460fb1-20e5-4e1e-a75d-19e5edf0bb01  width="640">
+</div>
 
 ---
 
 ### 4️⃣ Proximal Locking
 
+<div align="center">
+  <img src= 
+
+https://github.com/user-attachments/assets/08a26a79-ef0b-42b8-aeaf-6a0693cd3a19
+
+
+
+ width="640">
+</div>
 
 ---
 
 ### 5️⃣ Distal Locking
 
 <div align="center">
-  <img src="Demo/distal locking.gif"  width="640">
+  <img src=
+    
+
+https://github.com/user-attachments/assets/565d1689-57e1-422c-94e0-47bbc41321a9
+
+width="640">
 </div>
 
 ---
@@ -76,7 +87,11 @@ https://github.com/user-attachments/assets/46af4539-6a78-4b2a-a7db-26860e506e02
 ### 6️⃣ Performance Review
 
 <div align="center">
-  <img src="Demo/attemp.gif"  width="640">
+  <img src=
+
+https://github.com/user-attachments/assets/198c25f2-f094-4fc2-a64c-74336ff5c92e
+
+  width="640">
 </div>
 
 ---
@@ -95,8 +110,8 @@ https://github.com/user-attachments/assets/46af4539-6a78-4b2a-a7db-26860e506e02
 
 ## 👥 Authors
 
-- **Sara Elsaggan**
 - **Hager Samir**
+- **Sara Elsaggan**
 - **Salma Ashraf**
 - **Kareem Noureddine**
 - **Mohamed Sami**
