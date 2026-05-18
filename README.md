@@ -42,25 +42,26 @@ This immersive project combines the power of **Unity**, **Blender**, and **Next.
 https://drive.google.com/file/d/1g2kbhFi1RhHC5HOPzfQ7fZVIpIYqLUo5/view?usp=drive_link
 ### 2️⃣ Bone Reduction Step
 
-<div align="center">
-  <img src="Demo/1.gif"  width="640">
-</div>
+
+
+https://github.com/user-attachments/assets/56c9334f-d84d-468e-9e6c-64bc58a890e6
+
+
 
 ---
 
 ### 3️⃣ Entry Site Creation & Nail Insertion
 
-<div align="center">
-  <img src="Demo/nail.gif"  width="640">
-</div>
+
+
+https://github.com/user-attachments/assets/46af4539-6a78-4b2a-a7db-26860e506e02
+
+
 
 ---
 
 ### 4️⃣ Proximal Locking
 
-<div align="center">
-  <img src="Demo/3.gif"  width="640">
-</div>
 
 ---
 
