@@ -62,11 +62,7 @@ https://github.com/user-attachments/assets/10460fb1-20e5-4e1e-a75d-19e5edf0bb01 
 <div align="center">
   <img src= 
 
-https://github.com/user-attachments/assets/08a26a79-ef0b-42b8-aeaf-6a0693cd3a19
-
-
-
- width="640">
+https://github.com/user-attachments/assets/08a26a79-ef0b-42b8-aeaf-6a0693cd3a19 >
 </div>
 
 ---
