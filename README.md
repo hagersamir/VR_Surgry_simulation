@@ -43,16 +43,14 @@ https://drive.google.com/file/d/1g2kbhFi1RhHC5HOPzfQ7fZVIpIYqLUo5/view?usp=drive
 ### 2️⃣ Bone Reduction Step
 
 <div align="center">
-  <img src= https://github.com/user-attachments/assets/56c9334f-d84d-468e-9e6c-64bc58a890e6
-  width="640">
+  <img src= "https://github.com/user-attachments/assets/56c9334f-d84d-468e-9e6c-64bc58a890e6" width="640">
 </div>
 ---
 
 ### 3️⃣ Entry Site Creation & Nail Insertion
 
 <div align="center">
-  <img src= 
-https://github.com/user-attachments/assets/10460fb1-20e5-4e1e-a75d-19e5edf0bb01  width="640">
+  <img src= "https://github.com/user-attachments/assets/10460fb1-20e5-4e1e-a75d-19e5edf0bb01"  width="640">
 </div>
 
 ---
@@ -60,9 +58,7 @@ https://github.com/user-attachments/assets/10460fb1-20e5-4e1e-a75d-19e5edf0bb01 
 ### 4️⃣ Proximal Locking
 
 <div align="center">
-  <img src= 
-
-https://github.com/user-attachments/assets/08a26a79-ef0b-42b8-aeaf-6a0693cd3a19 >
+  <img src= "https://github.com/user-attachments/assets/08a26a79-ef0b-42b8-aeaf-6a0693cd3a19"  width="640">
 </div>
 
 ---
@@ -70,12 +66,7 @@ https://github.com/user-attachments/assets/08a26a79-ef0b-42b8-aeaf-6a0693cd3a19 
 ### 5️⃣ Distal Locking
 
 <div align="center">
-  <img src=
-    
-
-https://github.com/user-attachments/assets/565d1689-57e1-422c-94e0-47bbc41321a9
-
-width="640">
+  <img src="https://github.com/user-attachments/assets/565d1689-57e1-422c-94e0-47bbc41321a9" width="640">
 </div>
 
 ---
@@ -83,11 +74,7 @@ width="640">
 ### 6️⃣ Performance Review
 
 <div align="center">
-  <img src=
-
-https://github.com/user-attachments/assets/198c25f2-f094-4fc2-a64c-74336ff5c92e
-
-  width="640">
+  <img src="https://github.com/user-attachments/assets/198c25f2-f094-4fc2-a64c-74336ff5c92e" width="640">
 </div>
 
 ---
