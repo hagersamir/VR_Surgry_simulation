@@ -1,7 +1,3 @@
-
-
-https://github.com/user-attachments/assets/4cdd5590-1a8b-479e-b749-5f8222fb5094
-
 # 🦴 Virtual Reality in Orthopedic Surgery Training 🎮
 
 **VR-based surgical training simulation** that focuses on orthopedic procedures — specifically _tibial intramedullary nailing_.  
